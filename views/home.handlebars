@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+  </head>
+  <body>
+    <h3>My Google Maps Demo</h3>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var unitedStates = {lat: 37.09024, lng: -95.712891};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: unitedStates,
+          styles: [
+            {
+              "featureType":"all",
+              "elementType":"geometry.fill",
+              "stylers":[{"weight":"2.00"}]
+            },
+            {
+              "featureType":"all",
+              "elementType":"geometry.stroke",
+              "stylers":[{"color":"#9c9c9c"}]
+            },
+            {
+              "featureType":"all",
+              "elementType":"labels.text",
+              "stylers":[{"visibility":"on"}]
+            },
+            {
+              "featureType":"landscape",
+              "elementType":"all",
+              "stylers":[{"color":"#f2f2f2"}]
+            },
+            {
+              "featureType":"landscape",
+              "elementType":"geometry.fill",
+              "stylers":[{"color":"#ffffff"}]
+            },
+            {
+              "featureType":"landscape.man_made",
+              "elementType":"geometry.fill",
+              "stylers":[{"color":"#ffffff"}]
+            },
+            {
+              "featureType":"poi",
+              "elementType":"all",
+              "stylers":[{"visibility":"off"}]
+            },
+            {
+              "featureType":"road",
+              "elementType":"all",
+              "stylers":[{"saturation":-100}, {"lightness":45}]
+            },
+            {
+              "featureType":"road",
+              "elementType":"geometry.fill",
+              "stylers":[{"color":"#eeeeee"}]
+            },
+            {
+              "featureType":"road",
+              "elementType":"labels.text.fill",
+              "stylers":[{"color":"#7b7b7b"}]
+            },
+            {
+              "featureType":"road",
+              "elementType":"labels.text.stroke",
+              "stylers":[{"color":"#ffffff"}]
+            },
+            {
+              "featureType":"road.highway",
+              "elementType":"all",
+              "stylers":[{"visibility":"simplified"}]
+            },
+            {
+              "featureType":"road.arterial",
+              "elementType":"labels.icon",
+              "stylers":[{"visibility":"off"}]
+            },
+            {
+              "featureType":"transit",
+              "elementType":"all",
+              "stylers":[{"visibility":"off"}]
+            },
+            {
+              "featureType":"water",
+              "elementType":"all",
+              "stylers":[{"color":"#46bcec"},{"visibility":"on"}]
+            },
+            {
+              "featureType":"water",
+              "elementType":"geometry.fill",
+              "stylers":[{"color":"#c8d7d4"}]
+            },
+            {
+              "featureType":"water",
+              "elementType":"labels.text.fill",
+              "stylers":[{"color":"#070707"}]
+            },
+            {
+              "featureType":"water",
+              "elementType":"labels.text.stroke",
+              "stylers":[{"color":"#ffffff"}]
+            }
+          ]
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeC3isf0Dkq3njKGumaDZkeFx-3OWAYr8&callback=initMap">
+    </script>
+  </body>
+</html>
