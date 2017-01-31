@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // Components
-// import Root from './components/root';
+import Root from './components/root';
 import configureStore from './store/store';
 
 // Testing
@@ -14,6 +14,15 @@ window.logout = logOut;
 window.store = configureStore();
 
 document.addEventListener('DOMContentLoaded', () => {
-  const root = document.getElementById('root');
-  ReactDOM.render(<h1>Welcome to White Coat Coaching</h1>, root);
+  let store;
+  if (window.currentUser) {
+    const preloadedState = {session: { currentUser: window.currentUser, errors: [] }};
+    store = configureStore(preloadedState);
+  } else {
+    store = configureStore();
+  }
+
+  const rootEl = document.getElementById('root');
+
+  ReactDOM.render(<Root store={ store } />, rootEl);
 });
