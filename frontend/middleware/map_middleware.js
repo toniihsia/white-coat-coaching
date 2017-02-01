@@ -6,12 +6,18 @@ const MapMiddleware = ({getState, dispatch}) => next => action => {
     dispatch(receiveLocation(data.results[0].geometry.location));
   };
 
+  const getLocationError = error => {
+    console.log(error);
+  }
+
   switch (action.type){
     case REQUEST_LOCATION:
-    getLocation(action.location, getLocationSuccess);
-    return next(action);
+      getLocation(action.location, getLocationSuccess, getLocationError);
+      return next(action);
+    case CREATE_PROGRAM:
+      return next(action);
     default:
-    return next(action);
+      return next(action);
   }
 };
 
