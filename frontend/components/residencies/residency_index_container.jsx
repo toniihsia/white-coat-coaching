@@ -1,16 +1,14 @@
 import { connect } from 'react-redux';
-import { fetchAllResidencies } from '../../actions/song_actions';
-import SongIndex from './song_index';
-import { selectAllSongs } from '../../reducers/selector';
+import { requestAllResidencies } from '../../actions/residency_actions';
+import ResidencyIndex from './residency_index';
 
 
 const mapStateToProps = (state) => {
   return({
-  songs: selectAllSongs(state.songs.songs)
+  residencies: state.residencies
 });};
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchAllSongs: () => dispatch(fetchAllSongs())
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(SongIndex);
+export default connect(mapStateToProps,mapDispatchToProps)(ResidencyIndex);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, hashHistory } from 'react-router';
 
-class ResidencyIndex extends React.Component {
+class GoogleMap extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -15,4 +15,4 @@ class ResidencyIndex extends React.Component {
   }
 }
 
-export default ResidencyIndex;
+export default GoogleMap;
