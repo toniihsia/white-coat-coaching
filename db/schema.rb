@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20170201232217) do
     t.string   "street",                         null: false
     t.string   "city",                           null: false
     t.string   "state",                          null: false
+    t.string   "zip_code",                       null: false
     t.string   "website_url",                    null: false
     t.text     "description",                    null: false
     t.float    "latitude",                       null: false
@@ -37,7 +38,7 @@ ActiveRecord::Schema.define(version: 20170201232217) do
     t.string   "crowded_period_start"
     t.string   "crowded_period_end"
     t.string   "schedule_restrictions"
-    t.date     "booking_date"
+    t.string   "booking_date"
     t.string   "booking_medium"
     t.string   "curriculum"
     t.string   "merger_status"

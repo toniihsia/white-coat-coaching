@@ -3,6 +3,7 @@ json.address do
   json.street residency.street
   json.city residency.city
   json.state residency.state
+  json.zip_code residency.zip_code
   json.lat residency.latitude
   json.long residency.longitude
 end
