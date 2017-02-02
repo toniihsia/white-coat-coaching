@@ -1,0 +1,2 @@
+module Api::ResidenciesHelper
+end

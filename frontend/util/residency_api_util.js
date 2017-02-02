@@ -1,7 +1,7 @@
 export const fetchAllResidencies = (success, error) => {
   $.ajax({
     type: 'GET',
-    url: 'api/residencys',
+    url: 'api/residencies',
     success,
     error
   });
@@ -9,31 +9,28 @@ export const fetchAllResidencies = (success, error) => {
 
 export const createResidency = (residency, success, error) => {
   $.ajax({
-    type: 'GET',
-    url: 'api/users',
+    type: 'POST',
+    url: 'api/residencies',
     data: residency,
     success,
     error
   });
-};
 };
 
 export const updateResidency = (residency, success, error) => {
   $.ajax({
-    type: 'GET',
-    url: 'api/residency',
+    type: 'PATCH',
+    url: `api/residencies/${residency.id}`,
     data: residency,
     success,
     error
   });
-};
 };
 
 export const deleteResidency = (id, success, error) => {
   $.ajax({
     type: 'DELETE',
-    url: 'api/residency',
-    data: id,
+    url: `api/residencies/${id}`,
     success,
     error
   });
