@@ -13,3 +13,12 @@
  *= require_tree .
  *= require_self
  */
+
+#map{
+  position: absolute;
+  height: calc(100vh - 60px);
+  width: 50%;
+  top: 60px;
+  bottom: 0;
+  right: 0;
+}

@@ -22,8 +22,8 @@ export default ({ getState, dispatch }) => next => action => {
 
   switch(action.type){
     case SIGN_UP:
-    signUp(action.user, successCallback, errorCallback);
-    return next(action);
+      signUp(action.user, successCallback, errorCallback);
+      return next(action);
     case LOG_IN:
       logIn(action.user, successCallback, errorCallback);
       return next(action);
