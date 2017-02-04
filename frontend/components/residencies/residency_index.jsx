@@ -8,7 +8,7 @@ class ResidencyIndex extends React.Component {
   constructor(props) {
     super(props);
 
-    this.selected = null;
+    this.state = null;
 
     this.handleClick = this.handleClick.bind(this);
   }
@@ -18,25 +18,24 @@ class ResidencyIndex extends React.Component {
   }
 
   handleClick(data){
-    if (_.isEqual(this.selected, data)){
-      this.selected = null;
+    if (_.isEqual(this.state, data)){
+      this.setState(null);
     }
     else {
-      this.selected = data;
+      this.setState(data);
     }
-    console.log(this.selected);
+    console.log(this.state);
   }
 
   render() {
-    console.log(this.props.residencies);
     return (
       <div className="residency-index">
         <ul className="residency-item-container">
           {this.props.residencies.map((residency,i) =>(
-            <ResidencyItemContainer key={i} handleClick={this.handleClick} residency={residency} selected={this.selected && (this.selected.id === residency.id)}/>
+            <ResidencyItemContainer key={i} handleClick={this.handleClick} residency={residency} selected={this.state && (this.state.lat === residency.latitude)}/>
           ))}
         </ul>
-        <GoogleMapContainer data = {this.selected}/>
+        <GoogleMapContainer data = {this.state}/>
       </div>
     );
   }

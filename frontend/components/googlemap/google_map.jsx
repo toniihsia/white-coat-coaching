@@ -9,26 +9,25 @@ class GoogleMap extends React.Component {
     this.map = null;
     this.recenterMap = this.recenterMap.bind(this);
     this._defaultMapOptions = this._defaultMapOptions.bind(this);
-
-    this.state = this._defaultMapOptions();
   }
 
   componentDidMount(){
-    this.map = new google.maps.Map(document.getElementById('map'), this.state);
+    this.map = new google.maps.Map(document.getElementById('map'), this._defaultMapOptions());
+
+    //this.MarkerManager.updateMarkers(this.props.residencies)
   }
 
   componentDidUpate(){
 
   }
 
-  componentWillReceiveProps( {data}){
+  componentWillReceiveProps({data}){
     if (data) {
-      this.setState({zoom: 15, center: {lat: data.latitude, lng: data.longitude}});
+      this.recenterMap(data.lat, data.lng, 15);
     } else{
-      this.setState(_defaultMapOptions());
+      this.recenterMap(37.09024, -95.712891), 4;
     }
     console.log(this.state);
-    this.recenterMap();
   }
 
   _defaultMapOptions(){
@@ -130,8 +129,9 @@ class GoogleMap extends React.Component {
     };
   }
 
-  recenterMap(){
-    this.map.panTo(new google.maps.LatLng(this.state.lat, this.state.lng));
+  recenterMap(lat,lng, zoom){
+    this.map.panTo(new google.maps.LatLng(lat, lng));
+    this.map.setZoom(zoom);
   }
 
   setInfoWindow(){

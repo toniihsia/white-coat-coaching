@@ -10,7 +10,7 @@ class ResidencyItem extends React.Component {
 
   _handleClick(e){
     e.stopPropagation();
-    let data = {id: this.props.residency.id, lat: this.props.residency.latitude,long: this.props.residency.longitude,
+    let data = {lat: this.props.residency.latitude,lng: this.props.residency.longitude,
       description: this.props.residency.description};
     this.props.handleClick(data);
   }
