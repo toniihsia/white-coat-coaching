@@ -5,8 +5,8 @@ import MarkerManager from '../../util/marker_util';
 class GoogleMap extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
-    this.map = window
+
+    this.map = null;
     this.recenterMap = this.recenterMap.bind(this);
     this._defaultMapOptions = this._defaultMapOptions.bind(this);
   }
