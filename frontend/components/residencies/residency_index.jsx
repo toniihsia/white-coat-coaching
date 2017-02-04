@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, hashHistory } from 'react-router';
 import ResidencyItemContainer from './residency_item_container';
-import GoogleMapContainer from '../googlemap/google_map_container';
+import GoogleMap from '../googlemap/google_map';
 import { isEqual } from 'lodash';
 
 class ResidencyIndex extends React.Component {
@@ -9,7 +9,6 @@ class ResidencyIndex extends React.Component {
     super(props);
 
     this.state = null;
-
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -19,7 +18,7 @@ class ResidencyIndex extends React.Component {
 
   handleClick(data){
     if (_.isEqual(this.state, data)){
-      this.setState(null);
+      this.setState(null)
     }
     else {
       this.setState(data);
@@ -28,6 +27,7 @@ class ResidencyIndex extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <div className="residency-index">
         <ul className="residency-item-container">
@@ -35,7 +35,7 @@ class ResidencyIndex extends React.Component {
             <ResidencyItemContainer key={i} handleClick={this.handleClick} residency={residency} selected={this.state && (this.state.lat === residency.latitude)}/>
           ))}
         </ul>
-        <GoogleMapContainer data = {this.state}/>
+        <GoogleMap residencies={this.props.residencies} />
       </div>
     );
   }
