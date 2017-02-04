@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { updateResidency, de } from '../../actions/residency_actions';
+import { updateResidency, deleteResidency } from '../../actions/residency_actions';
 import ResidencyItem from './residency_item';
 
 

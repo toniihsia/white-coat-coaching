@@ -1,11 +1,7 @@
 import merge from 'lodash/merge';
 import { RECEIVE_ALL_RESIDENCIES } from '../actions/residency_actions';
 
-const _nullResidencies = Object.freeze({
-  residencies: {},
-});
-
-const ResidencyReducer = (oldState = _nullLocation, action) => {
+const ResidencyReducer = (oldState = {}, action) => {
   Object.freeze(oldState);
   let newState = merge({}, oldState);
 

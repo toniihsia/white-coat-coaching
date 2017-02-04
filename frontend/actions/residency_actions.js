@@ -24,6 +24,6 @@ export const deleteResidency = (id) => ({
 });
 
 export const receiveAllResidencies = (residencies) => ({
-  type: CREATE_RESIDENCY,
+  type: RECEIVE_ALL_RESIDENCIES,
   residencies
 });

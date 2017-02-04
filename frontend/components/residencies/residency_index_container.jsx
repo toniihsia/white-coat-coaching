@@ -5,10 +5,12 @@ import ResidencyIndex from './residency_index';
 
 const mapStateToProps = (state) => {
   return({
-  residencies: state.residencies
+  residencies: Object.keys(state.residencies).map(id => state.residencies[id]),
+  currentUser: state.session.currentUser
 });};
 
 const mapDispatchToProps = (dispatch) => ({
+  requestAllResidencies: () => dispatch(requestAllResidencies())
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(ResidencyIndex);

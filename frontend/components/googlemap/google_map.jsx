@@ -5,7 +5,7 @@ class GoogleMap extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {lat: null, long: null};
+    this.state = this.props.data || {lat: null, long: null, description: null};
 
     this.map = null;
     this.recenterMap = this.recenterMap.bind(this);

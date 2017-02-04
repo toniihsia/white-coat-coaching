@@ -3,13 +3,8 @@ import { REQUEST_ALL_RESIDENCIES, CREATE_RESIDENCY, UPDATE_RESIDENCY, DELETE_RES
 receiveAllResidencies } from '../actions/residency_actions'
 
 const ResidencyMiddleware = ({getState, dispatch}) => next => action => {
-  const fetchResidenciesSuccess = data => {
-    dispatch(receiveAllResidencies(data));
-  };
-
-  const errorLog = error => {
-    console.log(error);
-  };
+  const fetchResidenciesSuccess = data => dispatch(receiveAllResidencies(data));
+  const errorLog = error => console.log(error);
 
   switch (action.type){
     case REQUEST_ALL_RESIDENCIES:

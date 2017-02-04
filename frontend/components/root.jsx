@@ -13,7 +13,7 @@ const _requestAllResidencies = () => {
 const Root = ({ store }) => (
   <Provider store={ store }>
     <Router history={ hashHistory }>
-      <Route path="/" component={ App } onEnter={_requestAllResidencies}>
+      <Route path="/" component={ App }>
       </Route>
     </Router>
   </Provider>

@@ -1,11 +1,9 @@
-json.extract! residency, :name, :website_url, :description, :PD, :num_students, :max_students, :curriculum, :merger_status
+json.extract! residency, :name, :website_url, :description, :PD, :num_students, :max_students, :curriculum, :merger_status, :latitude, :longitude
 json.address do
   json.street residency.street
   json.city residency.city
   json.state residency.state
   json.zip_code residency.zip_code
-  json.lat residency.latitude
-  json.long residency.longitude
 end
 json.coordinator do
   json.name residency.coordinator_name
