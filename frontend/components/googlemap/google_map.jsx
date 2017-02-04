@@ -21,11 +21,11 @@ class GoogleMap extends React.Component {
 
   }
 
-  componentWillReceiveProps({data}){
-    if (data) {
-      this.recenterMap(data.lat, data.lng, 15);
+  componentWillReceiveProps(nextProps){
+    if (nextProps.data) {
+      this.recenterMap(nextProps.data.lat, nextProps.data.lng, 15);
     } else{
-      this.recenterMap(37.09024, -95.712891), 4;
+      this.recenterMap(37.09024, -95.712891, 4);
     }
   }
 
