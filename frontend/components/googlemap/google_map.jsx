@@ -1,27 +1,34 @@
 import React from 'react';
 import { Link, hashHistory } from 'react-router';
+import MarkerManager from '../../util/marker_util';
 
 class GoogleMap extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = this.props.data || {lat: null, long: null, description: null};
-
     this.map = null;
     this.recenterMap = this.recenterMap.bind(this);
     this._defaultMapOptions = this._defaultMapOptions.bind(this);
+
+    this.state = this._defaultMapOptions();
   }
 
   componentDidMount(){
-    this.map = new google.maps.Map(document.getElementById('map'), this._defaultMapOptions());
+    this.map = new google.maps.Map(document.getElementById('map'), this.state);
   }
 
   componentDidUpate(){
 
   }
 
-  componentWillReceiveProps(nextProps){
-
+  componentWillReceiveProps( {data}){
+    if (data) {
+      this.setState({zoom: 15, center: {lat: data.latitude, lng: data.longitude}});
+    } else{
+      this.setState(_defaultMapOptions());
+    }
+    console.log(this.state);
+    this.recenterMap();
   }
 
   _defaultMapOptions(){
@@ -123,9 +130,8 @@ class GoogleMap extends React.Component {
     };
   }
 
-  recenterMap(coords){
-    this.map.panTo(new google.maps.LatLng(coords.lat, coords.long));
-    this.map.setZoom(15);
+  recenterMap(){
+    this.map.panTo(new google.maps.LatLng(this.state.lat, this.state.lng));
   }
 
   setInfoWindow(){

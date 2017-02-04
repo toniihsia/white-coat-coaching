@@ -16,9 +16,8 @@ class ResidencyItem extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
-      <li className={`residency-item ${this.}} onClick={this._handleClick}>
+      <li className={`residency-item ${this.props.selected ? 'selected-item' : ''}`} onClick={this._handleClick}>
         {this.props.residency.name}
         {this.props.residency.website_url}
       </li>
