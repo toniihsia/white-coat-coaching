@@ -87,146 +87,146 @@ I encourage you to look around the website and contact the medical education off
   med_student_coordinator_number: "(727) 588-5704 x1", PD: "John Harker, D.O.",
   num_students: 40, max_students: 4, crowded_period_start: "July", crowded_period_end: "Nov", schedule_restrictions: "Begin on Monday", booking_date: "Jan", booking_medium: "http://largomedical.com/util/documents/student-application-for-clinical-rotation.pdf", curriculum: "See website", merger_status: "Initial pre-accreditation"})
 
-  Residency.create({name: "", street: "",
-    city: "", state: "", zip_code: "", latitude: , longitude: ,
-    website_url: "",
-    description: "", coordinator_name: "",
-    coordinator_email: "", coordinator_number: "",
-    med_student_coordinator_name: "", med_student_coordinator_email: "",
-    med_student_coordinator_number: "", PD: "",
-    num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-
-Residency.create({name: "", street: "",
-  city: "", state: "", zip_code: "", latitude: , longitude: ,
-  website_url: "",
-  description: "", coordinator_name: "",
-  coordinator_email: "", coordinator_number: "",
-  med_student_coordinator_name: "", med_student_coordinator_email: "",
-  med_student_coordinator_number: "", PD: "",
-  num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-
-Residency.create({name: "", street: "",
-  city: "", state: "", zip_code: "", latitude: , longitude: ,
-  website_url: "",
-  description: "", coordinator_name: "",
-  coordinator_email: "", coordinator_number: "",
-  med_student_coordinator_name: "", med_student_coordinator_email: "",
-  med_student_coordinator_number: "", PD: "",
-  num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-
-Residency.create({name: "", street: "",
-  city: "", state: "", zip_code: "", latitude: , longitude: ,
-  website_url: "",
-  description: "", coordinator_name: "",
-  coordinator_email: "", coordinator_number: "",
-  med_student_coordinator_name: "", med_student_coordinator_email: "",
-  med_student_coordinator_number: "", PD: "",
-  num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-
-Residency.create({name: "", street: "",
-  city: "", state: "", zip_code: "", latitude: , longitude: ,
-  website_url: "",
-  description: "", coordinator_name: "",
-  coordinator_email: "", coordinator_number: "",
-  med_student_coordinator_name: "", med_student_coordinator_email: "",
-  med_student_coordinator_number: "", PD: "",
-  num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-
-Residency.create({name: "", street: "",
-  city: "", state: "", zip_code: "", latitude: , longitude: ,
-  website_url: "",
-  description: "", coordinator_name: "",
-  coordinator_email: "", coordinator_number: "",
-  med_student_coordinator_name: "", med_student_coordinator_email: "",
-  med_student_coordinator_number: "", PD: "",
-  num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-
-Residency.create({name: "", street: "",
-  city: "", state: "", zip_code: "", latitude: , longitude: ,
-  website_url: "",
-  description: "", coordinator_name: "",
-  coordinator_email: "", coordinator_number: "",
-  med_student_coordinator_name: "", med_student_coordinator_email: "",
-  med_student_coordinator_number: "", PD: "",
-  num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-
-Residency.create({name: "", street: "",
-  city: "", state: "", zip_code: "", latitude: , longitude: ,
-  website_url: "",
-  description: "", coordinator_name: "",
-  coordinator_email: "", coordinator_number: "",
-  med_student_coordinator_name: "", med_student_coordinator_email: "",
-  med_student_coordinator_number: "", PD: "",
-  num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-
-Residency.create({name: "", street: "",
-  city: "", state: "", zip_code: "", latitude: , longitude: ,
-  website_url: "",
-  description: "", coordinator_name: "",
-  coordinator_email: "", coordinator_number: "",
-  med_student_coordinator_name: "", med_student_coordinator_email: "",
-  med_student_coordinator_number: "", PD: "",
-  num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-
-Residency.create({name: "", street: "",
-  city: "", state: "", zip_code: "", latitude: , longitude: ,
-  website_url: "",
-  description: "", coordinator_name: "",
-  coordinator_email: "", coordinator_number: "",
-  med_student_coordinator_name: "", med_student_coordinator_email: "",
-  med_student_coordinator_number: "", PD: "",
-  num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-
-Residency.create({name: "", street: "",
-  city: "", state: "", zip_code: "", latitude: , longitude: ,
-  website_url: "",
-  description: "", coordinator_name: "",
-  coordinator_email: "", coordinator_number: "",
-  med_student_coordinator_name: "", med_student_coordinator_email: "",
-  med_student_coordinator_number: "", PD: "",
-  num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-
-Residency.create({name: "", street: "",
-  city: "", state: "", zip_code: "", latitude: , longitude: ,
-  website_url: "",
-  description: "", coordinator_name: "",
-  coordinator_email: "", coordinator_number: "",
-  med_student_coordinator_name: "", med_student_coordinator_email: "",
-  med_student_coordinator_number: "", PD: "",
-  num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-
-Residency.create({name: "", street: "",
-  city: "", state: "", zip_code: "", latitude: , longitude: ,
-  website_url: "",
-  description: "", coordinator_name: "",
-  coordinator_email: "", coordinator_number: "",
-  med_student_coordinator_name: "", med_student_coordinator_email: "",
-  med_student_coordinator_number: "", PD: "",
-  num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-
-Residency.create({name: "", street: "",
-  city: "", state: "", zip_code: "", latitude: , longitude: ,
-  website_url: "",
-  description: "", coordinator_name: "",
-  coordinator_email: "", coordinator_number: "",
-  med_student_coordinator_name: "", med_student_coordinator_email: "",
-  med_student_coordinator_number: "", PD: "",
-  num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-
-Residency.create({name: "", street: "",
-  city: "", state: "", zip_code: "", latitude: , longitude: ,
-  website_url: "",
-  description: "", coordinator_name: "",
-  coordinator_email: "", coordinator_number: "",
-  med_student_coordinator_name: "", med_student_coordinator_email: "",
-  med_student_coordinator_number: "", PD: "",
-  num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-
-Residency.create({name: "", street: "",
-  city: "", state: "", zip_code: "", latitude: , longitude: ,
-  website_url: "",
-  description: "", coordinator_name: "",
-  coordinator_email: "", coordinator_number: "",
-  med_student_coordinator_name: "", med_student_coordinator_email: "",
-  med_student_coordinator_number: "", PD: "",
-  num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
+#   Residency.create({name: "", street: "",
+#     city: "", state: "", zip_code: "", latitude: , longitude: ,
+#     website_url: "",
+#     description: "", coordinator_name: "",
+#     coordinator_email: "", coordinator_number: "",
+#     med_student_coordinator_name: "", med_student_coordinator_email: "",
+#     med_student_coordinator_number: "", PD: "",
+#     num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
+#
+# Residency.create({name: "", street: "",
+#   city: "", state: "", zip_code: "", latitude: , longitude: ,
+#   website_url: "",
+#   description: "", coordinator_name: "",
+#   coordinator_email: "", coordinator_number: "",
+#   med_student_coordinator_name: "", med_student_coordinator_email: "",
+#   med_student_coordinator_number: "", PD: "",
+#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
+#
+# Residency.create({name: "", street: "",
+#   city: "", state: "", zip_code: "", latitude: , longitude: ,
+#   website_url: "",
+#   description: "", coordinator_name: "",
+#   coordinator_email: "", coordinator_number: "",
+#   med_student_coordinator_name: "", med_student_coordinator_email: "",
+#   med_student_coordinator_number: "", PD: "",
+#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
+#
+# Residency.create({name: "", street: "",
+#   city: "", state: "", zip_code: "", latitude: , longitude: ,
+#   website_url: "",
+#   description: "", coordinator_name: "",
+#   coordinator_email: "", coordinator_number: "",
+#   med_student_coordinator_name: "", med_student_coordinator_email: "",
+#   med_student_coordinator_number: "", PD: "",
+#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
+#
+# Residency.create({name: "", street: "",
+#   city: "", state: "", zip_code: "", latitude: , longitude: ,
+#   website_url: "",
+#   description: "", coordinator_name: "",
+#   coordinator_email: "", coordinator_number: "",
+#   med_student_coordinator_name: "", med_student_coordinator_email: "",
+#   med_student_coordinator_number: "", PD: "",
+#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
+#
+# Residency.create({name: "", street: "",
+#   city: "", state: "", zip_code: "", latitude: , longitude: ,
+#   website_url: "",
+#   description: "", coordinator_name: "",
+#   coordinator_email: "", coordinator_number: "",
+#   med_student_coordinator_name: "", med_student_coordinator_email: "",
+#   med_student_coordinator_number: "", PD: "",
+#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
+#
+# Residency.create({name: "", street: "",
+#   city: "", state: "", zip_code: "", latitude: , longitude: ,
+#   website_url: "",
+#   description: "", coordinator_name: "",
+#   coordinator_email: "", coordinator_number: "",
+#   med_student_coordinator_name: "", med_student_coordinator_email: "",
+#   med_student_coordinator_number: "", PD: "",
+#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
+#
+# Residency.create({name: "", street: "",
+#   city: "", state: "", zip_code: "", latitude: , longitude: ,
+#   website_url: "",
+#   description: "", coordinator_name: "",
+#   coordinator_email: "", coordinator_number: "",
+#   med_student_coordinator_name: "", med_student_coordinator_email: "",
+#   med_student_coordinator_number: "", PD: "",
+#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
+#
+# Residency.create({name: "", street: "",
+#   city: "", state: "", zip_code: "", latitude: , longitude: ,
+#   website_url: "",
+#   description: "", coordinator_name: "",
+#   coordinator_email: "", coordinator_number: "",
+#   med_student_coordinator_name: "", med_student_coordinator_email: "",
+#   med_student_coordinator_number: "", PD: "",
+#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
+#
+# Residency.create({name: "", street: "",
+#   city: "", state: "", zip_code: "", latitude: , longitude: ,
+#   website_url: "",
+#   description: "", coordinator_name: "",
+#   coordinator_email: "", coordinator_number: "",
+#   med_student_coordinator_name: "", med_student_coordinator_email: "",
+#   med_student_coordinator_number: "", PD: "",
+#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
+#
+# Residency.create({name: "", street: "",
+#   city: "", state: "", zip_code: "", latitude: , longitude: ,
+#   website_url: "",
+#   description: "", coordinator_name: "",
+#   coordinator_email: "", coordinator_number: "",
+#   med_student_coordinator_name: "", med_student_coordinator_email: "",
+#   med_student_coordinator_number: "", PD: "",
+#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
+#
+# Residency.create({name: "", street: "",
+#   city: "", state: "", zip_code: "", latitude: , longitude: ,
+#   website_url: "",
+#   description: "", coordinator_name: "",
+#   coordinator_email: "", coordinator_number: "",
+#   med_student_coordinator_name: "", med_student_coordinator_email: "",
+#   med_student_coordinator_number: "", PD: "",
+#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
+#
+# Residency.create({name: "", street: "",
+#   city: "", state: "", zip_code: "", latitude: , longitude: ,
+#   website_url: "",
+#   description: "", coordinator_name: "",
+#   coordinator_email: "", coordinator_number: "",
+#   med_student_coordinator_name: "", med_student_coordinator_email: "",
+#   med_student_coordinator_number: "", PD: "",
+#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
+#
+# Residency.create({name: "", street: "",
+#   city: "", state: "", zip_code: "", latitude: , longitude: ,
+#   website_url: "",
+#   description: "", coordinator_name: "",
+#   coordinator_email: "", coordinator_number: "",
+#   med_student_coordinator_name: "", med_student_coordinator_email: "",
+#   med_student_coordinator_number: "", PD: "",
+#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
+#
+# Residency.create({name: "", street: "",
+#   city: "", state: "", zip_code: "", latitude: , longitude: ,
+#   website_url: "",
+#   description: "", coordinator_name: "",
+#   coordinator_email: "", coordinator_number: "",
+#   med_student_coordinator_name: "", med_student_coordinator_email: "",
+#   med_student_coordinator_number: "", PD: "",
+#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
+#
+# Residency.create({name: "", street: "",
+#   city: "", state: "", zip_code: "", latitude: , longitude: ,
+#   website_url: "",
+#   description: "", coordinator_name: "",
+#   coordinator_email: "", coordinator_number: "",
+#   med_student_coordinator_name: "", med_student_coordinator_email: "",
+#   med_student_coordinator_number: "", PD: "",
+#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})

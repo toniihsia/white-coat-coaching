@@ -1,4 +1,4 @@
-import React from 'react';
+timport React from 'react';
 import { Link, hashHistory } from 'react-router';
 import ResidencyItemContainer from './residency_item_container';
 import GoogleMapContainer from '../googlemap/google_map_container';
