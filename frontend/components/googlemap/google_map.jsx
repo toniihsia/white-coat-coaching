@@ -23,7 +23,7 @@ class GoogleMap extends React.Component {
   componentWillReceiveProps(nextProps){
     if (nextProps.data) {
       this.updateContentWindow(nextProps.data);
-      this.recenterMap(nextProps.data.lat, nextProps.data.lng, 15);
+      this.recenterMap(nextProps.data.latitude, nextProps.data.longitude, 15);
       this.infoWindow.open(this.map);
     } else {
       this.infoWindow.close();
@@ -142,7 +142,7 @@ class GoogleMap extends React.Component {
 
   updateContentWindow(data){
     this.infoWindow.setContent(this.setContentWindow(data.description));
-    this.infoWindow.setPosition(new google.maps.LatLng(data.lat, data.lng));
+    this.infoWindow.setPosition(new google.maps.LatLng(data.latitude, data.longitude));
   }
 
   render() {

@@ -37,14 +37,8 @@ export default class MarkerUtil {
       icon: 'http://res.cloudinary.com/dfrrpfeus/image/upload/v1485416001/map-marker_1_lzmi33.png'
     });
 
-    let data = {
-      lat: residency.latitude,
-      lng: residency.longitude,
-      description: residency.description
-    };
-
     google.maps.event.addListener(marker,'click', () => {
-      this.handleClick(data);
+      this.handleClick(residency);
     });
     this.markers.push(marker);
     marker.setMap(this.map);
