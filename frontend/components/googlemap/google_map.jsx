@@ -9,17 +9,24 @@ class GoogleMap extends React.Component {
     this.map = null;
     this.recenterMap = this.recenterMap.bind(this);
     this._defaultMapOptions = this._defaultMapOptions.bind(this);
+    this.updateContentWindow = this.updateContentWindow.bind(this);
   }
 
   componentDidMount(){
     this.map = new google.maps.Map(document.getElementById('map'), this._defaultMapOptions());
+    this.infoWindow = new google.maps.InfoWindow({
+      content: this.setContentWindow(''),
+      pixelOffset: new google.maps.Size(0, -50)});
     this.MarkerManager = new MarkerManager(this.map, this.props.handleClick);
   }
 
   componentWillReceiveProps(nextProps){
     if (nextProps.data) {
-      this.recenterMap(nextProps.data.lat, nextProps.data.lng, 15);
+      this.updateContentWindow(nextProps.data);
+      this.recenterMap(nextProps.data.latitude, nextProps.data.longitude, 15);
+      this.infoWindow.open(this.map);
     } else {
+      this.infoWindow.close();
       this.recenterMap(37.09024, -95.712891, 4);
     }
     this.MarkerManager.updateMarkers(nextProps.residencies);
@@ -127,6 +134,15 @@ class GoogleMap extends React.Component {
   recenterMap(lat,lng, zoom){
     this.map.panTo(new google.maps.LatLng(lat, lng));
     this.map.setZoom(zoom);
+  }
+
+  setContentWindow(string){
+    return `<div id="info-window">${string}</div>`;
+  }
+
+  updateContentWindow(data){
+    this.infoWindow.setContent(this.setContentWindow(data.description));
+    this.infoWindow.setPosition(new google.maps.LatLng(data.latitude, data.longitude));
   }
 
   render() {
