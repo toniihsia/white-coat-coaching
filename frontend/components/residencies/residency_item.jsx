@@ -16,10 +16,18 @@ class ResidencyItem extends React.Component {
   }
 
   render() {
+    let residency = this.props.residency;
+
     return (
       <li className={`residency-item ${this.props.selected ? 'selected-item' : ''}`} onClick={this._handleClick}>
-        {this.props.residency.name}
-        {this.props.residency.website_url}
+        <div className='res-container'>
+          <img className='res-photo' src={residency.image_url} alt={`${residency.name}${residency.id}`} />
+          <div className='res-info'>
+            <div className='res-title'>{residency.name}</div>
+            <div className='res-url'>{residency.website_url}</div>
+            <div className='res-description'>{residency.description}</div>
+          </div>
+        </div>
       </li>
     );
   }

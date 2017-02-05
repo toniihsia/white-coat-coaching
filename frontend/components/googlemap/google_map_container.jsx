@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
 import GoogleMap from './google_map';
 
-const mapStateToProps = ({}) => ({
-
+const mapStateToProps = (state) => ({
+    residencies: Object.keys(state.residencies).map(id => state.residencies[id])
+    // handleClick: state.handleClick
 });
 
 const mapDispatchToProps = dispatch => {
