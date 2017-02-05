@@ -33,7 +33,7 @@ class ResidencyIndex extends React.Component {
             <ResidencyItemContainer key={i} handleClick={this.handleClick} residency={residency} selected={this.state.selected && (this.state.selected.lat === residency.latitude)}/>
           ))}
         </ul>
-        <GoogleMapContainer data = {this.state.selected}/>
+        <GoogleMapContainer data={this.state.selected} handleClick={this.handleClick}/>
       </div>
     );
   }

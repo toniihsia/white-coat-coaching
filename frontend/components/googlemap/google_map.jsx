@@ -21,6 +21,7 @@ class GoogleMap extends React.Component {
       this.recenterMap(nextProps.data.lat, nextProps.data.lng, 15);
     } else{
       this.recenterMap(37.09024, -95.712891, 4);
+    }
     this.MarkerManager.updateMarkers(nextProps.residencies);
   }
 

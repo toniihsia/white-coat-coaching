@@ -22,7 +22,7 @@ export default class MarkerUtil {
 
   _residenciesToAdd() {
     if (this.residencies === []) { return []; }
-    const currentResidencies = this.markers.map(marker => marker.listingId);
+    const currentResidencies = this.markers.map(marker => marker.residencyId);
     return this.residencies.filter(residency => !currentResidencies.includes(residency.id))
   }
 
@@ -31,7 +31,8 @@ export default class MarkerUtil {
     let marker = new google.maps.Marker({
       position: pos,
       map: this.map,
-      listingId: listing.id
+      residencyId: residency.id,
+      icon: 'http://res.cloudinary.com/dfrrpfeus/image/upload/v1485416001/map-marker_1_lzmi33.png'
     });
 
     let data = {
