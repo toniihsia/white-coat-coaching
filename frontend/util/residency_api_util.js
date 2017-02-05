@@ -7,6 +7,25 @@ export const fetchAllResidencies = (success, error) => {
   });
 };
 
+export const fetchResidency = (id, success, error) => {
+  $.ajax({
+    type: 'GET',
+    url: `api/residencies/${id}`,
+    success,
+    error
+  });
+};
+
+export const fetchSearchResidencies = (filters, success, error) => {
+  $.ajax({
+    method: 'GET',
+    url: 'api/listings',
+    data: { filters: filters },
+    success,
+    error
+  });
+};
+
 export const createResidency = (residency, success, error) => {
   $.ajax({
     type: 'POST',

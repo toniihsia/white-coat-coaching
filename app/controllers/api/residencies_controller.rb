@@ -20,6 +20,16 @@ class Api::ResidenciesController < ApplicationController
     @residencies = Residency.all
   end
 
+  def show
+    @residency = Residency.find_by_id(params[:id])
+
+    if @residency.nil?
+      render json: @user.errors.full_messages
+    else
+      render "api/residencies/show"
+    end
+  end
+
   def update
     @residency = Residency.find_by_id(params[:id])
     if @residency.update(residency_params)
