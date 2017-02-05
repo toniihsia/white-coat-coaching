@@ -1,19 +1,12 @@
 import React from 'react';
 
 export default class MarkerUtil {
-<<<<<<< HEAD
-  constructor(map) {
-    this.map = map;
-    this.markers = [];
-
-=======
   constructor(map, callback) {
     this.map = map;
     this.markers = [];
     this.residencies = [];
 
     this.handleClick = callback;
->>>>>>> 8ca2ca931f840f456934aca1eb55af289cefb5b5
     this._residenciesToAdd = this._residenciesToAdd.bind(this);
     this._createMarkerFromResidencies = this._createMarkerFromResidencies.bind(this);
     this._markersToRemove = this._markersToRemove.bind(this);
