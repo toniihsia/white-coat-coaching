@@ -30,7 +30,7 @@ class GoogleMap extends React.Component {
     } else {
       this.recenterMap(37.09024, -95.712891, 4);
     }
-    this.MarkerManager.updateMarkers(nextProps.residencies);
+    this.MarkerManager.updateMarkers(nextProps.residencies, nextProps.handleClick);
   }
 
   _defaultMapOptions(){

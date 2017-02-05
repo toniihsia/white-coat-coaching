@@ -3,7 +3,6 @@ import GoogleMap from './google_map';
 
 const mapStateToProps = (state) => ({
     residencies: Object.keys(state.residencies).map(id => state.residencies[id])
-    // handleClick: state.handleClick
 });
 
 const mapDispatchToProps = dispatch => {

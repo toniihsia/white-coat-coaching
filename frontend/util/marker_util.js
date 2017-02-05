@@ -53,6 +53,7 @@ export default class MarkerUtil {
     marker.addListener('click', () => {
           map.setZoom(8);
           map.setCenter(marker.getPosition());
+          console.log(residency);
           handleClick(data);
         });
     this.markers.push(marker);
