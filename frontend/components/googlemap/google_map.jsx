@@ -12,16 +12,8 @@ class GoogleMap extends React.Component {
   }
 
   componentDidMount(){
-    const mapDOMNode = this.refs.map;
-
     this.map = new google.maps.Map(document.getElementById('map'), this._defaultMapOptions());
     this.MarkerManager = new MarkerManager(this.map, this.props.handleClick);
-    console.log('wtf');
-    this.MarkerManager.updateMarkers(this.props.residencies, this.props.handleClick);
-  }
-
-  componentDidUpate(){
-    this.MarkerManager.updateMarkers(this.props.residencies, this.props.handleClick);
   }
 
   componentWillReceiveProps(nextProps){
@@ -30,7 +22,7 @@ class GoogleMap extends React.Component {
     } else {
       this.recenterMap(37.09024, -95.712891, 4);
     }
-    this.MarkerManager.updateMarkers(nextProps.residencies, nextProps.handleClick);
+    this.MarkerManager.updateMarkers(nextProps.residencies);
   }
 
   _defaultMapOptions(){
@@ -136,20 +128,6 @@ class GoogleMap extends React.Component {
     this.map.panTo(new google.maps.LatLng(lat, lng));
     this.map.setZoom(zoom);
   }
-
-  setInfoWindow(){
-
-  }
-
-  _markerContentString() {
-
-  }
-
-  // new google.maps.Marker({
-  //         position: unitedStates,
-  //         map: map,
-  //         icon: 'http://res.cloudinary.com/dfrrpfeus/image/upload/v1485416001/map-marker_1_lzmi33.png'
-  //       });
 
   render() {
     console.log(this.props);
