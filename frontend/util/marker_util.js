@@ -1,42 +1,55 @@
 export default class MarkerUtil {
-  constructor(map, handleClick) {
+  constructor(map, callback) {
     this.map = map;
     this.markers = [];
-    this.handleClick = handleClick;
+    this.residencies = [];
 
-    this._listingsToAdd = this._listingsToAdd.bind(this);
-    this._createMarkerFromListing = this._createMarkerFromListing.bind(this);
+    this.handleClick = callback;
+    this._residenciesToAdd = this._residenciesToAdd.bind(this);
+    this._createMarkerFromResidencies = this._createMarkerFromResidencies.bind(this);
     this._markersToRemove = this._markersToRemove.bind(this);
     this._removeMarker = this._removeMarker.bind(this);
   }
 
-  updateMarkers(listings) {
-    this.listings = Object.keys(listings).map(key => listings[key]);
-    this._listingsToAdd().forEach(this._createMarkerFromListing);
+  updateMarkers(residencies) {
+    this.residencies = residencies;
+    let residenciesToAdd = this._residenciesToAdd();
+    for (let i = 0; i < residenciesToAdd.length; i++) {
+      this._createMarkerFromResidencies(residenciesToAdd[i]);
+    }
     this._markersToRemove().forEach(this._removeMarker);
   }
 
-  _listingsToAdd() {
-    if (this.listings === undefined) { return []; }
-    const currentListings = this.markers.map(marker => marker.listingId);
-    return this.listings.filter(listing => !currentListings.includes(listing.id));
+  _residenciesToAdd() {
+    if (this.residencies === []) { return []; }
+    const currentResidencies = this.markers.map(marker => marker.listingId);
+    return this.residencies.filter(residency => !currentResidencies.includes(residency.id))
   }
 
-  _createMarkerFromListing(listing) {
-    const pos = new google.maps.LatLng(listing.lat, listing.lng);
-    const marker = new google.maps.Marker({
+  _createMarkerFromResidencies(residency) {
+    const pos = new google.maps.LatLng(residency.latitude, residency.longitude);
+    let marker = new google.maps.Marker({
       position: pos,
       map: this.map,
       listingId: listing.id
     });
-    marker.addListener('click', () => this.handleClick(listing));
+
+    let data = {
+      lat: residency.latitude,
+      lng: residency.longitude,
+      decription: residency.description
+    };
+
+    google.maps.event.addListener(marker,'click', () => {
+      this.handleClick(data);
+    });
     this.markers.push(marker);
     marker.setMap(this.map);
   }
 
   _markersToRemove(){
-    const listingIds = this.listings.map(listing => listing.id);
-    return this.markers.filter(marker => !listingIds.includes(marker.listingId));
+    const residencyIds = this.residencies.map(residency => residency.id);
+    return this.markers.filter(marker => !residencyIds.includes(marker.residencyId));
   }
 
   _removeMarker(marker) {
