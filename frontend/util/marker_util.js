@@ -40,7 +40,7 @@ export default class MarkerUtil {
     let data = {
       lat: residency.latitude,
       lng: residency.longitude,
-      decription: residency.description
+      description: residency.description
     };
 
     google.maps.event.addListener(marker,'click', () => {
