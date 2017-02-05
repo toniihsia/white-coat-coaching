@@ -42,10 +42,10 @@ html, section, article, label, h1, h2, p, strong, em, a, li, div {
 
 #map{
   position: absolute;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 0px);
   width: 49%;
-  top: 100px;
-  bottom: 0;
+  top: 0;
+  bottom: 40;
   right: 0;
 }
 
@@ -55,16 +55,17 @@ html, section, article, label, h1, h2, p, strong, em, a, li, div {
 .residency-index {
   height: 500px;
   display: flex;
+  height: 100%;
+  position: absolute;
 }
 .residency-item-container {
-  margin-top: 40px;
+  /*margin-top: 40px;*/
   padding: 0;
   width: 49%;
+  overflow: auto;
+  /*margin-bottom: 40px;*/
 }
 
-.residency-item-container li {
-  overflow: auto;
-}
 
 .res-photo {
   margin-left: 15px;
@@ -74,13 +75,14 @@ html, section, article, label, h1, h2, p, strong, em, a, li, div {
 }
 
 .res-container {
-  padding-top: 15px;
+  /*padding-top: 15px;*/
   /*padding-bottom: 15px;*/
   display: flex;
   border-bottom: solid #7b7b7b 0.5px;
 }
 
 .res-title {
+  padding-top: 15px;
   font-weight: 600;
 }
 
