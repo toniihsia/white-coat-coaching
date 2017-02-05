@@ -5,7 +5,7 @@ import ResidencyIndexContainer from './residencies/residency_index_container';
 const App = ({ children }) => (
   <div>
     <HeaderContainer />
-    <h3>White Coat Coaching Maps</h3>
+    <div className='title'>White Coat Coaching Maps</div>
     <ResidencyIndexContainer />
   </div>
 );

@@ -19,9 +19,10 @@ class ResidencyIndex extends React.Component {
 
   handleClick(data){
     if (_.isEqual(this.state.selected, data)){
+      console.log('selected to null');
       this.setState({selected: null});
-    }
-    else {
+    } else {
+      console.log('null to selected');
       this.setState({selected: data});
     }
   }
@@ -29,12 +30,13 @@ class ResidencyIndex extends React.Component {
   render() {
     return (
       <div className="residency-index">
+        <div className="space-between"></div>
         <ul className="residency-item-container">
           {this.props.residencies.map((residency,i) =>(
             <ResidencyItemContainer key={i} handleClick={this.handleClick} residency={residency} selected={this.state.selected && (this.state.selected.lat === residency.latitude)}/>
           ))}
         </ul>
-        <GoogleMapContainer data = {this.state.selected}/>
+        <GoogleMapContainer data={this.state.selected} handleClick={this.handleClick}/>
       </div>
     );
   }

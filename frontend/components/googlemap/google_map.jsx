@@ -12,21 +12,25 @@ class GoogleMap extends React.Component {
   }
 
   componentDidMount(){
-    this.map = new google.maps.Map(document.getElementById('map'), this._defaultMapOptions());
+    const mapDOMNode = this.refs.map;
 
-    //this.MarkerManager.updateMarkers(this.props.residencies)
+    this.map = new google.maps.Map(document.getElementById('map'), this._defaultMapOptions());
+    this.MarkerManager = new MarkerManager(this.map, this.props.handleClick);
+    console.log('wtf');
+    this.MarkerManager.updateMarkers(this.props.residencies, this.props.handleClick);
   }
 
   componentDidUpate(){
-
+    this.MarkerManager.updateMarkers(this.props.residencies, this.props.handleClick);
   }
 
   componentWillReceiveProps(nextProps){
     if (nextProps.data) {
       this.recenterMap(nextProps.data.lat, nextProps.data.lng, 15);
-    } else{
+    } else {
       this.recenterMap(37.09024, -95.712891, 4);
     }
+    this.MarkerManager.updateMarkers(nextProps.residencies, nextProps.handleClick);
   }
 
   _defaultMapOptions(){
@@ -137,6 +141,10 @@ class GoogleMap extends React.Component {
 
   }
 
+  _markerContentString() {
+
+  }
+
   // new google.maps.Marker({
   //         position: unitedStates,
   //         map: map,
@@ -144,6 +152,7 @@ class GoogleMap extends React.Component {
   //       });
 
   render() {
+    console.log(this.props);
     return (
       <div id="map"></div>
     );
