@@ -87,146 +87,22 @@ I encourage you to look around the website and contact the medical education off
   med_student_coordinator_number: "(727) 588-5704 x1", PD: "John Harker, D.O.",
   num_students: 40, max_students: 4, crowded_period_start: "July", crowded_period_end: "Nov", schedule_restrictions: "Begin on Monday", booking_date: "Jan", booking_medium: "http://largomedical.com/util/documents/student-application-for-clinical-rotation.pdf", curriculum: "See website", merger_status: "Initial pre-accreditation"})
 
-#   Residency.create({name: "", street: "",
-#     city: "", state: "", zip_code: "", latitude: , longitude: ,
-#     website_url: "",
-#     description: "", coordinator_name: "",
-#     coordinator_email: "", coordinator_number: "",
-#     med_student_coordinator_name: "", med_student_coordinator_email: "",
-#     med_student_coordinator_number: "", PD: "",
-#     num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-#
-# Residency.create({name: "", street: "",
-#   city: "", state: "", zip_code: "", latitude: , longitude: ,
-#   website_url: "",
-#   description: "", coordinator_name: "",
-#   coordinator_email: "", coordinator_number: "",
-#   med_student_coordinator_name: "", med_student_coordinator_email: "",
-#   med_student_coordinator_number: "", PD: "",
-#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-#
-# Residency.create({name: "", street: "",
-#   city: "", state: "", zip_code: "", latitude: , longitude: ,
-#   website_url: "",
-#   description: "", coordinator_name: "",
-#   coordinator_email: "", coordinator_number: "",
-#   med_student_coordinator_name: "", med_student_coordinator_email: "",
-#   med_student_coordinator_number: "", PD: "",
-#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-#
-# Residency.create({name: "", street: "",
-#   city: "", state: "", zip_code: "", latitude: , longitude: ,
-#   website_url: "",
-#   description: "", coordinator_name: "",
-#   coordinator_email: "", coordinator_number: "",
-#   med_student_coordinator_name: "", med_student_coordinator_email: "",
-#   med_student_coordinator_number: "", PD: "",
-#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-#
-# Residency.create({name: "", street: "",
-#   city: "", state: "", zip_code: "", latitude: , longitude: ,
-#   website_url: "",
-#   description: "", coordinator_name: "",
-#   coordinator_email: "", coordinator_number: "",
-#   med_student_coordinator_name: "", med_student_coordinator_email: "",
-#   med_student_coordinator_number: "", PD: "",
-#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-#
-# Residency.create({name: "", street: "",
-#   city: "", state: "", zip_code: "", latitude: , longitude: ,
-#   website_url: "",
-#   description: "", coordinator_name: "",
-#   coordinator_email: "", coordinator_number: "",
-#   med_student_coordinator_name: "", med_student_coordinator_email: "",
-#   med_student_coordinator_number: "", PD: "",
-#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-#
-# Residency.create({name: "", street: "",
-#   city: "", state: "", zip_code: "", latitude: , longitude: ,
-#   website_url: "",
-#   description: "", coordinator_name: "",
-#   coordinator_email: "", coordinator_number: "",
-#   med_student_coordinator_name: "", med_student_coordinator_email: "",
-#   med_student_coordinator_number: "", PD: "",
-#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-#
-# Residency.create({name: "", street: "",
-#   city: "", state: "", zip_code: "", latitude: , longitude: ,
-#   website_url: "",
-#   description: "", coordinator_name: "",
-#   coordinator_email: "", coordinator_number: "",
-#   med_student_coordinator_name: "", med_student_coordinator_email: "",
-#   med_student_coordinator_number: "", PD: "",
-#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-#
-# Residency.create({name: "", street: "",
-#   city: "", state: "", zip_code: "", latitude: , longitude: ,
-#   website_url: "",
-#   description: "", coordinator_name: "",
-#   coordinator_email: "", coordinator_number: "",
-#   med_student_coordinator_name: "", med_student_coordinator_email: "",
-#   med_student_coordinator_number: "", PD: "",
-#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-#
-# Residency.create({name: "", street: "",
-#   city: "", state: "", zip_code: "", latitude: , longitude: ,
-#   website_url: "",
-#   description: "", coordinator_name: "",
-#   coordinator_email: "", coordinator_number: "",
-#   med_student_coordinator_name: "", med_student_coordinator_email: "",
-#   med_student_coordinator_number: "", PD: "",
-#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-#
-# Residency.create({name: "", street: "",
-#   city: "", state: "", zip_code: "", latitude: , longitude: ,
-#   website_url: "",
-#   description: "", coordinator_name: "",
-#   coordinator_email: "", coordinator_number: "",
-#   med_student_coordinator_name: "", med_student_coordinator_email: "",
-#   med_student_coordinator_number: "", PD: "",
-#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-#
-# Residency.create({name: "", street: "",
-#   city: "", state: "", zip_code: "", latitude: , longitude: ,
-#   website_url: "",
-#   description: "", coordinator_name: "",
-#   coordinator_email: "", coordinator_number: "",
-#   med_student_coordinator_name: "", med_student_coordinator_email: "",
-#   med_student_coordinator_number: "", PD: "",
-#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-#
-# Residency.create({name: "", street: "",
-#   city: "", state: "", zip_code: "", latitude: , longitude: ,
-#   website_url: "",
-#   description: "", coordinator_name: "",
-#   coordinator_email: "", coordinator_number: "",
-#   med_student_coordinator_name: "", med_student_coordinator_email: "",
-#   med_student_coordinator_number: "", PD: "",
-#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-#
-# Residency.create({name: "", street: "",
-#   city: "", state: "", zip_code: "", latitude: , longitude: ,
-#   website_url: "",
-#   description: "", coordinator_name: "",
-#   coordinator_email: "", coordinator_number: "",
-#   med_student_coordinator_name: "", med_student_coordinator_email: "",
-#   med_student_coordinator_number: "", PD: "",
-#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-#
-# Residency.create({name: "", street: "",
-#   city: "", state: "", zip_code: "", latitude: , longitude: ,
-#   website_url: "",
-#   description: "", coordinator_name: "",
-#   coordinator_email: "", coordinator_number: "",
-#   med_student_coordinator_name: "", med_student_coordinator_email: "",
-#   med_student_coordinator_number: "", PD: "",
-#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
-#
-# Residency.create({name: "", street: "",
-#   city: "", state: "", zip_code: "", latitude: , longitude: ,
-#   website_url: "",
-#   description: "", coordinator_name: "",
-#   coordinator_email: "", coordinator_number: "",
-#   med_student_coordinator_name: "", med_student_coordinator_email: "",
-#   med_student_coordinator_number: "", PD: "",
-#   num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "", curriculum: "See website", merger_status: ""})
+  Residency.create({name: "Larkin Community Hospiital", street: "7031 SW 62nd St",
+    city: "South Miami", state: "FL", zip_code: "33143", latitude: 25.7126258, longitude: -80.3080861,
+    website_url: "http://www.graduatemedicaleducation.org/orthopedic-residency-program/",
+    description: "The orthopedic residency program, at Larkin Community Hospital (LCH) in Miami, Florida, obtained accreditation in July 2013 with four residents per year (a total of 20 positions were approved). Larkin Hospital has become one of 12 designated Statutory Teaching Hospitals in Florida and the largest teaching hospital for osteopathic physicians (D.O.) in the United States, offering the largest number of training programs (32 different specialties in total). The expansion of graduate medical education programs at LCH continues to demonstrate the hospital’s commitment to train the next generation of physicians.
+
+The orthopedic residency program is based at the Center for Advanced Orthopedics at Larkin. This unit was created in September 2013 and has as its mission statement to develop a world-class team of professionals to deliver the highest quality of musculoskeletal care focusing on patient satisfaction and cost effectiveness. At the center, we use latest techniques, state of art technology and instrumentation with advanced robotics. Here at Larkin we have developed a unique community based orthopedic program for residents focused on three main components including patient care, education and research.", coordinator_name: "Madeleine Hernandez",
+    coordinator_email: "madeleineg@larkinhospital.com", coordinator_number: "(305) 917-0777 X8782",
+    med_student_coordinator_name: "Marco Salguero", med_student_coordinator_email: "msalguero@larkinhospital.com",
+    med_student_coordinator_number: "305-284-7761", PD: "Michele R. D’Apuzzo, M.D.",
+    num_students: 8, max_students: 1, crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "Begin on Monday", booking_date: "Jan", booking_medium: "Send CV and scores to Marco, then will coordinate with Madeleine", curriculum: "See website", merger_status: "Pre-accreditation"})
+
+Residency.create({name: "Midwestern University Chicago", street: "20201 Crawford Ave",
+  city: "Olympia Fields", state: "IL", zip_code: "60461", latitude: 41.5228644, longitude: -87.71129529999999,
+  website_url: "https://www.midwestern.edu/programs_and_admission/il_osteopathic_medicine/more_about_the_program/master_faculty_series/orthopedic_surgery.html",
+  description: "Midwestern University Chicago College of Osteopathic Medicine's Orthopedic Surgery Residency is an AOA approved five year training program designed to provide the resident with advanced and concentrated training in osteopathic orthopedic surgery through both didactic and clinical experiences. At the completion of the program the resident will have obtained the necessary training to qualifiy to sit for the American Osteopathic Board of Orthopedic Surgery certification examination.", coordinator_name: "Sandy Kluk",
+  coordinator_email: "sandy.kluk@franciscanalliance.org", coordinator_number: "(708) 747-4000 x81043",
+  med_student_coordinator_name: "Gina", med_student_coordinator_email: "luigina.santiago@franciscanalliance.org",
+  med_student_coordinator_number: "(708) 747-4000 ext 81681", PD: "",
+  num_students: , max_students: , crowded_period_start: "", crowded_period_end: "", schedule_restrictions: "", booking_date: "", booking_medium: "Email/call Gina", curriculum: "See website", merger_status: "Pre-accreditation"})
