@@ -16,10 +16,11 @@ class ResidencyForm extends React.Component {
     };
     this.existingAddresses = {};
 
-    this.update = this.update.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this._addressQuery = this._addressQuery.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.getLocationSucces = this.getLocationSucces.bind(this);
+    this.getLocationError = this.getLocationError.bind(this);
+    this.update = this.update.bind(this);
   }
 
   componentDidMount(){
@@ -48,18 +49,26 @@ class ResidencyForm extends React.Component {
     }
   }
 
+  getLocationError(error){
+    this.setState({status: error});
+  }
+
   getLocationSucces({results}){
     let residency = this.state.currentResidency;
-    residency.latitude = results.geometry.location.lat;
-    residency.longitude = results.geometry.location.lng;
-    console.log(residency);
+    residency.latitude = results[0].geometry.location.lat;
+    residency.longitude = results[0].geometry.location.lng;
     this.state.formType === "update" ? this.props.updateResidency({residency}) : this.props.createResidency({residency});
-    this.state.residencies.length > 0 ? this.state.residencies.shift() : this.props.router.push("/"); this.setState(currentResidency: {});
+    if (this.state.residencies.length > 0){
+      this.state.residencies.shift();
+      this.setState({currentResidency: {}});
+    } else{
+      this.props.router.push("/");
+    }
   }
 
   handleSubmit(e){
     e.preventDefault();
-    getLocation(this.addressQuery(), this.getLocationSucces);
+    getLocation(this._addressQuery(), this.getLocationSucces, this.getLocationError);
   }
 
   parseThroughCSV(doc){
@@ -73,44 +82,6 @@ class ResidencyForm extends React.Component {
       let value = e.currentTarget.value
       this.setState((prevState) => merge({}, prevState, {currentResidency: {[field]: value}}));
     };
-  }
-
-  _addressQuery(){
-    return `${this.currentResidency.street}+${this.currentResidency.city}+${this.currentResidency.state}`.replace(" ", "+");
-  }
-
-  _defaultResidency(){
-    return{
-      name: "",
-      description: "",
-      street: "",
-      city: "",
-      state: "",
-      zip_code: "",
-      PD: "",
-      website_url: "",
-      positions_ranked: "",
-      merger_status: "",
-      curriculum: "",
-      max_students: "",
-      num_students: "",
-      crowded_period: "",
-      comlex_cutoff: "",
-      week_cycle: "",
-      schedule_restrictions: "",
-      booking_medium: "",
-      booking_date: "",
-      num_interviewed: "",
-      interview_date: "",
-      interview_selection: "",
-      coordinator_name: "",
-      coordinator_email: "",
-      coordinator_number: "",
-      med_student_coordinator_name: "",
-      med_student_coordinator_email: "",
-      med_student_coordinator_number: "",
-      residents: ""
-    }
   }
 
   render() {
@@ -129,7 +100,7 @@ class ResidencyForm extends React.Component {
           <input type="text" value={this.state.currentResidency.city} onChange={this.update("city")} className="form-input" />
           State (required)
           <input type="text" value={this.state.currentResidency.state} onChange={this.update("state")} className="form-input" />
-          Zip code (required)
+          Zip code
           <input type="text" value={this.state.currentResidency.zip_code} onChange={this.update("zip_code")} className="form-input" />
           PD
           <input type="text" value={this.state.currentResidency.PD} onChange={this.update("PD")} className="form-input" />
@@ -183,6 +154,58 @@ class ResidencyForm extends React.Component {
       </div>
     );
   }
+
+  _addressQuery(){
+    return `${this.state.currentResidency.street}+${this.state.currentResidency.city}+${this.state.currentResidency.state}`.replace(/\s/g, "+");
+  }
+
+  _addressToObject(address){
+    let vals = address.split(", ");
+    if (vals.length < 3 || vals.length > 4){
+      console.log("Invalid address");
+    } else{
+      let addressObject = {street: vals[0],
+        city: vals[1],
+        state: vals[2]};
+        let zipObject = vals.length > 3 ? {zip_code: vals[3]} : {};
+      }
+
+      return merge({}, addressObject, zipObject);
+    }
+
+    _defaultResidency(){
+      return{
+        name: "",
+        description: "",
+        street: "",
+        city: "",
+        state: "",
+        zip_code: "",
+        PD: "",
+        website_url: "",
+        positions_ranked: "",
+        merger_status: "",
+        curriculum: "",
+        max_students: "",
+        num_students: "",
+        crowded_period: "",
+        comlex_cutoff: "",
+        week_cycle: "",
+        schedule_restrictions: "",
+        booking_medium: "",
+        booking_date: "",
+        num_interviewed: "",
+        interview_date: "",
+        interview_selection: "",
+        coordinator_name: "",
+        coordinator_email: "",
+        coordinator_number: "",
+        med_student_coordinator_name: "",
+        med_student_coordinator_email: "",
+        med_student_coordinator_number: "",
+        residents: ""
+      }
+    }
 }
 
 export default ResidencyForm;

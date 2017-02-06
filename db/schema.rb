@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170204095409) do
+ActiveRecord::Schema.define(version: 20170206095358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,10 +33,7 @@ ActiveRecord::Schema.define(version: 20170204095409) do
     t.string   "med_student_coordinator_email"
     t.string   "med_student_coordinator_number"
     t.string   "PD"
-    t.integer  "num_students"
-    t.integer  "max_students"
-    t.string   "crowded_period_start"
-    t.string   "crowded_period_end"
+    t.string   "crowded_period"
     t.string   "schedule_restrictions"
     t.string   "booking_date"
     t.string   "booking_medium"
@@ -45,6 +42,15 @@ ActiveRecord::Schema.define(version: 20170204095409) do
     t.datetime "created_at",                                                                                                                           null: false
     t.datetime "updated_at",                                                                                                                           null: false
     t.string   "image_url",                      default: "http://res.cloudinary.com/dfrrpfeus/image/upload/v1486201966/hospital-building_dqj2jh.png", null: false
+    t.string   "positions_ranked"
+    t.string   "comlex_cutoff"
+    t.string   "interview_date"
+    t.string   "interview_selection"
+    t.string   "num_interviewed"
+    t.string   "week_cycle"
+    t.string   "residents"
+    t.string   "num_students"
+    t.string   "max_students"
   end
 
   create_table "users", force: :cascade do |t|

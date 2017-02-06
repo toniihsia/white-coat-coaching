@@ -42,6 +42,7 @@ class Api::ResidenciesController < ApplicationController
 
   private
   def residency_params
-    params.require(:residency).permit(:name, :street, :city, :state, :website_url, :description, :coordinator, :med_student_coordinator, :PD, :num_students, :max_students, :crowded_period_start, :crowded_period_end, :schedule_restrictions, :booking_date, :booking_medium, :curriculum, :merger_status)
+    params.require(:residency).permit(:name, :street, :city, :state, :zip_code, :website_url, :description, :latitude, :longitude, :coordinator_name, :coordinator_email, :coordinator_number, :med_student_coordinator_name, :med_student_coordinator_number, :med_student_coordinator_email, :PD, :num_students, :max_students, :crowded_period,
+    :schedule_restrictions, :booking_date, :booking_medium, :curriculum, :merger_status, :image_url, :positions_ranked, :comlex_cutoff, :interview_date, :interview_selection, :num_interviewed, :week_cycle, :residents)
   end
 end
