@@ -1,5 +1,5 @@
 import merge from 'lodash/merge';
-import { RECEIVE_ALL_RESIDENCIES } from '../actions/residency_actions';
+import { RECEIVE_ALL_RESIDENCIES, RECEIVE_ERRORS } from '../actions/residency_actions';
 
 const ResidencyReducer = (oldState = {}, action) => {
   Object.freeze(oldState);

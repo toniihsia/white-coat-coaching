@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, hashHistory } from 'react-router';
 import { getLocation } from '../../util/map_api_util';
-import merge from 'lodash/merge';
+import { isEqual, merge } from 'lodash';
 
 class ResidencyForm extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class ResidencyForm extends React.Component {
     this._addressQuery = this._addressQuery.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getLocationSucces = this.getLocationSucces.bind(this);
-    this.getLocationError = this.getLocationError.bind(this);
+    this.resolveFormAction = this.resolveFormAction.bind(this);
     this.update = this.update.bind(this);
   }
 
@@ -27,54 +27,71 @@ class ResidencyForm extends React.Component {
     this.props.requestAllResidencies();
   }
 
-  componentDidUpdate(){
-
-  }
-
   componentWillReceiveProps(nextProps){
+    let stateUpdates = {};
     if (nextProps.residency){
-      this.setState(currentResidency: nextProps.residency, formType: "Update");
-    } else {
-      for (var i = 0; i < nextProps.residencies.length; i++) {
-        this.existingAddresses[nextProps.residencies[i].address.street] = true;
+      stateUpdates = merge(stateUpdates, {currentResidency: nextProps.residency, formType: "Update"});
+    } else if (isEqual({},this.existingAddresses)) {
+      for (var i = 0; i < this.props.residencies.length; i++) {
+        this.existingAddresses = merge(this.existingAddresses, {[nextProps.residencies[i].address.street]: true});
       }
     }
-  }
-
-  create(){
-    if (this.state.residencies.length === 0){
-      this.setState({status: "No residencies found"});
-    } else {
-      this.setState({status: `There are ${this.state.residencies.length} entries in queue`})
+    if (!isEqual(stateUpdates, {})){
+      this.setState(stateUpdates);
     }
-  }
-
-  getLocationError(error){
-    this.setState({status: error});
   }
 
   getLocationSucces({results}){
     let residency = this.state.currentResidency;
     residency.latitude = results[0].geometry.location.lat;
     residency.longitude = results[0].geometry.location.lng;
-    this.state.formType === "update" ? this.props.updateResidency({residency}) : this.props.createResidency({residency});
-    if (this.state.residencies.length > 0){
-      this.state.residencies.shift();
-      this.setState({currentResidency: {}});
-    } else{
-      this.props.router.push("/");
+    switch (this.state.formType) {
+      case "Mass Create":
+
+        break;
+      default:
+        this.state.formType === "Update" ? this.props.updateResidency({residency}) : this.props.createResidency({residency});
+        break;
+      }
     }
+    // this.state.formType === "Update" ? this.props.updateResidency({residency}) : this.props.createResidency({residency});
+    console.log("in location success");
+    // this.resolveFormAction();
   }
 
   handleSubmit(e){
     e.preventDefault();
-    getLocation(this._addressQuery(), this.getLocationSucces, this.getLocationError);
+    if (this.state.currentResidency.street && this.state.currentResidency.city && this.state.currentResidency.state) {
+      getLocation(this._addressQuery(), this.getLocationSucces, this.getLocationError);
+    } else {
+      this.setState({status: "Missing address component"});
+    }
   }
 
   parseThroughCSV(doc){
     let residencyArr = [];
 
     this.setState({residencies: residencyArr})
+  }
+
+  resolveFormAction(){
+    console.log("in resolve");
+    console.log(this.props.errors);
+    if (isEqual({}, this.props.errors)){
+      console.log(this.state.formType);
+      switch (this.state.formType){
+        case "Mass Create":
+          this.state.residencies.shift();
+          if (this.state.residencies.length === 0) {
+            this.props.router.push("/");
+          }
+          this.setState({status: `Mass creating ${this.state.residencies.length}`, currentResidency: this.state.residencies[0]});
+          break;
+        default:
+          this.props.router.push("/");
+          break;
+      }
+    }
   }
 
   update(field){
@@ -87,7 +104,7 @@ class ResidencyForm extends React.Component {
   render() {
     return (
       <div className="residency-form-container">
-        {this.state.status}
+        {this._renderErrors()}
 
         <form onSubmit={this.handleSubmit} className="residency-form">
           Name (required)
@@ -205,6 +222,16 @@ class ResidencyForm extends React.Component {
         med_student_coordinator_number: "",
         residents: ""
       }
+    }
+
+    _renderErrors(){
+      return (
+        <ul>
+          {this.props.errors.map((error,i) => (
+            <li key={i}>error</li>
+          )}
+        </ul>
+      );
     }
 }
 

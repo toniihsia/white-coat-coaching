@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(version: 20170206095358) do
     t.string   "state",                                                                                                                                null: false
     t.string   "zip_code",                                                                                                                             null: false
     t.string   "website_url",                                                                                                                          null: false
-    t.text     "description",                                                                                                                          null: false
     t.float    "latitude",                                                                                                                             null: false
     t.float    "longitude",                                                                                                                            null: false
     t.string   "coordinator_name"
@@ -51,6 +50,7 @@ ActiveRecord::Schema.define(version: 20170206095358) do
     t.string   "residents"
     t.string   "num_students"
     t.string   "max_students"
+    t.text     "description"
   end
 
   create_table "users", force: :cascade do |t|

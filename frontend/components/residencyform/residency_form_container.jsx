@@ -2,9 +2,12 @@ import { connect } from 'react-redux';
 import ResidencyForm from './residency_form';
 import { createResidency, updateResidency, requestAllResidencies } from '../../actions/residency_actions';
 
-const mapStateToProps = (state) => ({
-  residencies: Object.keys(state.residencies).map(id => state.residencies[id])
-});
+const mapStateToProps = (state) => {
+  return{
+  residencies: Object.keys(state.residencies).map(id => state.residencies[id]),
+  errors: state.errors
+  }
+};
 
 const mapDispatchToProps = dispatch => {
   return {

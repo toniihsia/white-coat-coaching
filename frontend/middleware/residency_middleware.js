@@ -1,10 +1,10 @@
 import { fetchAllResidencies, createResidency, updateResidency, deleteResidency } from '../util/residency_api_util';
 import { REQUEST_ALL_RESIDENCIES, CREATE_RESIDENCY, UPDATE_RESIDENCY, DELETE_RESIDENCY,
-receiveAllResidencies } from '../actions/residency_actions'
+receiveAllResidencies, receiveErrors } from '../actions/residency_actions'
 
 const ResidencyMiddleware = ({getState, dispatch}) => next => action => {
   const fetchResidenciesSuccess = data => dispatch(receiveAllResidencies(data));
-  const errorLog = error => console.log(error);
+  const errorLog = errors => dispatch(receiveErrors(errors.responseJSON));
 
   switch (action.type){
     case REQUEST_ALL_RESIDENCIES:

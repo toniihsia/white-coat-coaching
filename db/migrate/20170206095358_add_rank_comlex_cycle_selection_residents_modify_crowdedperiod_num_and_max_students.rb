@@ -8,12 +8,14 @@ class AddRankComlexCycleSelectionResidentsModifyCrowdedperiodNumAndMaxStudents <
     add_column :residencies, :week_cycle, :string
     add_column :residencies, :residents, :string
 
-    remove_column :residencies, :crowded_period_end
-    remove_column :residencies, :num_students
-    remove_column :residencies, :max_students
+    remove_column :residencies, :crowded_period_end, :string
+    remove_column :residencies, :num_students, :integer
+    remove_column :residencies, :max_students, :integer
+    remove_column :residencies, :description, :text
 
     rename_column :residencies, :crowded_period_start, :crowded_period
     add_column :residencies, :num_students, :string
     add_column :residencies, :max_students, :string
+    add_column :residencies, :description, :text
   end
 end

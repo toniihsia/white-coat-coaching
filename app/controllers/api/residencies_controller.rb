@@ -1,7 +1,9 @@
 class Api::ResidenciesController < ApplicationController
   def create
-    @residency = Residency.new(residency_params)
-    if @residency.save
+    debugger
+    params.residency.each |residency| do
+    residency = Residency.new(residency_params)
+    if residency.save
       @residencies = Residency.all
       render :index
     else
