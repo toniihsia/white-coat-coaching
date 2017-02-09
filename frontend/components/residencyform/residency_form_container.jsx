@@ -4,8 +4,7 @@ import { createResidency, updateResidency, requestAllResidencies } from '../../a
 
 const mapStateToProps = (state) => {
   return{
-  residencies: Object.keys(state.residencies).map(id => state.residencies[id]),
-  errors: state.errors
+    residencies: Object.keys(state.residencies).map(id => state.residencies[id]),
   }
 };
 

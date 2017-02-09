@@ -25,3 +25,4 @@ json.interview do
   json.interview_selection residency.interview_selection
   json.num_interviewed residency.num_interviewed
 end
+json.errors residency.errors.full_messages

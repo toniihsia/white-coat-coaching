@@ -1,13 +1,10 @@
 class Api::ResidenciesController < ApplicationController
   def create
-    debugger
-    params.residency.each |residency| do
-    residency = Residency.new(residency_params)
-    if residency.save
-      @residencies = Residency.all
-      render :index
+    @residency = Residency.new(residency_params)
+    if @residency.save
+      render :show
     else
-      render json: @residency.errors.full_messages, status: 422
+      render :show, status: 422
     end
   end
 

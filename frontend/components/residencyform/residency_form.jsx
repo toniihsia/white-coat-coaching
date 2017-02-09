@@ -9,9 +9,8 @@ class ResidencyForm extends React.Component {
 
     this._defaultResidency = this._defaultResidency.bind(this);
     this.state = {
-      residencies: [],
-      status: "",
       currentResidency: this._defaultResidency(),
+      residencyQueue: [currentResidency],
       formType: "Create"
     };
     this.existingAddresses = {};
@@ -28,17 +27,7 @@ class ResidencyForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    let stateUpdates = {};
-    if (nextProps.residency){
-      stateUpdates = merge(stateUpdates, {currentResidency: nextProps.residency, formType: "Update"});
-    } else if (isEqual({},this.existingAddresses)) {
-      for (var i = 0; i < this.props.residencies.length; i++) {
-        this.existingAddresses = merge(this.existingAddresses, {[nextProps.residencies[i].address.street]: true});
-      }
-    }
-    if (!isEqual(stateUpdates, {})){
-      this.setState(stateUpdates);
-    }
+
   }
 
   getLocationSucces({results}){
@@ -53,10 +42,7 @@ class ResidencyForm extends React.Component {
         this.state.formType === "Update" ? this.props.updateResidency({residency}) : this.props.createResidency({residency});
         break;
       }
-    }
-    // this.state.formType === "Update" ? this.props.updateResidency({residency}) : this.props.createResidency({residency});
     console.log("in location success");
-    // this.resolveFormAction();
   }
 
   handleSubmit(e){
@@ -75,23 +61,7 @@ class ResidencyForm extends React.Component {
   }
 
   resolveFormAction(){
-    console.log("in resolve");
-    console.log(this.props.errors);
-    if (isEqual({}, this.props.errors)){
-      console.log(this.state.formType);
-      switch (this.state.formType){
-        case "Mass Create":
-          this.state.residencies.shift();
-          if (this.state.residencies.length === 0) {
-            this.props.router.push("/");
-          }
-          this.setState({status: `Mass creating ${this.state.residencies.length}`, currentResidency: this.state.residencies[0]});
-          break;
-        default:
-          this.props.router.push("/");
-          break;
-      }
-    }
+
   }
 
   update(field){
@@ -227,9 +197,9 @@ class ResidencyForm extends React.Component {
     _renderErrors(){
       return (
         <ul>
-          {this.props.errors.map((error,i) => (
+          {this.props.residencies[this.props.residencies.length-1].errors.map((error,i) => (
             <li key={i}>error</li>
-          )}
+          ))}
         </ul>
       );
     }
