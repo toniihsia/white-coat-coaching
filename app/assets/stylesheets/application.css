@@ -45,7 +45,7 @@ html, section, article, label, h1, h2, h3, p, strong, em, a, li, div {
 #map{
   position: absolute;
   height: calc(100vh - 0px);
-  width: 49%;
+  width: 55%;
   top: 0;
   bottom: 40;
   right: 0;
@@ -65,7 +65,7 @@ html, section, article, label, h1, h2, h3, p, strong, em, a, li, div {
 .residency-item-container {
   /*margin-top: 40px;*/
   padding: 0;
-  width: 49%;
+  width: 43%;
   overflow: auto;
   /*margin-bottom: 40px;*/
 }
@@ -157,15 +157,17 @@ html, section, article, label, h1, h2, h3, p, strong, em, a, li, div {
 
 #detail-title {
   font-weight: 500;
-  font-size: 15px;
+  font-size: 19px;
   padding-top: 10px;
   width: 128px;
+  text-align: right;
   /*border-bottom: solid #7b7b7b 0.5px;*/
   /*margin-bottom: px;*/
 }
 
 .flex-container {
   display: flex;
+  flex-wrap: wrap;
 }
 .res-info-left {
   display: flex;
@@ -190,14 +192,14 @@ html, section, article, label, h1, h2, h3, p, strong, em, a, li, div {
 
 .res-inner-content {
   font-weight: 400;
-  font-size: 13px;
+  font-size: 14px;
   flex: right;
 }
 
 .res-section {
-  max-width: 100%;
-  padding-bottom: 10px;
-  padding-top: 10px;
+  width: 50%;
+  padding: 10px;
+
 }
 .res-section-header {
   padding-top: 3px;
@@ -221,11 +223,38 @@ html, section, article, label, h1, h2, h3, p, strong, em, a, li, div {
 .res-details {
   margin-left: 15px;
   margin-right: 15px;
-  margin-bottom: 15px;
   display: flex;
+  width: 100%;
+  justify-content: space-around;
 }
 
-.res-info-description {
+/*#description-title {
+  font-weight: 500;
+  font-size: 19px;
   padding-top: 10px;
-  font-size: 15px;
+  padding-right: 10px;
+  width: 1000px;
+  text-align: right;
+}*/
+
+.desc {
+  padding-left: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: 14px;
+}
+
+.left {
+  flex: left;
+  width: 240px;
+}
+
+.right {
+  width: 240px;
+  flex: right;
+}
+
+.booking-medium {
+  width: 100%;
+  word-wrap: break-word;
 }
