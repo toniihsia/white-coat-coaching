@@ -78,7 +78,6 @@ html, section, article, label, h1, h2, h3, p, strong, em, a, li, div {
 }
 
 .res-title {
-  padding-top: 15px;
   font-weight: 600;
 }
 
@@ -151,6 +150,16 @@ html, section, article, label, h1, h2, h3, p, strong, em, a, li, div {
 .res-header-1 {
   font-weight: 500;
   font-size: 15px;
+  /*padding-top: 5px;*/
+  /*border-bottom: solid #7b7b7b 0.5px;*/
+  /*margin-bottom: px;*/
+}
+
+#detail-title {
+  font-weight: 500;
+  font-size: 15px;
+  padding-top: 10px;
+  width: 128px;
   /*border-bottom: solid #7b7b7b 0.5px;*/
   /*margin-bottom: px;*/
 }
@@ -158,29 +167,35 @@ html, section, article, label, h1, h2, h3, p, strong, em, a, li, div {
 .flex-container {
   display: flex;
 }
+.res-info-left {
+  display: flex;
+  margin-right: 10px;
+}
 
 .left-label {
   font-weight: 500;
-  font-size: 12px;
-  flex: left;
+  font-size: 13px;
+  /*flex: left;*/
   margin-right: 3px;
 }
 
 .right-content {
   font-weight: 400;
-  font-size: 12px;
+  font-size: 13px;
   vertical-align: middle;
   justify-content: center;
-  flex: right;
+  white-space: normal;
+  /*flex: right;*/
 }
 
 .res-inner-content {
   font-weight: 400;
-  font-size: 12px;
+  font-size: 13px;
   flex: right;
 }
 
 .res-section {
+  max-width: 100%;
   padding-bottom: 10px;
   padding-top: 10px;
 }
@@ -207,4 +222,10 @@ html, section, article, label, h1, h2, h3, p, strong, em, a, li, div {
   margin-left: 15px;
   margin-right: 15px;
   margin-bottom: 15px;
+  display: flex;
+}
+
+.res-info-description {
+  padding-top: 10px;
+  font-size: 15px;
 }

@@ -147,118 +147,129 @@ class GoogleMap extends React.Component {
       if (data.coordinator.name === "") { data.coordinator.name = "N/A"; }
       if (data.coordinator.phone_number === "") { data.coordinator.phone_number = "N/A"; }
 
+      if (data.med_student_coordinator.email === "") { data.med_student_coordinator.email = "N/A"; }
+      if (data.med_student_coordinator.name === "") { data.med_student_coordinator.name = "N/A"; }
+      if (data.med_student_coordinator.phone_number === "") { data.med_student_coordinator.phone_number = "N/A"; }
+
+
       return `
-        <div id="info-window-large">
-          <div class="res-header">
-            <img class='res-info-photo' src="${residency.image_url}" alt="${residency.name}${residency.id}"}></img>
+      <div id="info-window-large">
+        <div class="res-header">
+          <img class='res-info-photo' src="${residency.image_url}" alt="${residency.name}${residency.id}"}></img>
 
-            <div class="right-content">
-              <div class="info-res-title">${residency.name}</div>
+          <div class="right-content">
+            <div class="info-res-title">${residency.name}</div>
 
-              <div class="res-section-header">
-                <h3 class="res-header-1">Website</h3>
-                <a class="info-res-url" href="${residency.website_url}">${residency.website_url}</a>
-              </div>
-
-              <div class="res-section-header">
-                <h3 class="res-header-1">Address</h3>
-                <div class="res-inner-content">${residency.address.street}</div>
-                <div class="res-inner-content">${residency.address.city}, ${residency.address.state} ${residency.address.zip_code}</div>
-              </div>
-            </div>
-          </div>
-          <div class="res-details">
-            <div class="res-section">
-              <h3 class="res-header-1">PD</h3>
-              <div class="res-inner-content">${residency.PD}</div>
+            <div class="res-section-header">
+              <h3 class="res-header-1">Website</h3>
+              <a class="info-res-url" href="${residency.website_url}">${residency.website_url}</a>
             </div>
 
-            <div class="res-section">
-              <h3 class="res-header-1">Merger Status</h3>
-              <div class="res-inner-content">${residency.merger_status}</div>
+            <div class="res-section-header">
+              <h3 class="res-header-1">Address</h3>
+              <div class="res-inner-content">${residency.address.street}</div>
+              <div class="res-inner-content">${residency.address.city}, ${residency.address.state} ${residency.address.zip_code}</div>
             </div>
-
-            <div class="res-section">
-              <h3 class="res-header-1">Coordinator Info</h3>
-              <div class="flex-container">
-                <div class="left-label">Name:</div>
-                <div class="right-content">${residency.coordinator.name}</div>
-              </div>
-              <div class="flex-container">
-                <div class="left-label">Email:</div>
-                <div class="right-content"> ${residency.coordinator.email}</div>
-              </div>
-              <div class="flex-container">
-                <div class="left-label">Phone #: </div>
-                <div class="right-content"> ${residency.coordinator.phone_number}</div>
-              </div>
-            </div>
-
-            <div class="res-section">
-              <h3 class="res-header-1">Med Student Coordinator Info</h3>
-              <div class="flex-container">
-                <div class="left-label">Name:</div>
-                <div class="right-content"> ${residency.med_student_coordinator.name}</div>
-              </div>
-              <div class="flex-container">
-                <div class="left-label">Email:</div>
-                <div class="right-content"> ${residency.med_student_coordinator.email}</div>
-              </div>
-              <div class="flex-container">
-                <div class="left-label">Phone #: </div>
-                <div class="right-content"> ${residency.med_student_coordinator.phone_number}</div>
-              </div>
-            </div>
-
-            <div class="res-section">
-              <h3 class="res-header-1">Curriculum</h3>
-              <div class="res-inner-content"> ${residency.curriculum}</div>
-            </div>
-
-            <div class="res-section">
-              <h3 class="res-header-1">Residency Info</h3>
-              <div class="flex-container">
-                <div class="left-label">Max # of Students: </div>
-                <div class="right-content"> ${residency.max_students}</div>
-              </div>
-              <div class="flex-container">
-                <div class="left-label"># of Students: </div>
-                <div class="right-content"> ${residency.num_students}</div>
-              </div>
-            </div>
-
-            <div class="res-section">
-              <h3 class="res-header-1">Crowded Period</h3>
-              <div class="flex-container">
-                <div class="left-label">Start Date: </div>
-                <div class="right-content"> ${residency.crowded_period.start_date}</div>
-              </div>
-              <div class="flex-container">
-                <div class="left-label">End Date: </div>
-                <div class="right-content"> ${residency.crowded_period.end_date}</div>
-              </div>
-            </div>
-
-            <div class="res-section">
-              <h3 class="res-header-1">Rotation</h3>
-              <div class="flex-container">
-                <div class="left-label">Booking Date: </div>
-                <div class="right-content"> ${residency.rotation.booking_date}</div>
-              </div>
-              <div class="flex-container">
-                <div class="left-label">Booking Medium: </div>
-                <div class="right-content"> ${residency.rotation.booking_medium}</div>
-              </div>
-              <div class="flex-container">
-                <div class="left-label">Schedule Restrictions: </div>
-                <div class="right-content"> ${residency.rotation.schedule_restrictions}</div>
-              </div>
-            </div>
-
-            <div class="res-inner-content"> ${residency.description}</div>
           </div>
         </div>
+
+        <div class="res-details">
+          <div class="res-info-left">
+            <h3 id="detail-title">Details</h3>
+          </div>
+
+          <div class="res-details">
+            <div>
+              <div class="res-section">
+                <h3 class="res-header-1">PD</h3>
+                <div class="res-inner-content">${residency.PD}</div>
+              </div>
+              <div class="res-section">
+                <h3 class="res-header-1">Coordinator Info</h3>
+                <div class="flex-container">
+                  <div class="left-label">Name:</div>
+                  <div class="right-content">${residency.coordinator.name}</div>
+                </div>
+                <div class="flex-container">
+                  <div class="left-label">Email:</div>
+                  <div class="right-content"> ${residency.coordinator.email}</div>
+                </div>
+                <div class="flex-container">
+                  <div class="left-label">Phone #: </div>
+                  <div class="right-content"> ${residency.coordinator.phone_number}</div>
+                </div>
+              </div>
+              <div class="res-section">
+                <h3 class="res-header-1">Med Student Coordinator Info</h3>
+                <div class="flex-container">
+                  <div class="left-label">Name:</div>
+                  <div class="right-content"> ${residency.med_student_coordinator.name}</div>
+                </div>
+                <div class="flex-container">
+                  <div class="left-label">Email:</div>
+                  <div class="right-content"> ${residency.med_student_coordinator.email}</div>
+                </div>
+                <div class="flex-container">
+                  <div class="left-label">Phone #: </div>
+                  <div class="right-content"> ${residency.med_student_coordinator.phone_number}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="res-info-right">
+              <div class="res-section">
+                <h3 class="res-header-1">Merger Status</h3>
+                <div class="res-inner-content">${residency.merger_status}</div>
+              </div>
+              <div class="res-section">
+                <h3 class="res-header-1">Curriculum</h3>
+                <div class="res-inner-content"> ${residency.curriculum}</div>
+                <div class="res-section">
+                  <h3 class="res-header-1">Residency Info</h3>
+                  <div class="flex-container">
+                    <div class="left-label">Max # of Students: </div>
+                    <div class="right-content"> ${residency.max_students}</div>
+                  </div>
+                  <div class="flex-container">
+                    <div class="left-label"># of Students: </div>
+                    <div class="right-content"> ${residency.num_students}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="res-section">
+                <h3 class="res-header-1">Crowded Period</h3>
+                <div class="flex-container">
+                  <div class="left-label">Start Date: </div>
+                  <div class="right-content"> ${residency.crowded_period.start_date}</div>
+                </div>
+                <div class="flex-container">
+                  <div class="left-label">End Date: </div>
+                  <div class="right-content"> ${residency.crowded_period.end_date}</div>
+                </div>
+              </div>
+
+              <div class="res-section">
+                <h3 class="res-header-1">Rotation</h3>
+                <div class="flex-container">
+                  <div class="left-label">Booking Date: </div>
+                  <div class="right-content"> ${residency.rotation.booking_date}</div>
+                </div>
+                <div class="flex-container">
+                  <div class="left-label">Booking Medium: </div>
+                  <div class="right-content"> ${residency.rotation.booking_medium}</div>
+                </div>
+                <div class="flex-container">
+                  <div class="left-label">Schedule Restrictions: </div>
+                  <div class="right-content"> ${residency.rotation.schedule_restrictions}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="res-info-right"> ${residency.description}</div>
+        </div>
       </div>
+
       `;
     } else {
       return `<div id="info-window"></div>`;
