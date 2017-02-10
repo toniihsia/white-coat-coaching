@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, hashHistory } from 'react-router';
 import { getLocation } from '../../util/map_api_util';
 import { isEqual, merge } from 'lodash';
-import Parser from 'csv-parse';
+let parse = require('csv-parse');
 
 class ResidencyForm extends React.Component {
   constructor(props) {
@@ -32,6 +32,11 @@ class ResidencyForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
+    if (isEqual({}, this.existingAddresses) && nextProps.residencies) {
+      for (var i = 0; i < nextProps.residencies.length; i++) {
+        this.existingAddresses[nextProps.residencies[i].address.street] = true;
+      }
+    }
     if (this._hasAddress() && nextProps.residencies[nextProps.residencies.length-1].errors.length === 0) {
       if (this.residencyQueue.length === 0) {
         this.props.router.push("/");
@@ -71,19 +76,43 @@ class ResidencyForm extends React.Component {
   }
 
   parseThroughCSV(data){
-    console.log(data);
-    data = data.split("\n");
-    data = data.map((row) => row.replace(/\"/g, "").split(/,/));
-    let columns = data[0];
-    console.log(data);
-    let residencyArr = [];
-    let keyMap = this._columnNameToKey();
+    parse(data, {delimiter: ","}, (error, result) => {
+      console.log(result);
+      let residencyArr = [];
 
-    // if ("Address") {
-    //   residencyArr.push(merge({}, this._addressToObject(address)));
-    // }
-    //
-    // this.residencies;
+      let keyMap = this._columnNameToKey();
+      let columnArray = result[0].map((value) => keyMap[value]);
+
+      for (var i = 1; i < result.length; i++) {
+        let residency = {};
+        for (var j = 0; j < columnArray.length; j++) {
+          switch (columnArray[j]) {
+            case "address":
+              console.log(columnArray[j]);
+              console.log(this._addressToObject(result[i][j]));
+              residency = merge(residency, this._addressToObject(result[i][j]));
+              break;
+            case "city":
+              break;
+            case "state":
+              break;
+            default:
+              residency[columnArray[j]] = result[i][j];
+              break;
+          }
+        }
+        // console.log(residency);
+        if (this.existingAddresses[residency.street]) {
+          continue;
+        } else{
+          residencyArr.push(residency);
+        }
+      }
+      this.residencyQueue = residencyArr;
+      console.log(this.residencyQueue);
+
+    });
+
   }
 
   update(field){
@@ -176,96 +205,98 @@ class ResidencyForm extends React.Component {
     if (vals.length < 3 || vals.length > 4){
       console.log("Invalid address");
     } else{
+      let zipObject = vals.length > 3 ? {zip_code: vals[3]} : {};
       let addressObject = {street: vals[0],
         city: vals[1],
         state: vals[2]};
-        let zipObject = vals.length > 3 ? {zip_code: vals[3]} : {};
-      }
-
       return merge({}, addressObject, zipObject);
     }
+  }
 
-    _defaultResidency(){
-      return{
-        name: "",
-        description: "",
-        street: "",
-        city: "",
-        state: "",
-        zip_code: "",
-        PD: "",
-        website_url: "",
-        positions_ranked: "",
-        merger_status: "",
-        curriculum: "",
-        max_students: "",
-        num_students: "",
-        crowded_period: "",
-        comlex_cutoff: "",
-        week_cycle: "",
-        schedule_restrictions: "",
-        booking_medium: "",
-        booking_date: "",
-        num_interviewed: "",
-        interview_date: "",
-        interview_selection: "",
-        coordinator_name: "",
-        coordinator_email: "",
-        coordinator_number: "",
-        med_student_coordinator_name: "",
-        med_student_coordinator_email: "",
-        med_student_coordinator_number: "",
-        residents: ""
-      }
-    }
+  _defaultResidency(){
+    return{
+      name: "",
+      description: "",
+      street: "",
+      city: "",
+      state: "",
+      zip_code: "",
+      PD: "",
+      website_url: "",
+      positions_ranked: "",
+      merger_status: "",
+      curriculum: "",
+      max_students: "",
+      num_students: "",
+      crowded_period: "",
+      comlex_cutoff: "",
+      week_cycle: "",
+      schedule_restrictions: "",
+      booking_medium: "",
+      booking_date: "",
+      num_interviewed: "",
+      interview_date: "",
+      interview_selection: "",
+      coordinator_name: "",
+      coordinator_email: "",
+      coordinator_number: "",
+      med_student_coordinator_name: "",
+      med_student_coordinator_email: "",
+      med_student_coordinator_number: "",
+      residents: ""
+    };
+  }
 
-    _columnNameToKey(){
-      return ({
-        "Program/Location": "name",
-        "PD": "PD",
-        "Website": "website_url",
-        "Positions ranked": "positions_ranked",
-        "ACGME Merger Status": "merger_status",
-        "Curriculum": "curriculum",
-        "Max students": "max_students",
-        "Number students": "num_students",
-        "Crowded Rotation Period": "crowded_period",
-        "Comlex Cutoff": "comlex_cutoff",
-        "Week Cycle": "week_cycle",
-        "Rotation Schedule": "schedule_restrictions",
-        "How to Book Rotations": "booking_medium",
-        "Rotation Booking Dat": "booking_medium",
-        "Applicants Interviewed": "num_interviewed",
-        "Interview Date": "interview_date",
-        "Interview Selection": "interview_selection",
-        "Coordinator Name": "coordinator_name",
-        "Coordinator Email": "coordinator_email",
-        "Coordinator Number": "coordinator_number",
-        "Med Student Coordinator Name": "med_student_coordinator_name",
-        "Med Student Coordinator Email": "med_student_coordinator_email",
-        "Med Student Coordinator Number": "med_student_coordinator_number",
-        "Residents": "residents",
-        "Description": "description"
-      });
-    }
+  _columnNameToKey(){
+    return ({
+      "City": "city",
+      "Program": "name",
+      "Address": "address",
+      "State": "state",
+      "PD": "PD",
+      "Website": "website_url",
+      "Positions Ranked": "positions_ranked",
+      "ACGME Merger Status": "merger_status",
+      "Curriculum": "curriculum",
+      "Max Students": "max_students",
+      "Number of Students": "num_students",
+      "Crowded Rotation Period": "crowded_period",
+      "Comlex Cutoff": "comlex_cutoff",
+      "Week Cycle": "week_cycle",
+      "Rotation Schedule": "schedule_restrictions",
+      "How to Book Rotations": "booking_medium",
+      "Rotation Booking Date": "booking_date",
+      "Applicants Interviewed": "num_interviewed",
+      "Interview Date": "interview_date",
+      "Interview Selection": "interview_selection",
+      "Coordinator Name": "coordinator_name",
+      "Coordinator Email": "coordinator_email",
+      "Coordinator Number": "coordinator_number",
+      "Med Student Coordinator Name": "med_student_coordinator_name",
+      "Med Student Coordinator Email": "med_student_coordinator_email",
+      "Med Student Coordinator Number": "med_student_coordinator_number",
+      "Residents": "residents",
+      "Description": "description"
+    });
+  }
 
-    _hasAddress(){
-      return (!!this.state.currentResidency.street && !!this.state.currentResidency.city && !!this.state.currentResidency.state);
-    }
+  _hasAddress(){
+    return (!!this.state.currentResidency.street && !!this.state.currentResidency.city && !!this.state.currentResidency.state);
+  }
 
-    _renderErrors(){
-      if (this.props.residencies.length === 0) {
-        return (<ul></ul>);
-      } else{
-        return (
-          <ul>
-            {this.props.residencies[this.props.residencies.length-1].errors.map((error,i) => (
-              <li key={i}>{error}</li>
-            ))}
-          </ul>
-        );
-      }
+  _renderErrors(){
+    if (this.props.residencies.length === 0) {
+      return (<ul></ul>);
+    } else{
+      return (
+        <ul>
+          {this.props.residencies[this.props.residencies.length-1].errors.map((error,i) => (
+            <li key={i}>{error}</li>
+          ))}
+        </ul>
+      );
     }
+  }
 }
 
 export default ResidencyForm;
