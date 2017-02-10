@@ -14,7 +14,8 @@
  *= require_self
  */
 
-html, section, article, label, h1, h2, p, strong, em, a, li, div {
+/* * * CSS Master Overwrite * * */
+html, section, article, label, h1, h2, h3, p, strong, em, a, li, div {
   margin: 0;
   border: 0;
   padding: 0;
@@ -28,16 +29,17 @@ html, section, article, label, h1, h2, p, strong, em, a, li, div {
   cursor: inherit;
 }
 
-.title {
-  margin-top: 15px;
-  font-size: 48px;
-  text-align: center;
-}
-
 * {
   font-family: 'Raleway', sans-serif;
   font-weight: 400;
   color: #7b7b7b;
+}
+
+/* * * General Website Construction * * */
+.title {
+  margin-top: 15px;
+  font-size: 48px;
+  text-align: center;
 }
 
 #map{
@@ -52,6 +54,8 @@ html, section, article, label, h1, h2, p, strong, em, a, li, div {
 .space-between {
   width: 0.5%;
 }
+
+/* * * Residency Index and Index Items * * */
 .residency-index {
   height: 500px;
   display: flex;
@@ -66,17 +70,9 @@ html, section, article, label, h1, h2, p, strong, em, a, li, div {
   /*margin-bottom: 40px;*/
 }
 
-
-.res-photo {
-  margin-left: 15px;
-  margin-right: 15px;
-  width: 128px;
-  height: 128px;
-}
-
 .res-container {
-  /*padding-top: 15px;*/
-  /*padding-bottom: 15px;*/
+  padding-top: 15px;
+  padding-bottom: 15px;
   display: flex;
   border-bottom: solid #7b7b7b 0.5px;
 }
@@ -86,14 +82,129 @@ html, section, article, label, h1, h2, p, strong, em, a, li, div {
   font-weight: 600;
 }
 
-.res-url {
+.res-photo {
+  margin-left: 15px;
+  margin-right: 15px;
+  width: 128px;
+  height: 128px;
+}
+
+
+/* * * Marker Info-Box Styling * * */
+#info-window-large {
+  max-width: 1000px;
+
+}
+
+#info-window {
+  /*display: flex;*/
+}
+
+.res-section img {
+  flex: left;
+}
+
+.left-res-info {
+  flex: left;
+  max-width: 50%;
+  word-wrap: break-word;
+}
+
+.right-res-info {
+  flex: right;
+  max-width: 50%;
+  word-wrap: break-word;
+}
+.info-res-title {
+  padding-top: 15px;
+  font-weight: 500;
+  font-size: 20px;
+  flex: right;
+}
+
+.info-res-url {
   color: #b4c1be;
   font-weight: 600;
   margin-bottom: 10px;
 }
 
-.res-info {
+.info-res-url:hover {
+  transition: 0.5s;
+  background-color: #b4c1be;
+  color: white;
+  cursor: pointer;
+}
+
+.info-res-photo {
+  flex: left;
+  margin-left: 15px;
+  margin-right: 15px;
+  width: 128px;
+  height: 128px;
+}
+/*.res-info {
   padding-top: 0px;
   padding-right: 15px;
   padding-bottom: 15px;
+}*/
+
+.res-header-1 {
+  font-weight: 500;
+  font-size: 15px;
+  /*border-bottom: solid #7b7b7b 0.5px;*/
+  /*margin-bottom: px;*/
+}
+
+.flex-container {
+  display: flex;
+}
+
+.left-label {
+  font-weight: 500;
+  font-size: 12px;
+  flex: left;
+  margin-right: 3px;
+}
+
+.right-content {
+  font-weight: 400;
+  font-size: 12px;
+  vertical-align: middle;
+  justify-content: center;
+  flex: right;
+}
+
+.res-inner-content {
+  font-weight: 400;
+  font-size: 12px;
+  flex: right;
+}
+
+.res-section {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+.res-section-header {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.res-header {
+  margin-top: 5px;
+  display: flex;
+  border-bottom: solid #7b7b7b 0.5px;
+}
+
+.res-info-photo {
+  margin-right: 15px;
+  margin-left: 15px;
+  margin-bottom: 15px;
+  width: 128px;
+  height: 128px;
+}
+
+.res-details {
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 15px;
 }
