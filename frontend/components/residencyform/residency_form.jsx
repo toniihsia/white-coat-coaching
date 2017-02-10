@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, hashHistory } from 'react-router';
 import { getLocation } from '../../util/map_api_util';
 import { isEqual, merge } from 'lodash';
+import Parser from 'csv-parse';
 
 class ResidencyForm extends React.Component {
   constructor(props) {
@@ -10,15 +11,19 @@ class ResidencyForm extends React.Component {
     this._defaultResidency = this._defaultResidency.bind(this);
     this.state = {
       currentResidency: this._defaultResidency(),
-      residencyQueue: [currentResidency],
+      status: "",
       formType: "Create"
     };
     this.existingAddresses = {};
+    this.residencyQueue = [this._defaultResidency()];
 
     this._addressQuery = this._addressQuery.bind(this);
+    this._columnNameToKey = this._columnNameToKey.bind(this);
+    this._hasAddress = this._hasAddress.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleUpload = this.handleUpload.bind(this);
     this.getLocationSucces = this.getLocationSucces.bind(this);
-    this.resolveFormAction = this.resolveFormAction.bind(this);
+    this.parseThroughCSV = this.parseThroughCSV.bind(this);
     this.update = this.update.bind(this);
   }
 
@@ -27,41 +32,58 @@ class ResidencyForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
+    if (this._hasAddress() && nextProps.residencies[nextProps.residencies.length-1].errors.length === 0) {
+      if (this.residencyQueue.length === 0) {
+        this.props.router.push("/");
+      }
+    }else if (nextProps.residencies[nextProps.residencies.length-1].errors.length > 0) {
 
+    }else {
+      this.setState({currentResidency: this.residencyQueue.shift(), status: ""});
+    }
   }
 
   getLocationSucces({results}){
     let residency = this.state.currentResidency;
     residency.latitude = results[0].geometry.location.lat;
     residency.longitude = results[0].geometry.location.lng;
-    switch (this.state.formType) {
-      case "Mass Create":
-
-        break;
-      default:
-        this.state.formType === "Update" ? this.props.updateResidency({residency}) : this.props.createResidency({residency});
-        break;
-      }
-    console.log("in location success");
+    this.state.formType === "Update" ? this.props.updateResidency({residency}) : this.props.createResidency({residency});
   }
 
   handleSubmit(e){
     e.preventDefault();
-    if (this.state.currentResidency.street && this.state.currentResidency.city && this.state.currentResidency.state) {
-      getLocation(this._addressQuery(), this.getLocationSucces, this.getLocationError);
+    if (this._hasAddress()) {
+      getLocation(this._addressQuery(), this.getLocationSucces);
     } else {
       this.setState({status: "Missing address component"});
     }
   }
 
-  parseThroughCSV(doc){
-    let residencyArr = [];
-
-    this.setState({residencies: residencyArr})
+  handleUpload(){
+    if (window.FileReader) {
+      let reader = new FileReader();
+      reader.readAsText(this.file.files[0]);
+      reader.onload = (e) => {this.parseThroughCSV(e.target.result)};
+      reader.onerror = (e) => {alert("Can't read file.")};
+    }else{
+      alert("FileReader is not supported on this browser. Please put in data manually. soz =(");
+    }
   }
 
-  resolveFormAction(){
+  parseThroughCSV(data){
+    console.log(data);
+    data = data.split("\n");
+    data = data.map((row) => row.replace(/\"/g, "").split(/,/));
+    let columns = data[0];
+    console.log(data);
+    let residencyArr = [];
+    let keyMap = this._columnNameToKey();
 
+    // if ("Address") {
+    //   residencyArr.push(merge({}, this._addressToObject(address)));
+    // }
+    //
+    // this.residencies;
   }
 
   update(field){
@@ -75,11 +97,14 @@ class ResidencyForm extends React.Component {
     return (
       <div className="residency-form-container">
         {this._renderErrors()}
+        {this.state.status}
+
+        <input type="file" id="file" ref={(file)=>{ this.file = file }} accept=".csv" onChange={this.handleUpload}></input>
 
         <form onSubmit={this.handleSubmit} className="residency-form">
           Name (required)
           <input type="text" value={this.state.currentResidency.name} onChange={this.update("name")} className="form-input" />
-          Description (required)
+          Description
           <input type="text" value={this.state.currentResidency.description} onChange={this.update("description")} className="form-input" />
           Street (required)
           <input type="text" value={this.state.currentResidency.street} onChange={this.update("street")} className="form-input" />
@@ -194,14 +219,52 @@ class ResidencyForm extends React.Component {
       }
     }
 
+    _columnNameToKey(){
+      return ({
+        "Program/Location": "name",
+        "PD": "PD",
+        "Website": "website_url",
+        "Positions ranked": "positions_ranked",
+        "ACGME Merger Status": "merger_status",
+        "Curriculum": "curriculum",
+        "Max students": "max_students",
+        "Number students": "num_students",
+        "Crowded Rotation Period": "crowded_period",
+        "Comlex Cutoff": "comlex_cutoff",
+        "Week Cycle": "week_cycle",
+        "Rotation Schedule": "schedule_restrictions",
+        "How to Book Rotations": "booking_medium",
+        "Rotation Booking Dat": "booking_medium",
+        "Applicants Interviewed": "num_interviewed",
+        "Interview Date": "interview_date",
+        "Interview Selection": "interview_selection",
+        "Coordinator Name": "coordinator_name",
+        "Coordinator Email": "coordinator_email",
+        "Coordinator Number": "coordinator_number",
+        "Med Student Coordinator Name": "med_student_coordinator_name",
+        "Med Student Coordinator Email": "med_student_coordinator_email",
+        "Med Student Coordinator Number": "med_student_coordinator_number",
+        "Residents": "residents",
+        "Description": "description"
+      });
+    }
+
+    _hasAddress(){
+      return (!!this.state.currentResidency.street && !!this.state.currentResidency.city && !!this.state.currentResidency.state);
+    }
+
     _renderErrors(){
-      return (
-        <ul>
-          {this.props.residencies[this.props.residencies.length-1].errors.map((error,i) => (
-            <li key={i}>error</li>
-          ))}
-        </ul>
-      );
+      if (this.props.residencies.length === 0) {
+        return (<ul></ul>);
+      } else{
+        return (
+          <ul>
+            {this.props.residencies[this.props.residencies.length-1].errors.map((error,i) => (
+              <li key={i}>{error}</li>
+            ))}
+          </ul>
+        );
+      }
     }
 }
 

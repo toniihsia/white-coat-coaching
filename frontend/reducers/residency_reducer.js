@@ -9,9 +9,7 @@ const ResidencyReducer = (oldState = {}, action) => {
     case RECEIVE_ALL_RESIDENCIES:
       return action.residencies;
     case RECEIVE_RESIDENCY:
-      let residencyId = parseInt(Ojbect.keys(action.post)[0]);
-      newState[residencyId] = merge({}, _defaultResidency, action.post[residencyId]);
-      return newState;
+      return [action.residency];
     default:
       return oldState;
   }

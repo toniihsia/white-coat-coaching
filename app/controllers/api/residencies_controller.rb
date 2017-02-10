@@ -33,9 +33,9 @@ class Api::ResidenciesController < ApplicationController
     @residency = Residency.find_by_id(params[:id])
     if @residency.update(residency_params)
       @residencies = Residency.all
-      render :index
+      render :show
     else
-      render json: @residency.errors.full_messages, status: 422
+      render :show, status: 422
     end
   end
 
