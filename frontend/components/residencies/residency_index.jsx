@@ -13,9 +13,9 @@ class ResidencyIndex extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount(){
-    this.props.requestAllResidencies();
-  }
+  // componentDidMount(){
+  //   this.props.requestAllResidencies();
+  // }
 
   handleClick(data){
     if (_.isEqual(this.state.selected, data)){
