@@ -15,7 +15,7 @@ class ResidencyForm extends React.Component {
       formType: "Create"
     };
     this.existingAddresses = {};
-    this.residencyQueue = [this._defaultResidency()];
+    this.residencyQueue = [];
 
     this._addressQuery = this._addressQuery.bind(this);
     this._columnNameToKey = this._columnNameToKey.bind(this);
@@ -32,19 +32,19 @@ class ResidencyForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
+    console.log(this.residencyQueue);
     if (isEqual({}, this.existingAddresses) && nextProps.residencies) {
       for (var i = 0; i < nextProps.residencies.length; i++) {
         this.existingAddresses[nextProps.residencies[i].address.street] = true;
       }
     }
+
     if (this._hasAddress() && nextProps.residencies[nextProps.residencies.length-1].errors.length === 0) {
       if (this.residencyQueue.length === 0) {
         this.props.router.push("/");
+      } else {
+        this.setState({currentResidency: this.residencyQueue.shift(), status: ""});
       }
-    }else if (nextProps.residencies[nextProps.residencies.length-1].errors.length > 0) {
-
-    }else {
-      this.setState({currentResidency: this.residencyQueue.shift(), status: ""});
     }
   }
 
@@ -77,7 +77,6 @@ class ResidencyForm extends React.Component {
 
   parseThroughCSV(data){
     parse(data, {delimiter: ","}, (error, result) => {
-      console.log(result);
       let residencyArr = [];
 
       let keyMap = this._columnNameToKey();
@@ -88,8 +87,6 @@ class ResidencyForm extends React.Component {
         for (var j = 0; j < columnArray.length; j++) {
           switch (columnArray[j]) {
             case "address":
-              console.log(columnArray[j]);
-              console.log(this._addressToObject(result[i][j]));
               residency = merge(residency, this._addressToObject(result[i][j]));
               break;
             case "city":
@@ -101,7 +98,6 @@ class ResidencyForm extends React.Component {
               break;
           }
         }
-        // console.log(residency);
         if (this.existingAddresses[residency.street]) {
           continue;
         } else{
@@ -109,10 +105,8 @@ class ResidencyForm extends React.Component {
         }
       }
       this.residencyQueue = residencyArr;
-      console.log(this.residencyQueue);
-
+      this.setState({currentResidency: this.residencyQueue.shift(), status: ""});
     });
-
   }
 
   update(field){
