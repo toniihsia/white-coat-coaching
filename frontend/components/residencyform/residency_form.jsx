@@ -198,10 +198,11 @@ class ResidencyForm extends React.Component {
     if (vals.length < 3 || vals.length > 4){
       console.log("Invalid address");
     } else{
-      let zipObject = vals.length > 3 ? {zip_code: vals[3]} : {};
+      let zip = vals[2].split(" ");
+      let zipObject = zip.length > 1 ? {zip_code: zip[1]} : {};
       let addressObject = {street: vals[0],
         city: vals[1],
-        state: vals[2]};
+        state: zip[0]};
       return merge({}, addressObject, zipObject);
     }
   }
