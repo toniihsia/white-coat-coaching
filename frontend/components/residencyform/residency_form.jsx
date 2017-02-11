@@ -104,6 +104,8 @@ class ResidencyForm extends React.Component {
         }
       }
       this.residencyQueue = residencyArr;
+      console.log(this.residencyQueue);
+      console.log(parse);
       this.setState({currentResidency: this.residencyQueue.shift(), status: ""});
     });
   }
