@@ -32,7 +32,6 @@ class ResidencyForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    console.log(this.residencyQueue);
     if (isEqual({}, this.existingAddresses) && nextProps.residencies) {
       for (var i = 0; i < nextProps.residencies.length; i++) {
         this.existingAddresses[nextProps.residencies[i].address.street] = true;
