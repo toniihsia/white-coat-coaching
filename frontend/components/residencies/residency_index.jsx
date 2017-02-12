@@ -8,7 +8,7 @@ class ResidencyIndex extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {selected: null};
+    this.state = {residencies: [] ,selected: null};
 
     this.handleClick = this.handleClick.bind(this);
   }
@@ -16,6 +16,10 @@ class ResidencyIndex extends React.Component {
   // componentDidMount(){
   //   this.props.requestAllResidencies();
   // }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({residencies: nextProps.residencies});
+  }
 
   handleClick(data){
     if (_.isEqual(this.state.selected, data)){
@@ -26,8 +30,7 @@ class ResidencyIndex extends React.Component {
   }
 
   render() {
-    let residencies = this.props.residencies;
-    console.log(this.state['selected']);
+    let residencies = this.state.residencies;
     if (this.state['selected'] !== null) {
       residencies = [this.state['selected']];
     }

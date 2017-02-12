@@ -21,6 +21,7 @@ class GoogleMap extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
+    console.log('why why why');
     if (nextProps.data) {
       this.updateContentWindow(nextProps.data);
       this.recenterMap(nextProps.data.latitude, nextProps.data.longitude, 15);
@@ -140,7 +141,6 @@ class GoogleMap extends React.Component {
     // return `<div id="info-window">${string}</div>`;
 
     let residency = data;
-    console.log(residency);
 
     if (residency) {
       if (data.coordinator.email === "") { data.coordinator.email = "N/A"; }
