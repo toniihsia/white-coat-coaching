@@ -21,8 +21,8 @@ class ResidencyIndex extends React.Component {
     this.setState({residencies: nextProps.residencies});
   }
 
-  handleClick(data){
-    if (_.isEqual(this.state.selected, data)){
+  handleClick(data, setNull){
+    if (_.isEqual(this.state.selected, data) || setNull === 'true'){
       this.setState({selected: null});
     } else {
       this.setState({selected: data});
