@@ -14,8 +14,6 @@ const MapMiddleware = ({getState, dispatch}) => next => action => {
     case REQUEST_LOCATION:
       getLocation(action.location, getLocationSuccess, getLocationError);
       return next(action);
-    case CREATE_PROGRAM:
-      return next(action);
     default:
       return next(action);
   }
