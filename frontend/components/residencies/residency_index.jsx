@@ -8,17 +8,21 @@ class ResidencyIndex extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {selected: null};
+    this.state = {residencies: [] ,selected: null};
 
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount(){
-    this.props.requestAllResidencies();
+  // componentDidMount(){
+  //   this.props.requestAllResidencies();
+  // }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({residencies: nextProps.residencies});
   }
 
-  handleClick(data){
-    if (_.isEqual(this.state.selected, data)){
+  handleClick(data, setNull){
+    if (_.isEqual(this.state.selected, data) || setNull === 'true'){
       this.setState({selected: null});
     } else {
       this.setState({selected: data});
@@ -26,15 +30,22 @@ class ResidencyIndex extends React.Component {
   }
 
   render() {
+    let residencies = this.state.residencies;
+    if (this.state['selected'] !== null) {
+      residencies = [this.state['selected']];
+    }
+
     return (
       <div className="residency-index">
         <div className="space-between"></div>
         <ul className="residency-item-container">
-          {this.props.residencies.map((residency,i) =>(
+          {residencies.map((residency,i) =>(
             <ResidencyItemContainer key={i} handleClick={this.handleClick} residency={residency} selected={this.state.selected && (this.state.selected.lat === residency.latitude)}/>
           ))}
         </ul>
+        <div className="space-between"></div>
         <GoogleMapContainer data={this.state.selected} handleClick={this.handleClick}/>
+        <div className="space-between"></div>
       </div>
     );
   }
