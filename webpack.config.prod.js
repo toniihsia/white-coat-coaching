@@ -2,7 +2,7 @@ var webpack = require("webpack");
 
 module.exports = {
   context: __dirname,
-  entry: "./frontend/wcc.jsx",
+  entry: "./frontend/wwc.jsx",
   output: {
     path: "./app/assets/javascripts",
     filename: "bundle.js"
@@ -24,9 +24,9 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel',
+        loader: 'babel-loader',
         query: {
-          presets: ['react', 'es2015']
+          presets: ['es2015', 'react']
         }
       }
     ]
