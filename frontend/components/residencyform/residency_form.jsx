@@ -19,10 +19,9 @@ class ResidencyForm extends React.Component {
 
     this._addressQuery = this._addressQuery.bind(this);
     this._columnNameToKey = this._columnNameToKey.bind(this);
-    this._hasAddress = this._hasAddress.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
-    this.getLocationSucces = this.getLocationSucces.bind(this);
+    this.getLocationSuccess = this.getLocationSuccess.bind(this);
     this.parseThroughCSV = this.parseThroughCSV.bind(this);
     this.update = this.update.bind(this);
   }
@@ -38,7 +37,7 @@ class ResidencyForm extends React.Component {
       }
     }
 
-    if (this._hasAddress() && nextProps.residencies[nextProps.residencies.length-1].errors.length === 0) {
+    if (this.state.currentResidency.address && nextProps.residencies[nextProps.residencies.length-1].errors.length === 0) {
       if (this.residencyQueue.length === 0) {
         this.props.router.push("/");
       } else {
@@ -47,7 +46,7 @@ class ResidencyForm extends React.Component {
     }
   }
 
-  getLocationSucces({results}){
+  getLocationSuccess({results}){
     let residency = this.state.currentResidency;
     residency.latitude = results[0].geometry.location.lat;
     residency.longitude = results[0].geometry.location.lng;
@@ -56,8 +55,8 @@ class ResidencyForm extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-    if (this._hasAddress()) {
-      getLocation(this._addressQuery(), this.getLocationSucces);
+    if (this.state.currentResidency.address) {
+      getLocation(this._addressQuery(), this.getLocationSuccess);
     } else {
       this.setState({status: "Missing address component"});
     }
@@ -125,51 +124,39 @@ class ResidencyForm extends React.Component {
 
         <input type="file" id="file" ref={(file)=>{ this.file = file }} accept=".csv" onChange={this.handleUpload}></input>
 
-        <form onSubmit={this.handleSubmit} className="residency-form">
+        <form onSubmit={this.handleSubmit} className="residency-form flexbox flex-column">
+          Discipline
+          <input type="text" value={this.state.currentResidency.discipline} onChange={this.update("discipline")} className="form-input" />
           Name (required)
           <input type="text" value={this.state.currentResidency.name} onChange={this.update("name")} className="form-input" />
           Description
           <input type="text" value={this.state.currentResidency.description} onChange={this.update("description")} className="form-input" />
-          Street (required)
-          <input type="text" value={this.state.currentResidency.street} onChange={this.update("street")} className="form-input" />
-          City (required)
-          <input type="text" value={this.state.currentResidency.city} onChange={this.update("city")} className="form-input" />
+          Address (required)
+          <input type="text" value={this.state.currentResidency.address} onChange={this.update("address")} className="form-input" />
           State (required)
           <input type="text" value={this.state.currentResidency.state} onChange={this.update("state")} className="form-input" />
-          Zip code
-          <input type="text" value={this.state.currentResidency.zip_code} onChange={this.update("zip_code")} className="form-input" />
-          PD
-          <input type="text" value={this.state.currentResidency.PD} onChange={this.update("PD")} className="form-input" />
           Website (required)
           <input type="text" value={this.state.currentResidency.website_url} onChange={this.update("website_url")} className="form-input" />
-          Positions ranked
-          <input type="text" value={this.state.currentResidency.positions_ranked} onChange={this.update("positions_ranked")} className="form-input" />
+          Number of Residents
+          <input type="text" value={this.state.currentResidency.num_residents} onChange={this.update("num_residents")} className="form-input" />
+          Number of Rotating Students
+          <input type="text" value={this.state.currentResidency.num_rotating_students} onChange={this.update("num_rotating_students")} className="form-input" />
           Merger status
           <input type="text" value={this.state.currentResidency.merger_status} onChange={this.update("merger_status")} className="form-input" />
-          Curriculum
-          <input type="text" value={this.state.currentResidency.curriculum} onChange={this.update("curriculum")} className="form-input" />
-          Max students
-          <input type="text" value={this.state.currentResidency.max_students} onChange={this.update("max_students")} className="form-input" />
-          Number of students
-          <input type="text" value={this.state.currentResidency.num_students} onChange={this.update("num_students")} className="form-input" />
-          Crowded Period
-          <input type="text" value={this.state.currentResidency.crowded_period} onChange={this.update("crowded_period")} className="form-input" />
-          Comlex cutoff
-          <input type="text" value={this.state.currentResidency.comlex_cutoff} onChange={this.update("comlex_cutoff")} className="form-input" />
-          2 or 4 week cycle
-          <input type="text" value={this.state.currentResidency.week_cycle} onChange={this.update("week_cycle")} className="form-input" />
-          Rotation schedule
-          <input type="text" value={this.state.currentResidency.schedule_restrictions} onChange={this.update("schedule_restrictions")} className="form-input" />
-          How to book rotation
-          <input type="text" value={this.state.currentResidency.booking_medium} onChange={this.update("booking_medium")} className="form-input" />
-          Rotation booking date
-          <input type="text" value={this.state.currentResidency.booking_date} onChange={this.update("booking_date")} className="form-input" />
-          Applicants Interviewed
-          <input type="text" value={this.state.currentResidency.num_interviewed} onChange={this.update("num_interviewed")} className="form-input" />
+          Application Instructions
+          <input type="text" value={this.state.currentResidency.application_instructions} onChange={this.update("application_instructions")} className="form-input" />
+          COMLEX requirement
+          <input type="text" value={this.state.currentResidency.comlex_requirement} onChange={this.update("comlex_requirement")} className="form-input" />
+          USMLE requirement
+          <input type="text" value={this.state.currentResidency.usmle_requirement} onChange={this.update("usmle_requirement")} className="form-input" />
+          Rotation requirement
+          <input type="text" value={this.state.currentResidency.rotation_required} onChange={this.update("rotation_required")} className="form-input" />
           Interview date
           <input type="text" value={this.state.currentResidency.interview_date} onChange={this.update("interview_date")} className="form-input" />
-          interview selection
-          <input type="text" value={this.state.currentResidency.interview_selection} onChange={this.update("interview_selection")} className="form-input" />
+          Interview Count
+          <input type="text" value={this.state.currentResidency.interview_count} onChange={this.update("interview_count")} className="form-input" />
+          Program Director
+          <input type="text" value={this.state.currentResidency.program_director} onChange={this.update("program_director")} className="form-input" />
           Coordinator name
           <input type="text" value={this.state.currentResidency.coordinator_name} onChange={this.update("coordinator_name")} className="form-input" />
           Coordinator email
@@ -182,8 +169,6 @@ class ResidencyForm extends React.Component {
           <input type="text" value={this.state.currentResidency.med_student_coordinator_email} onChange={this.update("med_student_coordinator_email")} className="form-input" />
           Med Coordinator number
           <input type="text" value={this.state.currentResidency.med_student_coordinator_number} onChange={this.update("med_student_coordinator_number")} className="form-input" />
-          Residents
-          <input type="text" value={this.state.currentResidency.residents} onChange={this.update("residents")} className="form-input" />
 
           <input className="form-button" type="submit" value={this.state.formType}/>
         </form>
@@ -192,92 +177,59 @@ class ResidencyForm extends React.Component {
   }
 
   _addressQuery(){
-    return `${this.state.currentResidency.street}+${this.state.currentResidency.city}+${this.state.currentResidency.state}`.replace(/\s/g, "+");
-  }
-
-  _addressToObject(address){
-    let vals = address.split(", ");
-    if (vals.length < 3 || vals.length > 4){
-      console.log("Invalid address");
-    } else{
-      let zip = vals[2].split(" ");
-      let zipObject = zip.length > 1 ? {zip_code: zip[1]} : {};
-      let addressObject = {street: vals[0],
-        city: vals[1],
-        state: zip[0]};
-      return merge({}, addressObject, zipObject);
-    }
+    return `${this.state.currentResidency.address}`.replace(/\s/g, "+");
   }
 
   _defaultResidency(){
     return{
+      discipline: "",
       name: "",
       description: "",
-      street: "",
-      city: "",
+      address: "",
       state: "",
-      zip_code: "",
-      PD: "",
       website_url: "",
-      positions_ranked: "",
+      num_residents: "",
+      num_rotating_students: "",
       merger_status: "",
-      curriculum: "",
-      max_students: "",
-      num_students: "",
-      crowded_period: "",
-      comlex_cutoff: "",
-      week_cycle: "",
-      schedule_restrictions: "",
-      booking_medium: "",
-      booking_date: "",
-      num_interviewed: "",
+      application_instructions: "",
+      comlex_requirement: "",
+      usmle_requirement: "",
+      rotation_required: "",
       interview_date: "",
       interview_selection: "",
+      program_director: "",
       coordinator_name: "",
       coordinator_email: "",
       coordinator_number: "",
       med_student_coordinator_name: "",
       med_student_coordinator_email: "",
-      med_student_coordinator_number: "",
-      residents: ""
+      med_student_coordinator_number: ""
     };
   }
 
   _columnNameToKey(){
     return ({
-      "City": "city",
+      "Discipline": "discipline",
       "Program": "name",
+      "Description": "description",
       "Address": "address",
       "State": "state",
-      "PD": "PD",
       "Website": "website_url",
-      "Positions Ranked": "positions_ranked",
       "ACGME Merger Status": "merger_status",
-      "Curriculum": "curriculum",
-      "Max Students": "max_students",
-      "Number of Students": "num_students",
-      "Crowded Rotation Period": "crowded_period",
-      "Comlex Cutoff": "comlex_cutoff",
-      "Week Cycle": "week_cycle",
-      "Rotation Schedule": "schedule_restrictions",
-      "How to Book Rotations": "booking_medium",
-      "Rotation Booking Date": "booking_date",
-      "Applicants Interviewed": "num_interviewed",
+      "Number of Residents": "num_residents",
+      "Number of Rotating Students": "num_rotating_students",
+      "Application Instructions": "application_instructions",
+      "Rotation Required": "rotation_required",
       "Interview Date": "interview_date",
-      "Interview Selection": "interview_selection",
+      "Interview Count": "interview_count",
+      "Program Director": "program_director",
       "Coordinator Name": "coordinator_name",
       "Coordinator Email": "coordinator_email",
       "Coordinator Number": "coordinator_number",
       "Med Student Coordinator Name": "med_student_coordinator_name",
       "Med Student Coordinator Email": "med_student_coordinator_email",
-      "Med Student Coordinator Number": "med_student_coordinator_number",
-      "Residents": "residents",
-      "Description": "description"
+      "Med Student Coordinator Number": "med_student_coordinator_number"
     });
-  }
-
-  _hasAddress(){
-    return (!!this.state.currentResidency.street && !!this.state.currentResidency.city && !!this.state.currentResidency.state);
   }
 
   _renderErrors(){

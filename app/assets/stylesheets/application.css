@@ -278,3 +278,22 @@ html, section, article, label, h1, h2, h3, p, strong, em, a, li, div {
   margin-bottom: 0.5%;
   margin-top: 25px;
 }
+
+.flexbox{
+  display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flexbox;
+  display: -ms-flex;
+	display: flex;
+  flex: 0 1 auto;
+  flex-basis: auto;
+  width: 100%;
+}
+
+.flex-column{
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}

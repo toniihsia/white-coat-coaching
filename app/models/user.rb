@@ -27,6 +27,10 @@ class User < ActiveRecord::Base
     self.session_token
   end
 
+  def is_admin
+    return ["bdippelsman10@gmail.com", "tonia.hsia@gmail.com"].include?(self.email)
+  end
+
   private
 
   def ensure_session_token

@@ -2,8 +2,6 @@ export const mapsInfoBox = (residency) => {
   return `
   <div id="info-window-large">
     <div class="res-header">
-      <img class='res-info-photo' src="${residency.image_url}" alt="${residency.name}${residency.id}"}></img>
-
       <div class="right-content">
         <div class="info-res-title">${residency.name}</div>
 
@@ -14,8 +12,7 @@ export const mapsInfoBox = (residency) => {
 
         <div class="res-section-header">
           <h3 class="res-header-1">Address</h3>
-          <div class="res-inner-content">${residency.address.street}</div>
-          <div class="res-inner-content">${residency.address.city}, ${residency.address.state} ${residency.address.zip_code}</div>
+          <div class="res-inner-content">${residency.address.address}</div>
         </div>
       </div>
     </div>
@@ -35,7 +32,7 @@ export const mapsInfoBox = (residency) => {
           <div class="left">
             <div class="res-section">
               <div class="left-label">PD:</div>
-              <div class="right-content">${residency.PD}</div>
+              <div class="right-content">${residency.program_director}</div>
             </div>
             <div class="res-section">
               <h3 class="res-header-1">Coordinator Info</h3>
@@ -84,29 +81,14 @@ export const mapsInfoBox = (residency) => {
               <div class="res-inner-content">${residency.merger_status}</div>
             </div>
             <div class="res-section">
-              <h3 class="res-header-1">Curriculum</h3>
-              <div class="res-inner-content"> ${residency.curriculum}</div>
-            </div>
-            <div class="res-section">
               <h3 class="res-header-1">Residency Info</h3>
               <div class="flex-container">
                 <div class="left-label">Max # of Students: </div>
-                <div class="right-content"> ${residency.max_students}</div>
+                <div class="right-content"> ${residency.num_residents}</div>
               </div>
               <div class="flex-container">
                 <div class="left-label"># of Students: </div>
-                <div class="right-content"> ${residency.num_students}</div>
-              </div>
-            </div>
-            <div class="res-section">
-              <h3 class="res-header-1">Crowded Period</h3>
-              <div class="flex-container">
-                <div class="left-label">Start Date: </div>
-                <div class="right-content"> ${residency.crowded_period.start_date}</div>
-              </div>
-              <div class="flex-container">
-                <div class="left-label">End Date: </div>
-                <div class="right-content"> ${residency.crowded_period.end_date}</div>
+                <div class="right-content"> ${residency.num_rotating_students}</div>
               </div>
             </div>
           </div>
@@ -116,13 +98,13 @@ export const mapsInfoBox = (residency) => {
               <h3 class="res-header-1">Rotation</h3>
               <div class="flex-container">
                 <div class="left-label">Booking Date: </div>
-                <div class="right-content"> ${residency.rotation.booking_date}</div>
+                <div class="right-content"> ${residency.interview_date}</div>
               </div>
               <div class="left-label">Booking Medium: </div>
-              <div class="booking-medium">${residency.rotation.booking_medium}</div>
+              <div class="booking-medium">${residency.application_instructions}</div>
               <div class="flex-container">
                 <div class="left-label">Schedule Restrictions: </div>
-                <div class="right-content"> ${residency.rotation.schedule_restrictions}</div>
+                <div class="right-content"> ${residency.interview_count}</div>
               </div>
             </div>
           </div>

@@ -28,7 +28,6 @@ class ResidencyItem extends React.Component {
     return (
       <li className={`residency-item ${this.props.selected ? 'selected-item' : ''}`} onClick={this._showInfo}>
         <div className='res-container'>
-          <img className='res-photo' src={residency.image_url} alt={`${residency.name}${residency.id}`} />
           <div className='res-info'>
             <div className='res-title'>{residency.name}</div>
             {this.state.showInfo &&
