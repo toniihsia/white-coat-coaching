@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180128011453) do
+ActiveRecord::Schema.define(version: 20180130020121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(version: 20180128011453) do
     t.text     "application_instructions"
     t.text     "comlex_requirement"
     t.text     "usmle_requirement"
-    t.text     "rotation_required"
     t.text     "interview_date"
     t.text     "interview_count"
     t.text     "program_director"
@@ -43,6 +42,7 @@ ActiveRecord::Schema.define(version: 20180128011453) do
     t.text     "med_student_coordinator_number"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.boolean  "rotation_required"
   end
 
   create_table "users", force: :cascade do |t|
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20180128011453) do
     t.string   "image_url",       default: "http://res.cloudinary.com/dfrrpfeus/image/upload/v1481151098/default-profile-01_affz2k.png", null: false
     t.datetime "created_at",                                                                                                             null: false
     t.datetime "updated_at",                                                                                                             null: false
+    t.boolean  "admin",           default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

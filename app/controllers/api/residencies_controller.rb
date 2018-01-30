@@ -1,4 +1,6 @@
 class Api::ResidenciesController < ApplicationController
+  before_action :require_user_as_admin, except: [:show, :index]
+
   def create
     @residency = Residency.new(residency_params)
     if @residency.save
@@ -47,5 +49,9 @@ class Api::ResidenciesController < ApplicationController
       :rotation_required, :interview_date, :interview_count, :program_director,
       :coordinator_name, :coordinator_email, :coordinator_number, :med_student_coordinator_name,
       :med_student_coordinator_number, :med_student_coordinator_email)
+  end
+
+  def require_user_as_admin
+    return current_user.try(:admin)
   end
 end

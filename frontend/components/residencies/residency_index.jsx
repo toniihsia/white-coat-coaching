@@ -40,7 +40,7 @@ class ResidencyIndex extends React.Component {
         <div className="space-between"></div>
         <ul className="residency-item-container">
           {residencies.map((residency,i) =>(
-            <ResidencyItemContainer key={i} handleClick={this.handleClick} residency={residency} selected={this.state.selected && (this.state.selected.lat === residency.latitude)}/>
+            <ResidencyItemContainer key={i} handleClick={this.handleClick} residency={residency} selected={this.state.selected}/>
           ))}
         </ul>
         <div className="space-between"></div>

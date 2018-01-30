@@ -14,7 +14,7 @@ class ResidencyForm extends React.Component {
       status: "",
       formType: "Create"
     };
-    this.existingAddresses = {};
+    this.existingResidencies = {};
     this.residencyQueue = [];
 
     this._addressQuery = this._addressQuery.bind(this);
@@ -31,13 +31,13 @@ class ResidencyForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if (isEqual({}, this.existingAddresses) && nextProps.residencies) {
-      for (var i = 0; i < nextProps.residencies.length; i++) {
-        this.existingAddresses[nextProps.residencies[i].address.street] = true;
+    if (isEqual({}, this.existingResidencies) && nextProps.residencies) {
+      for (let i = 0; i < nextProps.residencies.length; i++) {
+        this.existingResidencies[nextProps.residencies[i].program_director] = true;
       }
     }
 
-    if (this.state.currentResidency.address && nextProps.residencies[nextProps.residencies.length-1].errors.length === 0) {
+    if (this.state.currentResidency.program_director && nextProps.residencies[nextProps.residencies.length-1].errors.length === 0) {
       if (this.residencyQueue.length === 0) {
         this.props.router.push("/");
       } else {
@@ -50,6 +50,7 @@ class ResidencyForm extends React.Component {
     let residency = this.state.currentResidency;
     residency.latitude = results[0].geometry.location.lat;
     residency.longitude = results[0].geometry.location.lng;
+    residency.state = results[0].address_components[4].short_name;
     this.state.formType === "Update" ? this.props.updateResidency({residency}) : this.props.createResidency({residency});
   }
 
@@ -80,32 +81,25 @@ class ResidencyForm extends React.Component {
       let keyMap = this._columnNameToKey();
       let columnArray = result[0].map((value) => keyMap[value]);
 
-      for (var i = 1; i < result.length; i++) {
+      for (let i = 1; i < result.length; i++) {
         let residency = {};
-        for (var j = 0; j < columnArray.length; j++) {
-          switch (columnArray[j]) {
-            case "address":
-              residency = merge(residency, this._addressToObject(result[i][j]));
-              break;
-            case "city":
-              break;
-            case "state":
-              break;
-            default:
-              residency[columnArray[j]] = result[i][j];
-              break;
+        for (let j = 0; j < columnArray.length; j++) {
+          if (!!columnArray[j]){
+            residency[columnArray[j]] = result[i][j] || "";
           }
         }
-        if (this.existingAddresses[residency.street]) {
+        if (this.existingResidencies[residency.program_director]) {
           continue;
         } else{
           residencyArr.push(residency);
         }
       }
       this.residencyQueue = residencyArr;
-      console.log(this.residencyQueue);
-      console.log(parse);
-      this.setState({currentResidency: this.residencyQueue.shift(), status: ""});
+      if (this.residencyQueue.length == 0) {
+        this.setState({currentResidency: this._defaultResidency(), status: "Records already exist!"});
+      }else{
+        this.setState({currentResidency: this.residencyQueue.shift(), status: ""});
+      }
     });
   }
 
@@ -125,16 +119,12 @@ class ResidencyForm extends React.Component {
         <input type="file" id="file" ref={(file)=>{ this.file = file }} accept=".csv" onChange={this.handleUpload}></input>
 
         <form onSubmit={this.handleSubmit} className="residency-form flexbox flex-column">
-          Discipline
-          <input type="text" value={this.state.currentResidency.discipline} onChange={this.update("discipline")} className="form-input" />
           Name (required)
           <input type="text" value={this.state.currentResidency.name} onChange={this.update("name")} className="form-input" />
           Description
           <input type="text" value={this.state.currentResidency.description} onChange={this.update("description")} className="form-input" />
           Address (required)
           <input type="text" value={this.state.currentResidency.address} onChange={this.update("address")} className="form-input" />
-          State (required)
-          <input type="text" value={this.state.currentResidency.state} onChange={this.update("state")} className="form-input" />
           Website (required)
           <input type="text" value={this.state.currentResidency.website_url} onChange={this.update("website_url")} className="form-input" />
           Number of Residents
@@ -181,22 +171,24 @@ class ResidencyForm extends React.Component {
   }
 
   _defaultResidency(){
-    return{
+    return {
       discipline: "",
       name: "",
       description: "",
       address: "",
+      latitude: "",
+      longitude: "",
       state: "",
       website_url: "",
+      merger_status: "",
       num_residents: "",
       num_rotating_students: "",
-      merger_status: "",
-      application_instructions: "",
+      rotation_required: "",
       comlex_requirement: "",
       usmle_requirement: "",
-      rotation_required: "",
+      application_instructions: "",
       interview_date: "",
-      interview_selection: "",
+      interview_count: "",
       program_director: "",
       coordinator_name: "",
       coordinator_email: "",
@@ -208,28 +200,30 @@ class ResidencyForm extends React.Component {
   }
 
   _columnNameToKey(){
-    return ({
+    return {
       "Discipline": "discipline",
-      "Program": "name",
-      "Description": "description",
+      "Program Name": "name",
+      "About": "description",
       "Address": "address",
       "State": "state",
       "Website": "website_url",
       "ACGME Merger Status": "merger_status",
-      "Number of Residents": "num_residents",
-      "Number of Rotating Students": "num_rotating_students",
-      "Application Instructions": "application_instructions",
+      "Residents/yr": "num_residents",
+      "Rotating Students": "num_rotating_students",
       "Rotation Required": "rotation_required",
-      "Interview Date": "interview_date",
-      "Interview Count": "interview_count",
+      "COMLEX Requirement": "comlex_requirement",
+      "USMLE Requirement": "usmle_requirement",
+      "To Apply": "application_instructions",
+      "Previous Interview Date": "interview_date",
+      "Number of Students Interviewed": "interview_count",
       "Program Director": "program_director",
-      "Coordinator Name": "coordinator_name",
-      "Coordinator Email": "coordinator_email",
-      "Coordinator Number": "coordinator_number",
-      "Med Student Coordinator Name": "med_student_coordinator_name",
-      "Med Student Coordinator Email": "med_student_coordinator_email",
-      "Med Student Coordinator Number": "med_student_coordinator_number"
-    });
+      "Program Coordinator Name": "coordinator_name",
+      "Program Coordinator Email": "coordinator_email",
+      "Program Coordinator Number": "coordinator_number",
+      "Student Coordinator Name": "med_student_coordinator_name",
+      "Student Coordinator Email": "med_student_coordinator_email",
+      "Student Coordinator Number": "med_student_coordinator_number"
+    };
   }
 
   _renderErrors(){

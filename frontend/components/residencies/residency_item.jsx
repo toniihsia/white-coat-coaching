@@ -26,11 +26,11 @@ class ResidencyItem extends React.Component {
     let residency = this.props.residency;
 
     return (
-      <li className={`residency-item ${this.props.selected ? 'selected-item' : ''}`} onClick={this._showInfo}>
+      <li className={`residency-item ${this.props.selected ? 'selected-item' : ''}`} onClick={this._handleClick}>
         <div className='res-container'>
           <div className='res-info'>
             <div className='res-title'>{residency.name}</div>
-            {this.state.showInfo &&
+            {this.props.selected &&
               <ResidencyItemInfo
                 websiteUrl={residency.website_url} description={residency.description} />}
           </div>
@@ -41,6 +41,3 @@ class ResidencyItem extends React.Component {
 }
 
 export default ResidencyItem;
-
-// <div className='res-url'>{residency.website_url}</div>
-// <div className='res-description'>{residency.description}</div>

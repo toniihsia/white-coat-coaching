@@ -9,8 +9,4 @@ json.med_student_coordinator do
   json.email residency.med_student_coordinator_email
   json.phone_number residency.med_student_coordinator_number
 end
-json.interview do
-  json.interview_date residency.interview_date
-  json.interview_selection residency.interview_count
-end
 json.errors residency.errors.full_messages
