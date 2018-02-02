@@ -1,3 +1,3 @@
 class Residency < ActiveRecord::Base
-    validates :name, :address, :state, :longitude, :latitude, presence: true
+    validates :name, :street, :state, :longitude, :latitude, presence: true
 end

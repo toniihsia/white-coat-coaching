@@ -19,7 +19,8 @@ class ResidencyForm extends React.Component {
 
     this._addressQuery = this._addressQuery.bind(this);
     this._columnNameToKey = this._columnNameToKey.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSingleSubmit = this.handleSingleSubmit.bind(this);
+    this.handleAllSubmit = this.handleAllSubmit.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
     this.getLocationSuccess = this.getLocationSuccess.bind(this);
     this.parseThroughCSV = this.parseThroughCSV.bind(this);
@@ -50,17 +51,21 @@ class ResidencyForm extends React.Component {
     let residency = this.state.currentResidency;
     residency.latitude = results[0].geometry.location.lat;
     residency.longitude = results[0].geometry.location.lng;
-    residency.state = results[0].address_components[4].short_name;
     this.state.formType === "Update" ? this.props.updateResidency({residency}) : this.props.createResidency({residency});
   }
 
-  handleSubmit(e){
+  handleSingleSubmit(e){
     e.preventDefault();
-    if (this.state.currentResidency.address) {
+    if (this._hasAddress()) {
       getLocation(this._addressQuery(), this.getLocationSuccess);
     } else {
       this.setState({status: "Missing address component"});
     }
+  }
+
+  handleAllSubmit(e){
+    e.preventDefault();
+    // TODO: Handle queued submit all
   }
 
   handleUpload(){
@@ -84,8 +89,15 @@ class ResidencyForm extends React.Component {
       for (let i = 1; i < result.length; i++) {
         let residency = {};
         for (let j = 0; j < columnArray.length; j++) {
-          if (!!columnArray[j]){
-            residency[columnArray[j]] = result[i][j] || "";
+          switch (columnArray[j]) {
+            case "address":
+              residency = merge(residency, this._addressToObject(result[i][j]));
+              break;
+            case undefined:
+              continue;
+            default:
+              residency[columnArray[j]] = result[i][j] || "";
+              break;
           }
         }
         if (this.existingResidencies[residency.program_director]) {
@@ -118,13 +130,19 @@ class ResidencyForm extends React.Component {
 
         <input type="file" id="file" ref={(file)=>{ this.file = file }} accept=".csv" onChange={this.handleUpload}></input>
 
-        <form onSubmit={this.handleSubmit} className="residency-form flexbox flex-column">
+        <form onSubmit={this.handleSingleSubmit} className="residency-form flexbox flex-column">
           Name (required)
           <input type="text" value={this.state.currentResidency.name} onChange={this.update("name")} className="form-input" />
           Description
           <input type="text" value={this.state.currentResidency.description} onChange={this.update("description")} className="form-input" />
-          Address (required)
-          <input type="text" value={this.state.currentResidency.address} onChange={this.update("address")} className="form-input" />
+          Street (required)
+          <input type="text" value={this.state.currentResidency.street} onChange={this.update("street")} className="form-input" />
+          City (required)
+          <input type="text" value={this.state.currentResidency.city} onChange={this.update("city")} className="form-input" />
+          State (required)
+          <input type="text" value={this.state.currentResidency.state} onChange={this.update("state")} className="form-input" />
+          Zip Code (required)
+          <input type="text" value={this.state.currentResidency.zip_code} onChange={this.update("zip_code")} className="form-input" />
           Website (required)
           <input type="text" value={this.state.currentResidency.website_url} onChange={this.update("website_url")} className="form-input" />
           Number of Residents
@@ -167,7 +185,21 @@ class ResidencyForm extends React.Component {
   }
 
   _addressQuery(){
-    return `${this.state.currentResidency.address}`.replace(/\s/g, "+");
+    return `${this.state.currentResidency.street}+${this.state.currentResidency.city}+${this.state.currentResidency.state}`.replace(/\s/g, "+");
+  }
+
+  _addressToObject(address){
+    let vals = address.split(", ");
+    if (vals.length < 3 || vals.length > 4){
+      console.log("Invalid address");
+    } else{
+      let zip = vals[2].split(" ");
+      let zipObject = zip.length > 1 ? {zip_code: zip[1]} : {};
+      let addressObject = {street: vals[0],
+        city: vals[1],
+        state: zip[0]};
+      return merge({}, addressObject, zipObject);
+    }
   }
 
   _defaultResidency(){
@@ -175,10 +207,12 @@ class ResidencyForm extends React.Component {
       discipline: "",
       name: "",
       description: "",
-      address: "",
+      street: "",
+      city: "",
+      state: "",
+      zip_code: "",
       latitude: "",
       longitude: "",
-      state: "",
       website_url: "",
       merger_status: "",
       num_residents: "",
@@ -204,8 +238,10 @@ class ResidencyForm extends React.Component {
       "Discipline": "discipline",
       "Program Name": "name",
       "About": "description",
-      "Address": "address",
+      "Street": "street",
+      "City": "city",
       "State": "state",
+      "Zip Code": "zip_code",
       "Website": "website_url",
       "ACGME Merger Status": "merger_status",
       "Residents/yr": "num_residents",
@@ -224,6 +260,10 @@ class ResidencyForm extends React.Component {
       "Student Coordinator Email": "med_student_coordinator_email",
       "Student Coordinator Number": "med_student_coordinator_number"
     };
+  }
+
+  _hasAddress(){
+    return (!!this.state.currentResidency.street && !!this.state.currentResidency.city && !!this.state.currentResidency.state);
   }
 
   _renderErrors(){

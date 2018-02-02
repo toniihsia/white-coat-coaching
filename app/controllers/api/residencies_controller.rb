@@ -43,12 +43,12 @@ class Api::ResidenciesController < ApplicationController
 
   private
   def residency_params
-    params.require(:residency).permit(:discipline, :name, :description, :address,
+    params.require(:residency).permit(:discipline, :name, :description, :street,
       :latitude, :longitude, :state, :website_url, :num_residents, :num_rotating_students,
       :merger_status, :application_instructions, :comlex_requirement, :usmle_requirement,
       :rotation_required, :interview_date, :interview_count, :program_director,
       :coordinator_name, :coordinator_email, :coordinator_number, :med_student_coordinator_name,
-      :med_student_coordinator_number, :med_student_coordinator_email)
+      :med_student_coordinator_number, :med_student_coordinator_email, :city, :zip_code)
   end
 
   def require_user_as_admin
