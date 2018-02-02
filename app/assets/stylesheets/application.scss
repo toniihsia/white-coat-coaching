@@ -29,6 +29,10 @@ html, section, article, label, h1, h2, h3, p, strong, em, a, li, div {
   cursor: inherit;
 }
 
+select {
+  outline: none;
+}
+
 * {
   font-family: 'Raleway', sans-serif;
   font-weight: 400;
@@ -58,6 +62,32 @@ html, section, article, label, h1, h2, h3, p, strong, em, a, li, div {
 
 .top {
   height: 20%;
+}
+
+/* * * Search Bar & Filters * * */
+.additional-filters-container {
+  display: flex;
+}
+
+.additional-filter {
+  flex: 1 1 100%;
+  padding: 5px;
+
+  select {
+    display: block;
+    width: 100%;
+  }
+}
+
+.merger-status {
+
+  form {
+    position: absolute;
+    background-color: white;
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 250ms;
+  }
 }
 
 /* * * Residency Index and Index Items * * */

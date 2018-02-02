@@ -1,0 +1,217 @@
+import React from 'react';
+import SearchInput, { createFilter } from 'react-search-input';
+import Select from 'react-select';
+import ResidencyIndexContainer from '../residencies/residency_index';
+
+const KEYS_TO_FILTERS = [
+    'name',
+    'program_director',
+    'state',
+    'coordinator.name',
+    'med_student_coordinator.name',
+    'med_student_coordinator.email',
+    'merger_status',
+    'application_instructions'
+];
+
+class SearchBar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            residencies: [],
+            search: '',
+            stateFilter: undefined,
+            residentsPerYearFilter: undefined,
+            mergerStatusFilter: [],
+            rotatingStudentsFilter: undefined,
+            rotationRequiredFilter: undefined,
+        };
+        this._handleSearchChange = this._handleSearchChange.bind(this);
+        this._renderStateSelector = this._renderStateSelector.bind(this);
+        this.onChangeFilter = this.onChangeFilter.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.requestAllResidencies();
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.setState({residencies: nextProps.residencies});
+    }
+
+    _handleSearchChange(term) {
+        this.setState({search: term});
+    }
+
+    _renderStateSelector() {
+        let availableStates = {},
+            options = [];
+
+        this.state.residencies.forEach((residency) => {
+            let stateName = `${residency.state}`;
+
+            if (availableStates[stateName]) return;
+            availableStates[stateName] = true;
+        });
+
+        Object.keys(availableStates).sort().forEach((stateName) => {
+            options.push({
+                value: `state:${stateName}`,
+                label: stateName
+            });
+        });
+
+        return (
+            <div className="additional-filter filter-state">
+
+                <Select
+                  name="form-field-state"
+                  value="state:AL"
+                  options={options}
+                  onChange={this.onChangeFilter} />
+
+          </div>
+        );
+    }
+
+    onChangeFilter(selectedOption) {
+        console.log('why arent you changing');
+        // let filterType = selectedOption.value.split(':')[0],
+        //     filterValue = selectedOption.value.split(':')[1];
+        //
+        // switch (filterType){
+        //     case 'state':
+        //         this.setState({
+        //             stateFilter: filterValue
+        //         });
+        //     break;
+        //     case 'residentsPerYear':
+        //         this.setState({
+        //             residentsPerYearFilter: filterValue
+        //         });
+        //     break;
+        //     case 'mergerStatus':
+        //     break;
+        //     case 'numRotatingStudents':
+        //     break;
+        //     case 'requiredRotation':
+        //     break;
+        // }
+    }
+
+    _renderResidentsPerYear() {
+        let value = 'residentsPerYear',
+            options = [{
+                value,
+                label: '3 or less'
+            }, {
+                value,
+                label: '4 or more'
+            }];
+
+        return (
+            <div className="additional-filter filter-residents-per-year">
+
+                <Select
+                    name="form-field-state"
+                    options={options}
+                    onChange={this._onStateChange} />
+
+            </div>
+        );
+    }
+
+  _renderMergerStatus() {
+    return (
+      <div className="additional-filter merger-status">
+
+        <select>
+          <option value="" selected>ACGME Merger Status</option>
+          <option value="pre-accreditation">Pre-accreditation</option>
+          <option value="continued pre-accreditation">Continued pre-accreditation</option>
+          <option value="initial accreditation">Initial accreditation</option>
+        </select>
+
+      </div>
+    )
+  }
+
+  _renderRotatingStudents() {
+    return (
+      <div className="additional-filter rotating-students">
+
+        <form>
+
+          <div className="merger-status-checkbox">
+            <input type="checkbox" name="vehicle" value="1-14"></input>
+            <label>1-14</label>
+          </div>
+
+          <div className="merger-status-checkbox">
+            <input type="checkbox" name="vehicle" value="15-29"></input>
+            <label>15-29</label>
+          </div>
+
+          <div className="merger-status-checkbox">
+            <input type="checkbox" name="vehicle" value="30+"></input>
+            <label>30+</label>
+          </div>
+
+        </form>
+
+      </div>
+    )
+  }
+
+  _renderRotationRequired() {
+    return (
+      <div className="additional-filter rotation-required">
+
+        <select>
+          <option value="" selected>Rotation required</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+
+      </div>
+    )
+  }
+
+  render() {
+    let filteredResidencies = this.state.residencies.filter(createFilter(this.state.search, KEYS_TO_FILTERS));
+
+    // if (filteredResidencies.length === 0) {
+    //   return (
+    //     <div className="error">
+    //       <SearchInput
+    //         className="search-input"
+    //         onChange={this._handleSearchChange} />
+    //       <h1>No residencies match your search!</h1>
+    //     </div>
+    //   );
+    // } else {
+      return (
+        <div>
+          <SearchInput
+            className="search-input"
+            onChange={this._handleSearchChange}
+          />
+
+        <div className="additional-filters-container">
+            {this._renderStateSelector()}
+            {this._renderResidentsPerYear()}
+            {this._renderMergerStatus()}
+            {this._renderRotationRequired()}
+          </div>
+
+          <ResidencyIndexContainer
+              residencies={filteredResidencies}
+          />
+
+        </div>
+      );
+    // }
+  }
+}
+
+export default SearchBar;

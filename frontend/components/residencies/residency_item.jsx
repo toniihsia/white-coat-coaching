@@ -30,9 +30,8 @@ class ResidencyItem extends React.Component {
         <div className='res-container'>
           <div className='res-info'>
             <div className='res-title'>{residency.name}</div>
-            {this.props.selected &&
-              <ResidencyItemInfo
-                websiteUrl={residency.website_url} description={residency.description} />}
+            <ResidencyItemInfo
+              websiteUrl={residency.website_url} description={residency.description} />
           </div>
         </div>
       </li>
