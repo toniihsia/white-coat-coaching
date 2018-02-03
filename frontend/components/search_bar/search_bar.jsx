@@ -57,6 +57,7 @@ class SearchBar extends React.Component {
 
     renderFilterSelector(filterType,i) {
         let options = this._getFilterSelectorOptions(filterType),
+            multi = filterType === 'mergerStatus' || filterType === 'rotatingStudents',
             stateAttribute = `${filterType}Filter`,
             className = `additional-filter filter-${filterType.toLowerCase()}`,
             selectName = `filter-selector-${filterType.toLowerCase()}`,
@@ -70,6 +71,8 @@ class SearchBar extends React.Component {
 
                 <Select
                     name={selectName}
+                    multi={multi}
+                    joinValues={multi}
                     placeholder={placeholder}
                     value={this.state[stateAttribute]}
                     options={options}
@@ -178,7 +181,14 @@ class SearchBar extends React.Component {
     }
 
     onChangeFilter(selectedOption) {
-        let filterType = selectedOption ? selectedOption.value.split(':')[0] : this.clickedFilter;
+        let filterType,
+            isMultiSelect = selectedOption && selectedOption instanceof Array;
+
+        if (!selectedOption || (isMultiSelect && !selectedOption.length)) {
+            filterType = this.clickedFilter;
+        } else {
+            filterType = isMultiSelect ? selectedOption[0].value.split(':')[0] : selectedOption.value.split(':')[0];
+        }
 
         switch (filterType){
             case 'state':
