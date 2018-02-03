@@ -12,7 +12,10 @@ export const mapsInfoBox = (residency) => {
 
         <div class="res-section-header">
           <h3 class="res-header-1">Address</h3>
-          <div class="res-inner-content">${residency.address.address}</div>
+          <div class="res-inner-content">
+            ${residency.address.street}<br/>
+            ${residency.address.city}, ${residency.address.state} ${residency.address.zip_code}
+          </div>
         </div>
       </div>
     </div>
