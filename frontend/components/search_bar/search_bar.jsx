@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchInput, { createFilter } from 'react-search-input';
 import Select from 'react-select';
+import 'react-select/dist/react-select.css'
 import ResidencyIndexContainer from '../residencies/residency_index';
 
 const KEYS_TO_FILTERS = [
@@ -54,7 +55,7 @@ class SearchBar extends React.Component {
         this.setState({search: term});
     }
 
-    renderFilterSelector(filterType) {
+    renderFilterSelector(filterType,i) {
         let options = this._getFilterSelectorOptions(filterType),
             stateAttribute = `${filterType}Filter`,
             className = `additional-filter filter-${filterType.toLowerCase()}`,
@@ -63,6 +64,7 @@ class SearchBar extends React.Component {
 
         return (
             <div
+                key={i}
                 className={className}
                 onClick={this.onClickFilter.bind(this, filterType)}>
 
@@ -224,7 +226,7 @@ class SearchBar extends React.Component {
                     />
 
                 <div className="additional-filters-container">
-                    {FILTER_TYPES.map((filterType) => this.renderFilterSelector(filterType))}
+                    {FILTER_TYPES.map((filterType, i) => this.renderFilterSelector(filterType,i))}
                 </div>
 
                 <ResidencyIndexContainer
