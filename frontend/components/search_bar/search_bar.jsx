@@ -7,11 +7,9 @@ import ResidencyIndexContainer from '../residencies/residency_index';
 const KEYS_TO_FILTERS = [
         'name',
         'program_director',
-        'state',
         'coordinator.name',
         'med_student_coordinator.name',
         'med_student_coordinator.email',
-        'merger_status',
         'application_instructions'
     ],
     FILTER_TYPES = [
@@ -231,16 +229,40 @@ class SearchBar extends React.Component {
             mergerStatusFilter = this.state.mergerStatusFilter.length && this.state.mergerStatusFilter.map((option) => option.label.toLowerCase()),
             residentsPerYearFilter = this.state.residentsPerYearFilter && this.state.residentsPerYearFilter.label,
             rotatingStudentsFilter = this.state.rotatingStudentsFilter.length && this.state.rotatingStudentsFilter.map((option) => option.label),
-            requiredRotationFilter = this.state.requiredRotationFilter && this.state.requiredRotationFilter.label.toLowerCase();
+            requiredRotationFilter = this.state.requiredRotationFilter && this.state.requiredRotationFilter.label.toLowerCase(),
+            generalSearchTerm = this.state.search;
 
         return this.state.residencies.filter((residency) => {
+            // State filter.
             if (stateFilter && (stateFilter !== residency.state)) return false;
+
+            // Merger status filter.
             if (mergerStatusFilter && (!mergerStatusFilter.includes(residency.merger_status.toLowerCase()))) return false;
+
+            // # residents per year filter.
             if (residentsPerYearFilter === '3 or less' && residency.num_residents > 3) return false;
             if (residentsPerYearFilter === '4 or more' && residency.num_residents < 4) return false;
+
+            // # rotating students filter.
             if (rotatingStudentsFilter && (!rotatingStudentsFilter.includes(residency.num_rotating_students))) return false;
+
+            // Rotation required filter.
             if (requiredRotationFilter && requiredRotationFilter === 'unrequired' && residency.rotation_required) return false;
             if (requiredRotationFilter && requiredRotationFilter === 'required' && !residency.rotation_required) return false;
+
+            // General search.
+            let passesFilter = !generalSearchTerm;
+            if (generalSearchTerm) {
+                for (let i = 0; i < KEYS_TO_FILTERS.length; i++) {
+                    let resValue = _.get(residency, KEYS_TO_FILTERS[i]).toLowerCase();
+
+                    if (resValue.includes(generalSearchTerm.toLowerCase())) {
+                        passesFilter = true;
+                        break;
+                    }
+                }
+            }
+            if (!passesFilter) return false;
 
             return true;
         });
