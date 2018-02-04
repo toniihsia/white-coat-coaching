@@ -1,5 +1,5 @@
 class Api::ResidenciesController < ApplicationController
-  before_action :require_user_as_admin, except: [:show, :index]
+  before_filter :require_admin, except: [:show, :index]
 
   def create
     @residency = Residency.new(residency_params)
@@ -51,7 +51,7 @@ class Api::ResidenciesController < ApplicationController
       :med_student_coordinator_number, :med_student_coordinator_email, :city, :zip_code)
   end
 
-  def require_user_as_admin
-    return current_user.try(:admin)
+  def require_admin
+    render json: {}, status: 422 if !current_user.try(:admin)
   end
 end

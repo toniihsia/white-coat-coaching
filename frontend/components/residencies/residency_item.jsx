@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, hashHistory } from 'react-router';
+import { Link, hashHistory } from 'react-router-3';
 import ResidencyItemInfo from './residency_item_info';
 
 const CONTENT_SLIDE_ORDER = [

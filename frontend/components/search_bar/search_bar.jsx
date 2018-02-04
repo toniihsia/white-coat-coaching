@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchInput, { createFilter } from 'react-search-input';
 import Select from 'react-select';
-import 'react-select/dist/react-select.css'
+import 'react-select/dist/react-select.css';
 import ResidencyIndexContainer from '../residencies/residency_index';
 
 const KEYS_TO_FILTERS = [

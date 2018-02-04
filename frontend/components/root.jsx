@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router-3';
 import { requestAllResidencies } from '../actions/residency_actions';
 
 //Components
@@ -13,12 +13,10 @@ const _requestAllResidencies = () => {
 
 const Root = ({ store }) => (
   <Provider store={ store }>
-    <BrowserRouter>
-      <div>
-        <Route path="/" component={ App } />
-        <Route path="/residencyform" component={ ResidencyFormContainer } />
-      </div>
-    </BrowserRouter>
+    <Router history={ hashHistory }>
+      <Route path="/" component={ App } />
+      <Route path="/residencyform" component={ ResidencyFormContainer } />
+    </Router>
   </Provider>
 );
 

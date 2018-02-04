@@ -43,10 +43,10 @@ group :development do
   gem 'web-console', '~> 2.0'
 
   # Benchmarking
-  gem 'stackprof'
-  gem 'rack-mini-profiler'
-  gem 'memory_profiler'
-  gem 'flamegraph'
+  # gem 'stackprof'
+  # gem 'rack-mini-profiler'
+  # gem 'memory_profiler'
+  # gem 'flamegraph'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'

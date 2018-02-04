@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, hashHistory } from 'react-router';
+import { Link, hashHistory } from 'react-router-3';
 import { getLocation } from '../../util/map_api_util';
 import { isEqual, merge } from 'lodash';
 import parse from '../../util/csv-parse';
@@ -270,6 +270,7 @@ class ResidencyForm extends React.Component {
     if (this.props.residencies.length === 0) {
       return (<ul></ul>);
     } else{
+      console.log(this.props.residencies);
       return (
         <ul>
           {this.props.residencies[this.props.residencies.length-1].errors.map((error,i) => (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, hashHistory } from 'react-router';
+import { Link, hashHistory } from 'react-router-3';
 // import Modal from 'react-modal';
 
 class Header extends React.Component {
@@ -9,9 +9,9 @@ class Header extends React.Component {
 
   render() {
     return (
-      <div>
+      <header>
 
-      </div>
+      </header>
     );
   }
 }
