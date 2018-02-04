@@ -31,7 +31,7 @@ class SearchBar extends React.Component {
             stateFilter: '',
             residentsPerYearFilter: undefined,
             mergerStatusFilter: [],
-            rotatingStudentsFilter: undefined,
+            rotatingStudentsFilter: [],
             requiredRotationFilter: undefined,
         };
 
@@ -41,6 +41,7 @@ class SearchBar extends React.Component {
         this._getFilterSelectorOptions = this._getFilterSelectorOptions.bind(this);
         this.onClickFilter = this.onClickFilter.bind(this);
         this.onChangeFilter = this.onChangeFilter.bind(this);
+        this.filterResidencies = this.filterResidencies.bind(this);
     }
 
     componentDidMount() {
@@ -225,8 +226,28 @@ class SearchBar extends React.Component {
         this.clickedFilter = filterType;
     }
 
+    filterResidencies() {
+        let stateFilter = this.state.stateFilter && this.state.stateFilter.label,
+            mergerStatusFilter = this.state.mergerStatusFilter.length && this.state.mergerStatusFilter.map((option) => option.label.toLowerCase()),
+            residentsPerYearFilter = this.state.residentsPerYearFilter && this.state.residentsPerYearFilter.label,
+            rotatingStudentsFilter = this.state.rotatingStudentsFilter.length && this.state.rotatingStudentsFilter.map((option) => option.label),
+            requiredRotationFilter = this.state.requiredRotationFilter && this.state.requiredRotationFilter.label.toLowerCase();
+
+        return this.state.residencies.filter((residency) => {
+            if (stateFilter && (stateFilter !== residency.state)) return false;
+            if (mergerStatusFilter && (!mergerStatusFilter.includes(residency.merger_status.toLowerCase()))) return false;
+            if (residentsPerYearFilter === '3 or less' && residency.num_residents > 3) return false;
+            if (residentsPerYearFilter === '4 or more' && residency.num_residents < 4) return false;
+            if (rotatingStudentsFilter && (!rotatingStudentsFilter.includes(residency.num_rotating_students))) return false;
+            if (requiredRotationFilter && requiredRotationFilter === 'unrequired' && residency.rotation_required) return false;
+            if (requiredRotationFilter && requiredRotationFilter === 'required' && !residency.rotation_required) return false;
+
+            return true;
+        });
+    }
+
     render() {
-        let filteredResidencies = this.state.residencies.filter(createFilter(this.state.search, KEYS_TO_FILTERS));
+        let filteredResidencies = this.filterResidencies();
 
         return (
             <div>
