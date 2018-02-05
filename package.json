@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "ls; webpack --display-error-details --config webpack.config.prod.js"
+    "heroku-postbuild": "webpack --config webpack.config.prod.js"
   },
   "engines": {
     "node": "9.4.0",
