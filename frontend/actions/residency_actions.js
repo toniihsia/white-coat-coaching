@@ -2,6 +2,7 @@ export const REQUEST_ALL_RESIDENCIES = "REQUEST_ALL_RESIDENCIES";
 export const CREATE_RESIDENCY = "CREATE_RESIDENCY";
 export const UPDATE_RESIDENCY = "UPDATE_RESIDENCY";
 export const DELETE_RESIDENCY = "DELETE_RESIDENCY";
+export const DELETE_RESIDENCIES = "DELETE_RESIDENCIES";
 export const RECEIVE_ALL_RESIDENCIES = "RECEIVE_ALL_RESIDENCIES";
 export const RECEIVE_RESIDENCY = "RECEIVE_RESIDENCY";
 export const RECEIVE_ERRORS = "RECEIVE_ERRORS";
@@ -24,6 +25,11 @@ export const updateResidency = (residency) => ({
 export const deleteResidency = (id) => ({
   type: DELETE_RESIDENCY,
   id
+});
+
+export const deleteResidencies = (ids) => ({
+  type: DELETE_RESIDENCIES,
+  ids
 });
 
 export const receiveAllResidencies = (residencies) => ({

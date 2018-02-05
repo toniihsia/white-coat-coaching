@@ -53,4 +53,14 @@ export const deleteResidency = (id, success, error) => {
     success,
     error
   });
+}
+
+export const deleteResidencies = (ids, success, error) => {
+  $.ajax({
+    type: 'DELETE',
+    url: `api/residencies/destroy_multiple`,
+    data: ids,
+    success,
+    error
+  });
 };

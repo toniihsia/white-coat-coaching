@@ -10,6 +10,12 @@ class Api::ResidenciesController < ApplicationController
     end
   end
 
+  def destroy_multiple
+    Residency.where(id: params[:ids]).destroy_all
+    @residencies = Residency.all
+    render :index
+  end
+
   def destroy
     @residency = Residency.find_by_id(params[:id])
     @residency.delete
@@ -18,7 +24,7 @@ class Api::ResidenciesController < ApplicationController
   end
 
   def index
-    @residencies = Residency.all
+    @residencies = Residency.all.order(:name)
   end
 
   def show

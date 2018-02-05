@@ -32,17 +32,32 @@ class ResidencyForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if (isEqual({}, this.existingResidencies) && nextProps.residencies) {
-      for (let i = 0; i < nextProps.residencies.length; i++) {
-        this.existingResidencies[nextProps.residencies[i].program_director] = true;
-      }
+    // Map ids of existingResidencies so that if we mass create, we can delete old records on success
+    if (isEqual({}, this.existingResidencies)){
+      this.existingResidencies = nextProps.residencies.map((residency)=>(residency.id));
     }
 
+    // When uploading and no errors, delete old records if mass created, then redirect to root
+    // if the queue is empty. Otherwise, load up the next residency
     if (this.state.currentResidency.program_director && nextProps.residencies[nextProps.residencies.length-1].errors.length === 0) {
       if (this.residencyQueue.length === 0) {
+        if (this.state.status === "Submitting All Residencies") {
+          this.props.deleteResidencies({ids: this.existingResidencies});
+        }
         this.props.router.push("/");
       } else {
-        this.setState({currentResidency: this.residencyQueue.shift(), status: ""});
+        status = this.state.status === "Submitting All Residencies" ? this.state.status : "";
+        this.setState({currentResidency: this.residencyQueue.shift(), status: status});
+      }
+    }
+  }
+
+  componentDidUpdate(){
+    if (this.state.status === "Submitting All Residencies"){
+      if (this._hasAddress()) {
+        getLocation(this._addressQuery(), this.getLocationSuccess);
+      } else {
+        this.setState({status: "Missing address component"});
       }
     }
   }
@@ -65,7 +80,7 @@ class ResidencyForm extends React.Component {
 
   handleAllSubmit(e){
     e.preventDefault();
-    // TODO: Handle queued submit all
+    this.setState({status: "Submitting All Residencies"});
   }
 
   handleUpload(){
@@ -100,11 +115,7 @@ class ResidencyForm extends React.Component {
               break;
           }
         }
-        if (this.existingResidencies[residency.program_director]) {
-          continue;
-        } else{
-          residencyArr.push(residency);
-        }
+        residencyArr.push(residency);
       }
       this.residencyQueue = residencyArr;
       if (this.residencyQueue.length == 0) {
@@ -180,6 +191,7 @@ class ResidencyForm extends React.Component {
 
           <input className="form-button" type="submit" value={this.state.formType}/>
         </form>
+        <button type="button" onClick={this.handleAllSubmit}>Create All From CSV</button>
       </div>
     );
   }
@@ -270,7 +282,6 @@ class ResidencyForm extends React.Component {
     if (this.props.residencies.length === 0) {
       return (<ul></ul>);
     } else{
-      console.log(this.props.residencies);
       return (
         <ul>
           {this.props.residencies[this.props.residencies.length-1].errors.map((error,i) => (
