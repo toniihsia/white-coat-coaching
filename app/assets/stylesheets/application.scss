@@ -18,20 +18,32 @@
 $white: #FFFFFF;
 
 
-$gray: #BFC0C0;
-$grayDarker: #9D9E9E;
+$grayLightest: #edeced;
+$grayLighter: #EAEAEA;
+$grayLight: #E5E5E5;
+$gray: #bdbdbe;
 
-$gold: #E5C163;
-$goldDarker: #BC9E52;
+$grayDark: #444444;
+$grayDarker: #444444;
+$grayDarkest: #171717;
 
 
-$blue: #4F5D75;
-$blueDarker: #414D60;
 
-$purple: #2D3142;
-$purpleDarker: #252937;
+$redLightest: #FF8779;
+$redLighter: #FF4B37;
+$redLight: #FF3721;
+$red: #FF230B;
+$redDark: #D11D0A;
+$redDarker: #A31708;
+$redDarkest: #5D0D04;
 
-$tealLight: #c1d1ce;
+
+$tealLightest: #869093;
+$tealLighter: #657376;
+$tealLight: #303B3E;
+$teal: #4C5B5F;
+$tealDark: #354347;
+$tealDarker: #1D2C30;
 
 /* * Font weights * */
 $light: 200;
@@ -42,7 +54,7 @@ $bold: 800;
 /* * * Sizes * * */
 $additionalFiltersHeight: 50px;
 /* * * CSS Master Overwrite * * */
-html, section, article, label, h1, h2, h3, p, strong, em, a, ul, li, div {
+html, body, section, article, label, h1, h2, h3, p, strong, em, a, ul, li, div, button, {
   margin: 0;
   border: 0;
   padding: 0;
@@ -53,7 +65,12 @@ html, section, article, label, h1, h2, h3, p, strong, em, a, ul, li, div {
   color: inherit;
   background: transparent;
   list-style: none;
+  outline: none;
   cursor: inherit;
+}
+
+body {
+    background-color: $grayLightest;
 }
 
 h3 {
@@ -78,7 +95,51 @@ select {
 * {
   font-family: 'Raleway', sans-serif;
   font-weight: 400;
-  color: #7b7b7b;
+  color: $tealDarker;
+}
+
+button {
+    height: 20px;
+    padding: 5px 10px;
+    border: 2px solid black;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 150ms;
+
+    &:focus, &:hover, &.hover {
+        border-color: $grayLight;
+    }
+
+    &[disabled] {
+        background-color: $grayLight;
+        color: $white;
+        pointer-events: none;
+    }
+
+    &.btn-red {
+        color: $white;
+        background-color: $red;
+        border-color: $red;
+
+        &:focus, &:hover, &.hover {
+            border-color: $redLightest;
+            background-color: $redLightest;
+        }
+
+        &.is-outlined {
+            color: $red;
+            background-color: transparent;
+
+            &:focus, &:hover, &.hover {
+                color: $redLightest;
+                border-color: $redLightest;
+            }
+        }
+    }
+
+    &.is-outlined {
+        background-color: transparent;
+    }
 }
 
 /* * * Mixins * * */
@@ -108,20 +169,56 @@ select {
 }
 
 /* * * General Website Construction * * */
-#web-title {
-  display: block;
-  width: 35%;
-  margin: auto;
+.global-header {
+    position: relative;
+    height: 50px;
+    color: $white;
+    background-color: $tealDarker;
+
+    .header-content {
+        margin-left: 10px;
+        @include vcenter();
+    }
+
+    #web-title {
+      display: inline-block;
+      width: 90px;
+      margin: auto;
+    }
+
+    label {
+        display: inline-block;
+        margin-left: 5px;
+        font-size: 15px;
+    }
 }
 
-#map{
-    width: 50%;
+.global-content {
+    padding: 0 15px;
 }
 
 /* * * Search Bar & Filters * * */
+.search-input {
+    height: 50px;
+    margin: 0 5px;
+
+    input {
+        display: block;
+        height: 35px;
+        width: 100%;
+        padding: 10px;
+        border: solid $gray 0.3px;
+        font-size: 14px;
+        outline: 0;
+        @include vcenter($position: relative);
+    }
+}
+
 .additional-filters-container {
-  display: flex;
-  height: 50px;
+    position: relative;
+    display: flex;
+    height: 50px;
+    z-index: 1;
 }
 
 .additional-filter {
@@ -138,22 +235,29 @@ select {
 /* * * Residency Index and Index Items * * */
 .residency-index {
     display: flex;
-    height: calc(100vh - 200px);
+    height: calc(100vh - 150px);
 }
 
-.residency-item-container {
-    display: block;
+/* * * Residency List * * */
+
+.residency-item-list-container {
     width: 50%;
+}
+
+.residency-items-list {
+    display: block;
     padding: 0 10px;
-    overflow-y: scroll;
 }
 
 .residency-item {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    margin-right: 5px;
     overflow: hidden;
+    border: 1px solid $white;
+    background-color: transparentize($white, .05);
 
     &:first-child {
-        margin-top: 20px;
+        margin-top: 2px; // Accommodate for scroll-bar starting a bit lower.
     }
 
     &:last-child {
@@ -161,11 +265,18 @@ select {
     }
 }
 
-.slide-info {
-    @include text-ellipsis();
+.residency-item-header {
+    position: relative;
+    padding: 20px 20px 5px;
 
-    label {
-        @include text-ellipsis();
+    .header-title {
+        max-width: calc(100% - 100px);
+    }
+
+    button {
+        position: absolute;
+        top: 20px;
+        right: 30px;
     }
 }
 
@@ -173,23 +284,40 @@ select {
     position: relative;
     display: flex;
     height: 20px;
-    padding: 5px 0;
-    background-color: $grayDarker;
+    padding: 5px 20px;
+    // background-color: $grayLightest;
 
     .nav-title {
+        position: relative;
         display: block;
-        margin-right: 10px;
+        padding-right: 10px;
         cursor: pointer;
+        transition: color 150ms;
         @include vcenter($position: relative);
 
-        &:first-child {
-            margin-left: 10px;
-        }
-
         &.is-active {
-            color: $gold;
+            color: $teal;
             font-weight: $medium;
         }
+
+        &:hover {
+            color: $tealLighter;
+        }
+    }
+
+    .nav-track {
+        height: 2px;
+        width: calc(100% - 40px);
+        top: 100%;
+        left: 0;
+        background-color: $grayLightest;
+        @include hcenter();
+    }
+
+    .nav-track-highlight {
+        position: relative;
+        height: 2px;
+        background-color: $tealLightest;
     }
 }
 
@@ -199,227 +327,46 @@ select {
 }
 
 .residency-item-content-slide {
-    flex: 0 0 100%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 100%;
 }
 
-// .res-container {
-//   padding-top: 15px;
-//   padding-bottom: 15px;
-//   display: flex;
-//   border-bottom: solid #7b7b7b 0.5px;
-// }
-//
-// .res-title {
-//   font-weight: 600;
-// }
-//
-// .res-photo {
-//   margin-left: 15px;
-//   margin-right: 15px;
-//   width: 128px;
-//   height: 128px;
-// }
+[class|=content-slide] {
+    padding: 20px;
+}
 
+[class|=slide-info] {
+    margin-bottom: 5px;
 
-/* * * Marker Info-Box Styling * * */
-// #info-window-large {
-//   max-width: 1000px;
-//
-// }
-//
-// #info-window {
-//   /*display: flex;*/
-// }
-//
-// .res-section img {
-//   flex: left;
-// }
-//
-// .left-res-info {
-//   flex: left;
-//   max-width: 50%;
-//   word-wrap: break-word;
-// }
-//
-// .right-res-info {
-//   flex: right;
-//   max-width: 50%;
-//   word-wrap: break-word;
-// }
-// .info-res-title {
-//   padding-top: 15px;
-//   font-weight: 500;
-//   font-size: 20px;
-//   flex: right;
-// }
-//
-// .info-res-url {
-//   color: #b4c1be;
-//   font-weight: 600;
-//   margin-bottom: 10px;
-// }
-//
-// .info-res-url:hover {
-//   transition: 0.5s;
-//   background-color: #b4c1be;
-//   color: white;
-//   cursor: pointer;
-// }
-//
-// .info-res-photo {
-//   flex: left;
-//   margin-left: 15px;
-//   margin-right: 15px;
-//   width: 128px;
-//   height: 128px;
-// }
-// /*.res-info {
-//   padding-top: 0px;
-//   padding-right: 15px;
-//   padding-bottom: 15px;
-// }*/
-//
-// .res-header-1 {
-//   font-weight: 500;
-//   font-size: 15px;
-//   /*padding-top: 5px;*/
-//   /*border-bottom: solid #7b7b7b 0.5px;*/
-//   /*margin-bottom: px;*/
-// }
-//
-// #detail-title {
-//   font-weight: 500;
-//   font-size: 19px;
-//   padding-top: 10px;
-//   width: 128px;
-//   text-align: right;
-//   /*border-bottom: solid #7b7b7b 0.5px;*/
-//   /*margin-bottom: px;*/
-// }
-//
-// .flex-container {
-//   display: flex;
-//   flex-wrap: wrap;
-// }
-// .res-info-left {
-//   display: flex;
-//   margin-right: 10px;
-// }
-//
-// .left-label {
-//   font-weight: 500;
-//   font-size: 13px;
-//   /*flex: left;*/
-//   margin-right: 3px;
-// }
-//
-// .right-content {
-//   font-weight: 400;
-//   font-size: 13px;
-//   vertical-align: middle;
-//   justify-content: center;
-//   white-space: normal;
-//   /*flex: right;*/
-// }
-//
-// .res-inner-content {
-//   font-weight: 400;
-//   font-size: 14px;
-//   flex: right;
-// }
-//
-// .res-section {
-//   width: 50%;
-//   padding: 10px;
-//
-// }
-// .res-section-header {
-//   padding-top: 3px;
-//   padding-bottom: 3px;
-// }
-//
-// .res-header {
-//   margin-top: 5px;
-//   display: flex;
-//   border-bottom: solid #7b7b7b 0.5px;
-// }
-//
-// .res-info-photo {
-//   margin-right: 15px;
-//   margin-left: 15px;
-//   margin-bottom: 15px;
-//   width: 128px;
-//   height: 128px;
-// }
-//
-// .res-details {
-//   margin-left: 15px;
-//   margin-right: 15px;
-//   display: flex;
-//   width: 100%;
-//   justify-content: space-around;
-// }
+    label {
+        display: block;
+        white-space: pre-wrap;
+    }
 
-/*#description-title {
-  font-weight: 500;
-  font-size: 19px;
-  padding-top: 10px;
-  padding-right: 10px;
-  width: 1000px;
-  text-align: right;
-}*/
-
-// .desc {
-//   padding-left: 20px;
-//   padding-top: 15px;
-//   padding-bottom: 15px;
-//   font-size: 14px;
-// }
-//
-// .left {
-//   flex: left;
-//   width: 240px;
-// }
-//
-// .right {
-//   width: 240px;
-//   flex: right;
-// }
-
-// .booking-medium {
-//   width: 100%;
-//   word-wrap: break-word;
-// }
-
-/* * * Search Bar * * */
-.search-input {
-    margin: 0 5px;
-
-    input {
-        height: 35px;
-        width: 100%;
-        padding: 10px;
-        border: solid #7b7b7b 0.3px;
-        font-size: 14px;
-        outline: 0;
+    a {
+        color: $tealLight;
     }
 }
 
-// .flexbox{
-//   display: -webkit-box;
-// 	display: -webkit-flex;
-// 	display: -moz-flex;
-// 	display: -ms-flexbox;
-//   display: -ms-flex;
-// 	display: flex;
-//   flex: 0 1 auto;
-//   flex-basis: auto;
-//   width: 100%;
-// }
-//
-// .flex-column{
-//   -webkit-flex-direction: column;
-//   -moz-flex-direction: column;
-//   -ms-flex-direction: column;
-//   flex-direction: column;
-// }
+.slide-info-url {
+
+    label {
+        @include text-ellipsis();
+    }
+}
+
+/* * * Map * * */
+.map-container {
+    width: 50%;
+    margin-left: 10px;
+}
+
+.map-info-window {
+    min-width: 300px;
+}
+
+.map-info-content {
+    text-align: center;
+    @include text-ellipsis();
+}

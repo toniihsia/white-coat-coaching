@@ -272,7 +272,7 @@ class SearchBar extends React.Component {
         let filteredResidencies = this.filterResidencies();
 
         return (
-            <div>
+            <div className="global-content">
                 <SearchInput
                     className="search-input"
                     onChange={this.onSearchChange}

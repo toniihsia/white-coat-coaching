@@ -2,7 +2,9 @@ import React from 'react';
 import { Link, hashHistory } from 'react-router-3';
 import ResidencyItemContainer from './residency_item_container';
 import GoogleMapContainer from '../googlemap/google_map_container';
-import { isEqual } from 'lodash';
+import {findDOMNode} from 'react-dom';
+import {isEqual} from 'lodash';
+import {Scrollbars} from 'react-custom-scrollbars';
 
 class ResidencyIndex extends React.Component {
     constructor(props) {
@@ -10,19 +12,33 @@ class ResidencyIndex extends React.Component {
 
         this.state = {residencies: [] ,selected: null};
 
-        this.handleClick = this.handleClick.bind(this);
+        this.onClickMapEl = this.onClickMapEl.bind(this);
+        this._renderThumbVertical = this._renderThumbVertical.bind(this);
     }
 
     componentWillReceiveProps(nextProps){
         this.setState({residencies: nextProps.residencies});
     }
 
-    handleClick(data, setNull){
-        if (_.isEqual(this.state.selected, data) || setNull === 'true'){
+    onClickMapEl(data, setNull){
+        let wipeSelected = _.isEqual(this.state.selected, data) || setNull === 'true',
+            $residencyItemsContainer = $(findDOMNode(this.residencyItemsContainer));
+
+        if (wipeSelected){
             this.setState({selected: null});
         } else {
             this.setState({selected: data});
         }
+
+        if (wipeSelected) return;
+
+        TweenMax.to($residencyItemsContainer.children(':first'), .3, { // Scrollbars create an inner div that holds scrollable content, must target that.
+            scrollTo: `#residencyItem${data.id}`
+        });
+    }
+
+    _renderThumbVertical() {
+        return (<div style={{backgroundColor: "white"}}/>);
     }
 
     render() {
@@ -31,21 +47,33 @@ class ResidencyIndex extends React.Component {
         return (
             <div className="residency-index">
 
-                <ul className="residency-item-container">
 
-                    {residencies.map((residency,i) =>(
-                        <ResidencyItemContainer
-                            key={i}
-                            handleClick={this.handleClick}
-                            residency={residency}
-                            selected={this.state.selected} />
-                    ))}
+                <Scrollbars
+                    className="residency-item-list-container"
+                    style={{width: "50%"}}
+                    renderThumbVertical={this._renderThumbVertical}
+                    ref={(container) => this.residencyItemsContainer = container}>
 
-                </ul>
+                    <ul className="residency-items-list">
+
+                        {residencies.map((residency,i) =>(
+                            <ResidencyItemContainer
+                                id={`residencyItem${i}`}
+                                ref={(item) => this[`residencyItem${i}`] = item}
+                                key={`residency-item-${i}`}
+                                onClickViewMap={this.onClickMapEl}
+                                residency={residency}
+                                selected={this.state.selected} />
+                        ))}
+
+                    </ul>
+
+                </Scrollbars>
 
                 <GoogleMapContainer
+                    residencies={residencies}
                     data={this.state.selected}
-                    handleClick={this.handleClick} />
+                    onClickMarker={this.onClickMapEl} />
 
             </div>
         );

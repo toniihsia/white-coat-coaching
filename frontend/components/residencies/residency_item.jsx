@@ -14,53 +14,91 @@ class ResidencyItem extends React.Component {
 
         this.state = { showInfo: false };
 
-        this._handleClick = this._handleClick.bind(this);
-        this._showInfo = this._showInfo.bind(this);
+        this.focusedOnMap = false;
+
+        this.onClickViewMap = this.onClickViewMap.bind(this);
         this.onClickNavTitle = this.onClickNavTitle.bind(this);
+        this.updateNavTrack = this.updateNavTrack.bind(this);
     }
 
-    _handleClick(e){
+    componentDidMount() {
+        this.onClickNavTitle();
+    }
+
+    componentDidUpdate() {
+        let isSelected = this.props.selected && this.props.selected.id === this.props.residency.id;
+
+        $(this.mapBtn)
+            .toggleClass('is-outlined', !isSelected)
+            .text(isSelected ? 'Zoom Out' : 'View on Map');
+    }
+
+    onClickViewMap(e){
         e.stopPropagation();
-        this.props.handleClick(this.props.residency);
-    }
 
-    _showInfo(e) {
-        e.preventDefault();
-        this.setState({showInfo: !this.state.showInfo});
+        this.props.onClickViewMap(this.props.residency);
     }
 
     onClickNavTitle(ev) {
         let $old = $(this.itemNav).find('.is-active'),
-            $new = $(ev.currentTarget);
+            $new = ev && $(ev.currentTarget);
+
+        if (!$new) {
+            $new = $old;
+        }
+
+        this.$activeTab = $new;
 
         TweenMax.to(this.itemContent, .3, {
             onStart: () => {
                 $old.removeClass('is-active');
                 $new.addClass('is-active');
+                this.updateNavTrack();
             },
             right: `${CONTENT_SLIDE_ORDER.indexOf($new.data('key')) * 100}%`
         });
     }
 
+    updateNavTrack(ev) {
+        let $el = ev && ev.type === 'mouseenter' ? $(ev.currentTarget) : this.$activeTab;
+
+        TweenMax.to(this.navHighlight, .3, {
+            width: `${$el.width()}px`,
+            left: `${$el.offset().left - 45}px` // 25px account for padding.
+        });
+    }
+
     render() {
         let residency = this.props.residency;
-        console.log(residency);
+
         return (
             <li
+                id={`residencyItem${residency.id}`}
                 className={`residency-item ${this.props.selected ? 'selected-item' : ''}`}>
 
                 <div className="residency-item-list">
 
                     <div className="residency-item-header">
+
                         <h3 className="header-title">{residency.name}</h3>
-                        <a className="header-url" href={residency.website_url}>[Website]</a>
+
+                        <button ref={(btn) => this.mapBtn = btn} className="btn-red is-outlined" onClick={this.onClickViewMap}>
+                            <label>View on Map</label>
+                        </button>
+
                     </div>
 
-                    <div className="residency-item-nav" ref={(nav) => this.itemNav = nav}>
-                        <label className="nav-title is-active" data-key="program" onClick={this.onClickNavTitle}>Program</label>
-                        <label className="nav-title" data-key="rotation" onClick={this.onClickNavTitle}>Rotation</label>
-                        <label className="nav-title" data-key="application" onClick={this.onClickNavTitle}>Application</label>
-                        <label className="nav-title" data-key="contact" onClick={this.onClickNavTitle}>Contact Info</label>
+                    <div className="residency-item-nav" ref={(nav) => this.itemNav = nav} onMouseLeave={this.updateNavTrack}>
+
+                        <label className="nav-title is-active" data-key="program" onClick={this.onClickNavTitle} onMouseEnter={this.updateNavTrack}>Program</label>
+                        <label className="nav-title" data-key="rotation" onClick={this.onClickNavTitle} onMouseEnter={this.updateNavTrack}>Rotation</label>
+                        <label className="nav-title" data-key="application" onClick={this.onClickNavTitle} onMouseEnter={this.updateNavTrack}>Application</label>
+                        <label className="nav-title" data-key="contact" onClick={this.onClickNavTitle} onMouseEnter={this.updateNavTrack}>Contact Info</label>
+
+                        <div className="nav-track" ref={(navTrack) => this.navTrack = navTrack}>
+                            <div className="nav-track-highlight" ref={(navHighlight) => this.navHighlight = navHighlight}></div>
+                        </div>
+
                     </div>
 
 
@@ -68,19 +106,15 @@ class ResidencyItem extends React.Component {
 
                         <div className="residency-item-content-slide is-active" data-key="program">
 
-                            <div className="slide-program">
+                            <div className="content-slide-program">
 
-                                <div className="slide-info">
-                                    <label><strong>Name: </strong>{residency.name}</label>
-                                </div>
-
-                                <div className="slide-info">
-                                    <label><strong>Website: </strong>{residency.website_url}</label>
+                                <div className="slide-info-url">
+                                    <label><strong>Website: </strong><a href={residency.website_url}>{residency.website_url}</a></label>
                                 </div>
 
                                 <div className="slide-info">
                                     <label><strong>Address: </strong></label>
-                                    <span>{residency.address.street}</span>
+                                    <span>{residency.address.street}</span><br/>
                                     <span>{residency.address.city}</span>, <span>{residency.address.state}</span> <span>{residency.address.zip_code}</span>
                                 </div>
 

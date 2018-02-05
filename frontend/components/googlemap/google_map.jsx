@@ -13,15 +13,15 @@ class GoogleMap extends React.Component {
     this.updateContentWindow = this.updateContentWindow.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.map = new google.maps.Map(document.getElementById('map'), _defaultMapOptions());
     this.infoWindow = new google.maps.InfoWindow({
       content: this.setContentWindow(''),
       pixelOffset: new google.maps.Size(0, -50)});
-    this.MarkerManager = new MarkerManager(this.map, this.props.handleClick);
+    this.MarkerManager = new MarkerManager(this.map, this.props.onClickMarker);
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     if (nextProps.data) {
       this.updateContentWindow(nextProps.data);
       this.recenterMap(nextProps.data.latitude, nextProps.data.longitude, 15);
@@ -33,12 +33,12 @@ class GoogleMap extends React.Component {
     this.MarkerManager.updateMarkers(nextProps.residencies);
   }
 
-  recenterMap(lat,lng, zoom){
+  recenterMap(lat,lng, zoom) {
     this.map.panTo(new google.maps.LatLng(lat, lng));
     this.map.setZoom(zoom);
   }
 
-  setContentWindow(data){
+  setContentWindow(data) {
     let residency = data;
 
     if (residency) {
@@ -57,8 +57,8 @@ class GoogleMap extends React.Component {
     }
   }
 
-  updateContentWindow(data){
-    let boundHandleClick = this.props.handleClick;
+  updateContentWindow(data) {
+    let boundHandleClick = this.props.onClickMarker;
     this.infoWindow.setContent(this.setContentWindow(data));
     this.infoWindow.setPosition(new google.maps.LatLng(data.latitude, data.longitude));
     google.maps.event.addListener(this.infoWindow, 'closeclick', function() { boundHandleClick(data, 'true'); });
@@ -66,7 +66,7 @@ class GoogleMap extends React.Component {
 
   render() {
     return (
-      <div id="map"></div>
+      <div id="map" className="map-container"></div>
     );
   }
 }
