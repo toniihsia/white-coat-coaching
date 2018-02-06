@@ -1,8 +1,9 @@
 import React from 'react';
 import SearchInput, { createFilter } from 'react-search-input';
 import Select from 'react-select';
-import 'react-select/dist/react-select.css';
 import ResidencyIndexContainer from '../residencies/residency_index';
+import {isNaN, flatten} from 'lodash';
+import 'react-select/dist/react-select.css';
 
 const KEYS_TO_FILTERS = [
         'name',
@@ -17,7 +18,9 @@ const KEYS_TO_FILTERS = [
         'residentsPerYear',
         'mergerStatus',
         'rotatingStudents',
-        'requiredRotation'
+        'requiredRotation',
+        'comlexRequirement',
+        'usmleRequirement'
     ];
 
 class SearchBar extends React.Component {
@@ -26,17 +29,21 @@ class SearchBar extends React.Component {
         this.state = {
             residencies: [],
             search: '',
-            stateFilter: '',
-            residentsPerYearFilter: undefined,
-            mergerStatusFilter: [],
-            rotatingStudentsFilter: [],
-            requiredRotationFilter: undefined,
+            state: '',
+            residentsPerYear: undefined,
+            mergerStatus: [],
+            rotatingStudents: [],
+            requiredRotation: undefined,
+            comlexRequirement: [],
+            usmleRequirement: []
         };
 
         this.onSearchChange = this.onSearchChange.bind(this);
         this.renderFilterSelector = this.renderFilterSelector.bind(this);
         this._getFilterSelectorPlaceholder = this._getFilterSelectorPlaceholder.bind(this);
         this._getFilterSelectorOptions = this._getFilterSelectorOptions.bind(this);
+        this._cleanStringRanges = this._cleanStringRanges.bind(this);
+        this._withinRange = this._withinRange.bind(this);
         this.onClickFilter = this.onClickFilter.bind(this);
         this.onChangeFilter = this.onChangeFilter.bind(this);
         this.filterResidencies = this.filterResidencies.bind(this);
@@ -54,10 +61,9 @@ class SearchBar extends React.Component {
         this.setState({search: term});
     }
 
-    renderFilterSelector(filterType,i) {
+    renderFilterSelector(filterType, i) {
         let options = this._getFilterSelectorOptions(filterType),
-            multi = filterType === 'mergerStatus' || filterType === 'rotatingStudents',
-            stateAttribute = `${filterType}Filter`,
+            multi = filterType === 'mergerStatus' || filterType === 'rotatingStudents' || filterType === 'comlexRequirement' || filterType === 'usmleRequirement',
             className = `additional-filter filter-${filterType.toLowerCase()}`,
             selectName = `filter-selector-${filterType.toLowerCase()}`,
             placeholder = this._getFilterSelectorPlaceholder(filterType);
@@ -73,7 +79,7 @@ class SearchBar extends React.Component {
                     multi={multi}
                     joinValues={multi}
                     placeholder={placeholder}
-                    value={this.state[stateAttribute]}
+                    value={this.state[filterType]}
                     options={options}
                     onChange={this.onChangeFilter}
                     />
@@ -99,6 +105,12 @@ class SearchBar extends React.Component {
             break;
             case 'requiredRotation':
                 placeholder = 'Rotation required...'
+            break;
+            case 'comlexRequirement':
+                placeholder = 'COMLEX requirements...';
+            break;
+            case 'usmleRequirement':
+                placeholder = 'USMLE requirements...';
             break;
             default:
                 throw new Error(`Fetching placeholder: The filter type ${filterType} does not exist.`);
@@ -164,12 +176,39 @@ class SearchBar extends React.Component {
                 }];
             break;
             case 'requiredRotation':
-                options=[{
+                options = [{
                     value: `${filterType}:required`,
                     label: 'Required'
                 }, {
                     value: `${filterType}:unrequired`,
                     label: 'Unrequired'
+                }];
+            break;
+            case 'comlexRequirement':
+                options = [{
+                    value: `${filterType}:0`,
+                    label: 'No requirements'
+                }, {
+                    value: `${filterType}:550-574`,
+                    label: '550-574'
+                }, {
+                    value: `${filterType}:575-599`,
+                    label: '575-599'
+                }, {
+                    value: `${filterType}:600+`,
+                    label: '600+'
+                }];
+            break;
+            case 'usmleRequirement':
+                options = [{
+                    value: `${filterType}:0`,
+                    label: 'No requirements'
+                }, {
+                    value: `${filterType}:230-244`,
+                    label: '230-244'
+                }, {
+                    value: `${filterType}:245+`,
+                    label: '245+'
                 }];
             break;
             default:
@@ -181,6 +220,7 @@ class SearchBar extends React.Component {
 
     onChangeFilter(selectedOption) {
         let filterType,
+            stateObject = {},
             isMultiSelect = selectedOption && selectedOption instanceof Array;
 
         if (!selectedOption || (isMultiSelect && !selectedOption.length)) {
@@ -189,47 +229,40 @@ class SearchBar extends React.Component {
             filterType = isMultiSelect ? selectedOption[0].value.split(':')[0] : selectedOption.value.split(':')[0];
         }
 
-        switch (filterType){
-            case 'state':
-                this.setState({
-                    stateFilter: selectedOption
-                });
-            break;
-            case 'residentsPerYear':
-                this.setState({
-                    residentsPerYearFilter: selectedOption
-                });
-            break;
-            case 'mergerStatus':
-                this.setState({
-                    mergerStatusFilter: selectedOption
-                });
-            break;
-            case 'rotatingStudents':
-                this.setState({
-                    rotatingStudentsFilter: selectedOption
-                });
-            break;
-            case 'requiredRotation':
-            this.setState({
-                requiredRotationFilter: selectedOption
-            });
-            break;
-            default:
-                throw new Error('That filter type does not exist yet. Please check your filter type.')
+        if (!FILTER_TYPES.includes(filterType)) {
+            throw new Error(`On filter change: The filter type ${filterType} does not exist yet.`)
         }
+
+        stateObject[`${filterType}`] = selectedOption;
+        this.setState(stateObject);
     }
 
     onClickFilter(filterType) {
         this.clickedFilter = filterType;
     }
 
+    _cleanStringRanges(str) {
+        if (str === 'No requirements') {
+            return [0];
+        }
+
+        let cleanedRange = str.split('-');
+        cleanedRange[0] = parseInt(cleanedRange[0]);
+        if (cleanedRange[1]) {
+            cleanedRange[1] = parseInt(cleanedRange[1].replace('+', ''));
+        }
+
+        return cleanedRange;
+    }
+
     filterResidencies() {
-        let stateFilter = this.state.stateFilter && this.state.stateFilter.label,
-            mergerStatusFilter = this.state.mergerStatusFilter.length && this.state.mergerStatusFilter.map((option) => option.label.toLowerCase()),
-            residentsPerYearFilter = this.state.residentsPerYearFilter && this.state.residentsPerYearFilter.label,
-            rotatingStudentsFilter = this.state.rotatingStudentsFilter.length && this.state.rotatingStudentsFilter.map((option) => option.label),
-            requiredRotationFilter = this.state.requiredRotationFilter && this.state.requiredRotationFilter.label.toLowerCase(),
+        let stateFilter = this.state.state && this.state.state.label,
+            mergerStatusFilter = this.state.mergerStatus.length && this.state.mergerStatus.map((option) => option.label.toLowerCase()),
+            residentsPerYearFilter = this.state.residentsPerYear && this.state.residentsPerYear.label,
+            rotatingStudentsFilter = this.state.rotatingStudents.length && this.state.rotatingStudents.map((option) => option.label),
+            requiredRotationFilter = this.state.requiredRotation && this.state.requiredRotation.label.toLowerCase(),
+            comlexRequirementFilter = this.state.comlexRequirement.length && this.state.comlexRequirement.map((option) => this._cleanStringRanges(option.label)),
+            usmleRequirementFilter = this.state.usmleRequirement.length && this.state.usmleRequirement.map((option) => this._cleanStringRanges(option.label)),
             generalSearchTerm = this.state.search;
 
         return this.state.residencies.filter((residency) => {
@@ -250,6 +283,12 @@ class SearchBar extends React.Component {
             if (requiredRotationFilter && requiredRotationFilter === 'unrequired' && residency.rotation_required) return false;
             if (requiredRotationFilter && requiredRotationFilter === 'required' && !residency.rotation_required) return false;
 
+            // COMLEX requirements filter.
+            if (comlexRequirementFilter && !this._withinRange(residency.comlex_requirement, comlexRequirementFilter)) return false;
+
+            // USMLE requirements filter.
+            if (usmleRequirementFilter && !this._withinRange(residency.usmle_requirement, usmleRequirementFilter)) return false;
+
             // General search.
             let passesFilter = !generalSearchTerm;
             if (generalSearchTerm) {
@@ -268,6 +307,19 @@ class SearchBar extends React.Component {
         });
     }
 
+    _withinRange(resStat, stats) {
+        let maxStat = Math.max(..._.flatten(stats)),
+            minStat = Math.min(..._.flatten(stats));
+
+        resStat = parseInt(resStat);
+
+        if (_.isNaN(resStat)) {
+            resStat = 0;
+        }
+
+        return resStat <= maxStat && resStat >= minStat;
+    }
+
     render() {
         let filteredResidencies = this.filterResidencies();
 
@@ -279,7 +331,7 @@ class SearchBar extends React.Component {
                     />
 
                 <div className="additional-filters-container">
-                    {FILTER_TYPES.map((filterType, i) => this.renderFilterSelector(filterType,i))}
+                    {FILTER_TYPES.map((filterType, i) => this.renderFilterSelector(filterType, i))}
                 </div>
 
                 <ResidencyIndexContainer
