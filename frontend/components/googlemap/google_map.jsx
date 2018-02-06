@@ -24,7 +24,7 @@ class GoogleMap extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.data) {
       this.updateContentWindow(nextProps.data);
-      this.recenterMap(nextProps.data.latitude, nextProps.data.longitude, 15);
+      this.recenterMap(nextProps.data.latitude, nextProps.data.longitude, 8);
       this.infoWindow.open(this.map);
     } else {
       this.infoWindow.close();
