@@ -370,3 +370,22 @@ button {
     text-align: center;
     @include text-ellipsis();
 }
+
+/* * * Residency Form * * */
+.residency-form-container {
+    width: 80%;
+    @include hcenter($position: relative);
+}
+
+.residency-input-container {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+
+    label,
+    input {
+        display: block;
+        flex: 1 1 100%;
+    }
+}
