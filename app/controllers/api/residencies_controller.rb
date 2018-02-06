@@ -2,17 +2,24 @@ class Api::ResidenciesController < ApplicationController
   before_filter :require_admin, except: [:show, :index]
 
   def create
-    @residency = Residency.new(residency_params)
-    if @residency.save
-      render :show
+    ActiveRecord::Base.transaction do
+      residencies_hash = params[:residency].map{|k,v| v}.as_json
+      residencies_hash.each{|r| r["rotation_required"] = r["rotation_required"].include?("y") if r["rotation_required"].present? }
+      @residencies = Residency.create(residencies_hash)
+    end
+    debugger
+    if @residencies.all?{|r| r.persisted?}
+      Residency.where.not(id: @residencies).destroy_all
+      render :index
     else
-      render :show, status: 422
+      @residencies = residencies_old
+      render :index, status: 422
     end
   end
 
   def destroy_multiple
+    @residencies = Residency.where.not(id: params[:ids])
     Residency.where(id: params[:ids]).destroy_all
-    @residencies = Residency.all
     render :index
   end
 
@@ -58,6 +65,6 @@ class Api::ResidenciesController < ApplicationController
   end
 
   def require_admin
-    render json: {}, status: 422 if !current_user.try(:admin)
+    render json: {error: "Not admin"}, status: 404 if !current_user.try(:admin)
   end
 end

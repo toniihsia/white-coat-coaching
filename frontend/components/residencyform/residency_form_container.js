@@ -5,14 +5,15 @@ import { createResidency, updateResidency, requestAllResidencies, deleteResidenc
 const mapStateToProps = (state) => {
   return{
     residencies: Object.keys(state.residencies).map(id => state.residencies[id]),
+    currentUser: state.session.currentUser
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    createResidency: (residency) => dispatch(createResidency(residency)),
+    createResidency: (residency, session_token) => dispatch(createResidency(residency, session_token)),
     updateResidency: (residency) => dispatch(updateResidency(residency)),
-    deleteResidencies: (ids) => dispatch(deleteResidencies(ids)),
+    deleteResidencies: (ids, session_token) => dispatch(deleteResidencies(ids, session_token)),
     requestAllResidencies: () => dispatch(requestAllResidencies())
   };
 };

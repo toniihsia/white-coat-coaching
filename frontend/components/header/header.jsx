@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, hashHistory } from 'react-router-3';
-// import Modal from 'react-modal';
+import SessionForm from '../sessionform/session_form_container';
 
 class Header extends React.Component {
     constructor(props) {
@@ -15,7 +15,6 @@ class Header extends React.Component {
                     <img id="web-title" src="http://res.cloudinary.com/dfrrpfeus/image/upload/v1517777016/wcc_white_mp4lww.png" />
                     <label>D.O. Residency Directory</label>
                 </div>
-
             </div>
         );
     }

@@ -12,9 +12,10 @@ export const requestAllResidencies = () => ({
   type: REQUEST_ALL_RESIDENCIES
 });
 
-export const createResidency = (residency) => ({
+export const createResidency = (residency, session_token) => ({
   type: CREATE_RESIDENCY,
-  residency
+  residency,
+  session_token
 });
 
 export const updateResidency = (residency) => ({
@@ -27,9 +28,10 @@ export const deleteResidency = (id) => ({
   id
 });
 
-export const deleteResidencies = (ids) => ({
+export const deleteResidencies = (ids, session_token) => ({
   type: DELETE_RESIDENCIES,
-  ids
+  ids,
+  session_token
 });
 
 export const receiveAllResidencies = (residencies) => ({
