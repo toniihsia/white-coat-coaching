@@ -45,6 +45,9 @@ $teal: #4C5B5F;
 $tealDark: #354347;
 $tealDarker: #1D2C30;
 
+$tealAccentLight: #a7cad1;
+$tealAccent: #95B6BC;
+
 /* * Font weights * */
 $light: 200;
 $normal: 400;
@@ -80,8 +83,13 @@ h3 {
 }
 
 a {
+    color: $tealAccent;
     cursor: pointer;
     text-decoration: underline;
+
+    &:hover {
+        color: $tealAccentLight;
+    }
 }
 
 strong {
@@ -140,6 +148,11 @@ button {
     &.is-outlined {
         background-color: transparent;
     }
+
+    label {
+        font-size: 16px;
+        line-height: 20px;
+    }
 }
 
 /* * * Mixins * * */
@@ -194,7 +207,7 @@ button {
 }
 
 .global-content {
-    padding: 0 15px;
+    padding: 15px 200px 20px;
 }
 
 /* * * Search Bar & Filters * * */
@@ -235,7 +248,7 @@ button {
 /* * * Residency Index and Index Items * * */
 .residency-index {
     display: flex;
-    height: calc(100vh - 150px);
+    height: calc(100vh - 185px); // Accounts for global content padding
 }
 
 /* * * Residency List * * */
@@ -254,6 +267,7 @@ button {
     margin-right: 5px;
     overflow: hidden;
     border: 1px solid $white;
+    box-shadow: 0 2px 2px 2px $grayLight;
     background-color: transparentize($white, .05);
 
     &:first-child {
@@ -270,7 +284,7 @@ button {
     padding: 20px 20px 5px;
 
     .header-title {
-        max-width: calc(100% - 100px);
+        max-width: calc(100% - 120px);
     }
 
     button {
@@ -296,12 +310,12 @@ button {
         @include vcenter($position: relative);
 
         &.is-active {
-            color: $teal;
+            color: $tealAccent;
             font-weight: $medium;
         }
 
         &:hover {
-            color: $tealLighter;
+            color: $tealAccentLight;
         }
     }
 
@@ -317,7 +331,7 @@ button {
     .nav-track-highlight {
         position: relative;
         height: 2px;
-        background-color: $tealLightest;
+        background-color: $tealAccent;
     }
 }
 
@@ -342,10 +356,6 @@ button {
     label {
         display: block;
         white-space: pre-wrap;
-    }
-
-    a {
-        color: $tealLight;
     }
 }
 

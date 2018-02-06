@@ -47,7 +47,6 @@ class ResidencyIndex extends React.Component {
         return (
             <div className="residency-index">
 
-
                 <Scrollbars
                     className="residency-item-list-container"
                     style={{width: "50%"}}

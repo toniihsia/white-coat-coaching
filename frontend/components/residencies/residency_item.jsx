@@ -64,7 +64,7 @@ class ResidencyItem extends React.Component {
 
         TweenMax.to(this.navHighlight, .3, {
             width: `${$el.width()}px`,
-            left: `${$el.offset().left - 45}px` // 25px account for padding.
+            left: `${$el.offset().left - 30 - 200}px` // 25px account for padding.
         });
     }
 
@@ -80,7 +80,7 @@ class ResidencyItem extends React.Component {
 
                     <div className="residency-item-header">
 
-                        <h3 className="header-title">{residency.name}</h3>
+                        <h3 className="header-title" ref={(title) => this.title = title}>{residency.name}</h3>
 
                         <button ref={(btn) => this.mapBtn = btn} className="btn-red is-outlined" onClick={this.onClickViewMap}>
                             <label>View on Map</label>
