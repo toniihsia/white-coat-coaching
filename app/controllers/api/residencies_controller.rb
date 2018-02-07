@@ -7,7 +7,6 @@ class Api::ResidenciesController < ApplicationController
       residencies_hash.each{|r| r["rotation_required"] = r["rotation_required"].include?("y") if r["rotation_required"].present? }
       @residencies = Residency.create(residencies_hash)
     end
-    debugger
     if @residencies.all?{|r| r.persisted?}
       Residency.where.not(id: @residencies).destroy_all
       render :index
