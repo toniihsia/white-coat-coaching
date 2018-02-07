@@ -64,20 +64,28 @@ class ResidencyForm extends React.Component {
     }else{
       alert("FileReader is not supported on this browser. Please put in data manually. soz =(");
     }
+  }
 
-    _addressToObject(address){
-        let vals = address.split(", ");
-        if (vals.length < 3 || vals.length > 4){
-            console.warn("Invalid address");
-        } else {
-            let zip = vals[2].split(" "),
-                zipObject = zip.length > 1 ? {zip_code: zip[1]} : {},
-                addressObject = {street: vals[0],
-                    city: vals[1],
-                    state: zip[0]
-                };
+  parseThroughCSV(data){
+    parse(data, {delimiter: ","}, (error, result) => {
+      let residencyArr = [];
 
-            return merge({}, addressObject, zipObject);
+      let keyMap = this._columnNameToKey();
+      let columnArray = result[0].map((value) => keyMap[value]);
+
+      for (let i = 1; i < result.length; i++) {
+        let residency = {};
+        for (let j = 0; j < columnArray.length; j++) {
+          switch (columnArray[j]) {
+            case "address":
+              residency = merge(residency, this._addressToObject(result[i][j]));
+              break;
+            case undefined:
+              continue;
+            default:
+              residency[columnArray[j]] = result[i][j] || "";
+              break;
+          }
         }
         residencyArr.push(residency);
       }
@@ -198,6 +206,7 @@ class ResidencyForm extends React.Component {
         </ul>
       );
     }
+  }
 }
 
 export default ResidencyForm;
