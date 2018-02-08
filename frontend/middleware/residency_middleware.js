@@ -6,7 +6,7 @@ import { hashHistory } from 'react-router-3';
 const ResidencyMiddleware = ({getState, dispatch}) => next => action => {
   const fetchResidenciesSuccess = data => dispatch(receiveAllResidencies(data));
   const createResidencySuccess = data => dispatch(receiveResidency(data));
-  const errorLog = errors => dispatch(receiveResidency(errors.responseJSON));
+  const errorLog = errors => dispatch(receiveAllResidencies(errors.responseJSON));
   const deleteResidenciesSuccess = (data) => {
     dispatch(receiveAllResidencies(data));
     hashHistory.push("/");

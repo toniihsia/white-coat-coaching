@@ -30,7 +30,6 @@ class ResidencyForm extends React.Component {
     if(!this.props.currentUser){
       this.props.router.push("/login");
     }
-    window.residencyQueue = this.residencyQueue;
   }
 
   handleAllSubmit(){
@@ -51,11 +50,17 @@ class ResidencyForm extends React.Component {
       }
     });
 
+    let dfdsFailure = () => {
+      if (missingAddress.length > 0) {
+        this.setState({status: `${missingAddress.join(", ")} are missing or have invalid addresses`});
+      }
+    };
+
     $.when(...$dfds).done(() => {this.props.createResidency({residency: this.residencyQueue}, this.props.currentUser.session_token)})
-      .fail(this.setState({status: `${missingAddress.join(", ")} are missing or have invalid addresses`}));
+      .fail(dfdsFailure);
   }
 
-  handleUpload(){
+  handleUpload(e){
     if (window.FileReader) {
       let reader = new FileReader();
       reader.readAsText(this.file.files[0]);
@@ -64,6 +69,7 @@ class ResidencyForm extends React.Component {
     }else{
       alert("FileReader is not supported on this browser. Please put in data manually. soz =(");
     }
+    e.target.value = null;
   }
 
   parseThroughCSV(data){

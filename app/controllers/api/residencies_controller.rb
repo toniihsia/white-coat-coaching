@@ -2,16 +2,17 @@ class Api::ResidenciesController < ApplicationController
   before_filter :require_admin, except: [:show, :index]
 
   def create
-    ActiveRecord::Base.transaction do
-      residencies_hash = params[:residency].map{|k,v| v}.as_json
-      residencies_hash.each{|r| r["rotation_required"] = r["rotation_required"].include?("y") if r["rotation_required"].present? }
-      @residencies = Residency.create(residencies_hash)
-    end
-    if @residencies.all?{|r| r.persisted?}
-      Residency.where.not(id: @residencies).destroy_all
+    residencies_hash = params[:residency].map{|k,v| v}.as_json
+    residencies_hash.each{|r| r["rotation_required"] = r["rotation_required"].include?("y") if r["rotation_required"].present? }
+    @residencies = residencies_hash.map{|r| Residency.new(r)}
+    if @residencies.all?{|r| r.valid?}
+      ActiveRecord::Base.transaction do
+        @residencies = Residency.create(residencies_hash)
+        Residency.where.not(id: @residencies).destroy_all
+      end
       render :index
     else
-      @residencies = residencies_old
+      @residencies[0..-2].select{|r| r.errors.present?}.each{|r| @residencies.last.errors.add(r.name, ": #{r.errors.full_messages}")}
       render :index, status: 422
     end
   end
@@ -64,6 +65,6 @@ class Api::ResidenciesController < ApplicationController
   end
 
   def require_admin
-    render json: {error: "Not admin"}, status: 404 if !current_user.try(:admin)
+    render json: {error: "Not admin"}, status: 403 if !current_user.try(:admin)
   end
 end
