@@ -7,11 +7,7 @@ import Root from './components/root';
 import configureStore from './store/store';
 
 document.addEventListener('DOMContentLoaded', () => {
-  let store;
-  store = configureStore();
-
-  // Testing
-  window.store = store;
+  let store = configureStore();
 
   const rootEl = document.getElementById('root');
 

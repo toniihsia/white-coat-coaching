@@ -59,8 +59,6 @@ export const deleteResidency = (id, session_token, success, error) => {
 }
 
 export const deleteResidencies = (ids, session_token, success, error) => {
-  console.log("in deleteResidencies API:");
-  console.log(ids);
   $.ajax({
     beforeSend: (request) => {request.setRequestHeader("Authorization", session_token)},
     type: 'DELETE',
