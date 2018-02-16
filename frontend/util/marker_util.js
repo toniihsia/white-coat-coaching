@@ -34,7 +34,7 @@ export default class MarkerUtil {
       position: pos,
       map: this.map,
       residencyId: residency.id,
-      icon: 'http://res.cloudinary.com/dfrrpfeus/image/upload/v1517795111/placeholder_beagnv.png'
+      icon: 'https://res.cloudinary.com/dfrrpfeus/image/upload/v1517795111/placeholder_beagnv.png'
     });
 
     google.maps.event.addListener(marker,'click', () => {

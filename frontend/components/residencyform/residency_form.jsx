@@ -87,6 +87,7 @@ class ResidencyForm extends React.Component {
               residency = merge(residency, this._addressToObject(result[i][j]));
               break;
             case undefined:
+            case "":
               continue;
             default:
               residency[columnArray[j]] = result[i][j] || "";

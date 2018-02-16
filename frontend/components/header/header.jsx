@@ -12,7 +12,7 @@ class Header extends React.Component {
             <div className="global-header">
 
                 <div className="header-content">
-                    <img id="web-title" src="http://res.cloudinary.com/dfrrpfeus/image/upload/v1517777016/wcc_white_mp4lww.png" />
+                    <img id="web-title" src="https://res.cloudinary.com/dfrrpfeus/image/upload/v1517777016/wcc_white_mp4lww.png" />
                     <label>D.O. Residency Directory</label>
                 </div>
             </div>
