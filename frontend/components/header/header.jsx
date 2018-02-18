@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, hashHistory } from 'react-router-3';
+import { Link, browserHistory } from 'react-router-3';
 import SessionForm from '../sessionform/session_form_container';
 
 class Header extends React.Component {

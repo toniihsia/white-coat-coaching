@@ -8,14 +8,14 @@ import {
 } from '../actions/session_actions';
 
 import { signUp, logIn, logOut } from '../util/session_api_util';
-import { hashHistory } from 'react-router-3';
+import { browserHistory } from 'react-router-3';
 
 export default ({ getState, dispatch }) => next => action => {
-  const successCallback = (currentUser) => {dispatch(receiveCurrentUser(currentUser)); hashHistory.push('/residencyform')};
+  const successCallback = (currentUser) => {dispatch(receiveCurrentUser(currentUser)); browserHistory.push('/residencyform')};
 
   const successLogOutCallback = () => {
     dispatch(removeCurrentUser());
-    hashHistory.push('/');
+    browserHistory.push('/');
   };
 
   const errorCallback = (xhr) => dispatch(receiveErrors(xhr.responseJSON));

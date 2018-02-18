@@ -4,7 +4,6 @@ import SearchBarContainer from './search_bar/search_bar_container';
 
 const App = ({ children }) => (
   <div>
-    <HeaderContainer />
     <SearchBarContainer />
   </div>
 );

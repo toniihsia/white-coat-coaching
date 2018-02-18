@@ -34,7 +34,7 @@ module Wwc
     config.assets.initialize_on_precompile = false
 
     config.action_dispatch.default_headers = {
-      'X-Frame-Options' => 'ALLOW-FROM http://localhost/'
+      'X-Frame-Options' => 'ALLOW-FROM http://whitecoatcoaching.com/'
     }
   end
 end

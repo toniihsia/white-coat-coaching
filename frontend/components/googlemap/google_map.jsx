@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, hashHistory } from 'react-router-3';
+import { Link, browserHistory } from 'react-router-3';
 import MarkerManager from '../../util/marker_util';
 import { mapsInfoBox } from './info_box';
 import { _defaultMapOptions } from './map_styling';

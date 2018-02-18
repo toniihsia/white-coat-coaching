@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, hashHistory } from 'react-router-3';
+import { Link, browserHistory } from 'react-router-3';
 import { getLocation } from '../../util/map_api_util';
 import { isEqual, merge } from 'lodash';
 import parse from '../../util/csv-parse';

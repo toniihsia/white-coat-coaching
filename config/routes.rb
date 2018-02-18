@@ -10,4 +10,7 @@ Rails.application.routes.draw do
     end
     resources :signup_emails, only: [:create]
   end
+  get 'login', to: 'static_pages#root'
+  get 'residencyform', to: 'static_pages#root'
+  get 'signup', to: 'static_pages#root'
 end

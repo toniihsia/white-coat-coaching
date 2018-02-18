@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, hashHistory } from 'react-router-3';
+import { Link, browserHistory } from 'react-router-3';
 
 class ResidencyItemInfo extends React.Component {
   constructor(props) {

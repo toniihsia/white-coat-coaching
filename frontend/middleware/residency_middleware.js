@@ -1,7 +1,7 @@
 import { fetchAllResidencies, createResidency, updateResidency, deleteResidency, deleteResidencies } from '../util/residency_api_util';
 import { REQUEST_ALL_RESIDENCIES, CREATE_RESIDENCY, UPDATE_RESIDENCY, DELETE_RESIDENCY, DELETE_RESIDENCIES,
 receiveAllResidencies, receiveErrors, receiveResidency } from '../actions/residency_actions';
-import { hashHistory } from 'react-router-3';
+import { browserHistory } from 'react-router-3';
 
 const ResidencyMiddleware = ({getState, dispatch}) => next => action => {
   const fetchResidenciesSuccess = data => dispatch(receiveAllResidencies(data));
@@ -9,7 +9,7 @@ const ResidencyMiddleware = ({getState, dispatch}) => next => action => {
   const errorLog = errors => dispatch(receiveAllResidencies(errors.responseJSON));
   const deleteResidenciesSuccess = (data) => {
     dispatch(receiveAllResidencies(data));
-    hashHistory.push("/");
+    browserHistory.push("/");
   };
 
   switch (action.type){
