@@ -109,7 +109,7 @@ class ResidencyItem extends React.Component {
                             <div className="content-slide-program">
 
                                 <div className="slide-info-url">
-                                    <label><strong>Website: </strong><a href={residency.website_url}>{residency.website_url}</a></label>
+                                    <label><strong>Website: </strong><a href={residency.website_url} target="_blank">{residency.website_url}</a></label>
                                 </div>
 
                                 <div className="slide-info">

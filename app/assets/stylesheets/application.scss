@@ -77,9 +77,13 @@ body {
 }
 
 h3 {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: $medium;
-    line-height: 26px;
+    line-height: 20px;
+}
+
+span, label, div {
+    font-size: 14px;
 }
 
 a {
@@ -107,7 +111,7 @@ select {
 }
 
 button {
-    height: 20px;
+    height: 15px;
     padding: 5px 10px;
     border: 2px solid black;
     border-radius: 20px;
@@ -150,8 +154,8 @@ button {
     }
 
     label {
-        font-size: 16px;
-        line-height: 20px;
+        display: block;
+        font-size: 14px;
     }
 }
 
@@ -207,7 +211,7 @@ button {
 }
 
 .global-content {
-    padding: 15px 0px 20px;
+    padding: 15px;
 }
 
 /* * * Search Bar & Filters * * */
@@ -285,6 +289,7 @@ button {
 
     .header-title {
         max-width: calc(100% - 120px);
+        white-space: pre-wrap;
     }
 
     button {
