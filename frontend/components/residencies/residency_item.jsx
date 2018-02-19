@@ -64,7 +64,7 @@ class ResidencyItem extends React.Component {
 
         TweenMax.to(this.navHighlight, .3, {
             width: `${$el.width()}px`,
-            left: `${$el.offset().left - 30 - 200}px` // 25px account for padding.
+            left: `${$el.offset().left - 45}px` // 45px account for all padding to the left.
         });
     }
 
