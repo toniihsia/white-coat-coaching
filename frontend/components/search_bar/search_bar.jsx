@@ -44,8 +44,7 @@ class SearchBar extends React.Component {
         this._getFilterSelectorOptions = this._getFilterSelectorOptions.bind(this);
         this._cleanStringRanges = this._cleanStringRanges.bind(this);
         this._withinRange = this._withinRange.bind(this);
-        this.onClickFilter = this.onClickFilter.bind(this);
-        this.onChangeFilter = this.onChangeFilter.bind(this);
+        this._setStateFilter = this._setStateFilter.bind(this);
         this.filterResidencies = this.filterResidencies.bind(this);
     }
 
@@ -65,14 +64,13 @@ class SearchBar extends React.Component {
         let options = this._getFilterSelectorOptions(filterType),
             multi = filterType === 'mergerStatus' || filterType === 'rotatingStudents' || filterType === 'comlexRequirement' || filterType === 'usmleRequirement',
             className = `additional-filter filter-${filterType.toLowerCase()}`,
-            selectName = `filter-selector-${filterType.toLowerCase()}`,
+            selectName = `filter-selector-${filterType}`,
             placeholder = this._getFilterSelectorPlaceholder(filterType);
 
         return (
             <div
                 key={i}
-                className={className}
-                onClick={this.onClickFilter.bind(this, filterType)}>
+                className={className}>
 
                 <Select
                     name={selectName}
@@ -82,6 +80,7 @@ class SearchBar extends React.Component {
                     value={this.state[filterType]}
                     options={options}
                     onChange={this.onChangeFilter}
+                    setStateFilter={this._setStateFilter}
                     />
             </div>
         );
@@ -219,26 +218,20 @@ class SearchBar extends React.Component {
     }
 
     onChangeFilter(selectedOption) {
-        let filterType,
+        let filterType = this.name.replace('filter-selector-', ''),
             stateObject = {},
             isMultiSelect = selectedOption && selectedOption instanceof Array;
-
-        if (!selectedOption || (isMultiSelect && !selectedOption.length)) {
-            filterType = this.clickedFilter;
-        } else {
-            filterType = isMultiSelect ? selectedOption[0].value.split(':')[0] : selectedOption.value.split(':')[0];
-        }
 
         if (!FILTER_TYPES.includes(filterType)) {
             throw new Error(`On filter change: The filter type ${filterType} does not exist yet.`)
         }
 
         stateObject[`${filterType}`] = selectedOption;
-        this.setState(stateObject);
+        this.setStateFilter(stateObject);
     }
 
-    onClickFilter(filterType) {
-        this.clickedFilter = filterType;
+    _setStateFilter(stateObject) {
+        this.setState(stateObject);
     }
 
     _cleanStringRanges(str) {
