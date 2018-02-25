@@ -48,10 +48,6 @@ class SearchBar extends React.Component {
         this.filterResidencies = this.filterResidencies.bind(this);
     }
 
-    componentDidMount() {
-        this.props.requestAllResidencies();
-    }
-
     componentWillReceiveProps(nextProps){
         this.setState({residencies: nextProps.residencies});
     }

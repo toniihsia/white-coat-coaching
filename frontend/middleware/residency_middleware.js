@@ -14,7 +14,7 @@ const ResidencyMiddleware = ({getState, dispatch}) => next => action => {
 
   switch (action.type){
     case REQUEST_ALL_RESIDENCIES:
-      fetchAllResidencies(fetchResidenciesSuccess);
+      fetchAllResidencies(action.discipline, fetchResidenciesSuccess);
       return next(action);
     case CREATE_RESIDENCY:
       createResidency(action.residency, action.session_token, deleteResidenciesSuccess, errorLog);

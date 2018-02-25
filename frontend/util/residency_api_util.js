@@ -1,7 +1,8 @@
-export const fetchAllResidencies = (success, error) => {
+export const fetchAllResidencies = (discipline, success, error) => {
   $.ajax({
     type: 'GET',
     url: 'api/residencies',
+    data: {discipline: discipline},
     success,
     error
   });

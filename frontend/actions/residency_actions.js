@@ -8,8 +8,9 @@ export const RECEIVE_RESIDENCY = "RECEIVE_RESIDENCY";
 export const RECEIVE_ERRORS = "RECEIVE_ERRORS";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 
-export const requestAllResidencies = () => ({
-  type: REQUEST_ALL_RESIDENCIES
+export const requestAllResidencies = (discipline) => ({
+  type: REQUEST_ALL_RESIDENCIES,
+  discipline
 });
 
 export const createResidency = (residency, session_token) => ({

@@ -5,10 +5,12 @@ class Api::ResidenciesController < ApplicationController
     residencies_hash = params[:residency].map{|k,v| v}.as_json
     residencies_hash.each{|r| r["rotation_required"] = r["rotation_required"].include?("y") if r["rotation_required"].present? }
     @residencies = residencies_hash.map{|r| Residency.new(r)}
-    if @residencies.all?{|r| r.valid?}
+
+    discipline = @residencies.first.discipline
+    if @residencies.all?{|r| r.valid? && r.discipline == discipline}
       ActiveRecord::Base.transaction do
         @residencies = Residency.create(residencies_hash)
-        Residency.where.not(id: @residencies).destroy_all
+        Residency.where(discipline: discipline).where.not(id: @residencies).destroy_all
       end
       render :index
     else
@@ -31,7 +33,8 @@ class Api::ResidenciesController < ApplicationController
   end
 
   def index
-    @residencies = Residency.all.order(:name)
+    discipline = params[:discipline]
+    @residencies = Residency.where(discipline: discipline).order(:name)
   end
 
   def show
