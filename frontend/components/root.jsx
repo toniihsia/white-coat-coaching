@@ -17,6 +17,7 @@ const Root = ({ store }) => (
     <Router history={ browserHistory }>
       <Route path="/" component={ App } onEnter={ requestResidencies(store) } />
       <Route path="/login" component={ SessionForm } />
+      <Route path="/signup" component={ () => <SessionForm formType="signup" /> } />
       <Route path="/residencyform" component={ ResidencyFormContainer } />
       <Route path="/orthopedic" component={ App } onEnter={ requestResidencies(store, "orthopedic") } />
       <Route path="/earnosethroat" component={ App } onEnter={ requestResidencies(store, "earnosethroat") } />

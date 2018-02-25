@@ -13,8 +13,8 @@ Rails.application.routes.draw do
 
   # React paths. Added here for browserHistory so that React can kick in
   get 'login', to: 'static_pages#root'
-  get 'residencyform', to: 'static_pages#root'
   get 'signup', to: 'static_pages#root'
+  get 'residencyform', to: 'static_pages#root'
   get 'orthopedic', to: 'static_pages#root'
   get 'earnosethroat', to: 'static_pages#root'
 end
