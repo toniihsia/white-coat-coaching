@@ -87,25 +87,25 @@ class SearchBar extends React.Component {
 
         switch(filterType) {
             case 'state':
-                placeholder = 'Select a state...';
+                placeholder = 'State';
             break;
             case 'residentsPerYear':
-                placeholder = 'Residents per year...';
+                placeholder = 'Class size';
             break;
             case 'mergerStatus':
-                placeholder = 'ACGME merger status...';
+                placeholder = 'ACGME';
             break;
             case 'rotatingStudents':
-                placeholder = '# of rotating students...';
+                placeholder = 'Students';
             break;
             case 'requiredRotation':
-                placeholder = 'Rotation required...'
+                placeholder = 'Rotation'
             break;
             case 'comlexRequirement':
-                placeholder = 'COMLEX requirements...';
+                placeholder = 'COMLEX';
             break;
             case 'usmleRequirement':
-                placeholder = 'USMLE requirements...';
+                placeholder = 'USMLE';
             break;
             default:
                 throw new Error(`Fetching placeholder: The filter type ${filterType} does not exist.`);

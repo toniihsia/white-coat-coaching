@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, browserHistory } from 'react-router-3';
 import ResidencyItemInfo from './residency_item_info';
+import Linkify from 'react-linkify';
 
 const CONTENT_SLIDE_ORDER = [
     'program',
@@ -133,7 +134,7 @@ class ResidencyItem extends React.Component {
                                 {residency.description &&
 
                                     <div className="slide-info">
-                                        <label><strong>Description: </strong>{residency.description}</label>
+                                        <label><strong>Description: </strong><Linkify properties={{target: "_blank"}}>{residency.description}</Linkify></label>
                                     </div>
 
                                 }
@@ -147,7 +148,7 @@ class ResidencyItem extends React.Component {
                             <div className="content-slide-rotation">
 
                                 <div className="slide-info">
-                                    <label><strong># of residents/year: </strong>{residency.num_rotating_students}</label>
+                                    <label><strong>Rotating students/year: </strong>{residency.num_rotating_students}</label>
                                 </div>
 
                                 <div className="slide-info">
@@ -155,11 +156,15 @@ class ResidencyItem extends React.Component {
                                 </div>
 
                                 <div className="slide-info">
-                                    <label><strong>Student coordinator email: </strong>{residency.med_student_coordinator.email}</label>
+                                    <label><strong>Student coordinator email: </strong><Linkify properties={{target: "_blank"}}>{residency.med_student_coordinator.email}</Linkify></label>
                                 </div>
 
                                 <div className="slide-info">
                                     <label><strong>Student coordinator phone: </strong>{residency.med_student_coordinator.phone_number}</label>
+                                </div>
+
+                                <div className="slide-info">
+                                    <label><strong>Application instructions: </strong>{residency.application_instructions}</label>
                                 </div>
 
                             </div>
@@ -175,7 +180,19 @@ class ResidencyItem extends React.Component {
                                 </div>
 
                                 <div className="slide-info">
-                                    <label><strong>Previous # of interviewed: </strong>{residency.interview_count}</label>
+                                    <label><strong># of students interviewed: </strong>{residency.interview_count}</label>
+                                </div>
+
+                                <div className="slide-info">
+                                    <label><strong>COMLEX requirement: </strong>{residency.comlex_requirement}</label>
+                                </div>
+
+                                <div className="slide-info">
+                                    <label><strong>USMLE requirement: </strong>{residency.usmle_requirement}</label>
+                                </div>
+
+                                <div className="slide-info">
+                                    <label><strong>Rotation required: </strong>{residency.rotation_required ? "Yes" : "No"}</label>
                                 </div>
 
                             </div>
@@ -191,7 +208,7 @@ class ResidencyItem extends React.Component {
                                 </div>
 
                                 <div className="slide-info">
-                                    <label><strong>Program coordinator email: </strong>{residency.coordinator.email}</label>
+                                    <label><strong>Program coordinator email: </strong><Linkify properties={{target: "_blank"}}>{residency.coordinator.email}</Linkify></label>
                                 </div>
 
                                 <div className="slide-info">
