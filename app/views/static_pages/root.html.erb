@@ -2,3 +2,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/plugins/ScrollToPlugin.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+  window.onerror = function(message, url, line, column, error_content){
+    if(!message.includes('Failed to load resource: net::ERR_BLOCKED_BY_CLIENT') && !message.includes('not a recognized directive')){
+      $.ajax({
+        url: '/api/errors',
+        method: 'POST',
+        data: {error: {message: message, url: url, error: error_content}}
+      });
+    }
+    return false;
+  };
+</script>

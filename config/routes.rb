@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       end
     end
     resources :signup_emails, only: [:create]
+    resources :errors, only: [:create]
   end
 
   # React paths. Added here for browserHistory so that React can kick in
