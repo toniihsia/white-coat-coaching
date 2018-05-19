@@ -164,7 +164,7 @@ class ResidencyItem extends React.Component {
                                 </div>
 
                                 <div className="slide-info">
-                                    <label><strong>Application instructions: </strong>{residency.application_instructions}</label>
+                                    <label><strong>Application instructions: </strong><Linkify properties={{target: "_blank"}}>{residency.application_instructions}</Linkify></label>
                                 </div>
 
                             </div>

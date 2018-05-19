@@ -33,7 +33,7 @@ class Api::ResidenciesController < ApplicationController
   end
 
   def index
-    discipline = params[:discipline]
+    discipline = params[:discipline] || "orthopedic"
     @residencies = Residency.where(discipline: discipline).order(:name)
   end
 
