@@ -1,6 +1,5 @@
 class Api::ErrorsController < ApplicationController
   def create
-    Error.create(error_params)
     head :ok
   end
 
